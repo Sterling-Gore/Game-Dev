@@ -6,13 +6,11 @@ public class PlayerController : MonoBehaviour
 {
     public float standard_speed;
     float speed;
-    private Rigidbody rb;
-    public Transform camera;
+    public new Transform camera;
 
     void Start()
     {
         speed = standard_speed;
-        rb = GetComponent<Rigidbody>();
     }
 
     void Movement()
@@ -44,11 +42,11 @@ public class PlayerController : MonoBehaviour
     
     void FixedUpdate()
     {   
-        if (Input.GetKey("left shift"))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             speed = standard_speed * 2f;
         }
-        else if (Input.GetKey("c"))
+        else if (Input.GetKey(KeyCode.C))
         {
             speed = standard_speed * .5f;
         }

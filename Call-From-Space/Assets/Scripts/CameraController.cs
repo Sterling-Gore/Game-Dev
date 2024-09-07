@@ -23,6 +23,8 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+        if (Cursor.visible)
+            return;// UI is open
 
         float inputX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float inputY = Input.GetAxis("Mouse Y") * mouseSensitivity;
@@ -32,9 +34,7 @@ public class CameraController : MonoBehaviour
 
         transform.localEulerAngles = Vector3.right * cameraVerticalRotation;
         
-        player.transform.Rotate(Vector3.up * inputX* mouseSensitivity * Time.deltaTime);
+        player.transform.Rotate(inputX * mouseSensitivity * Time.deltaTime * Vector3.up);
         transform.position = player.transform.position + offset;
     }
-
-    
 }
