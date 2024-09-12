@@ -7,10 +7,12 @@ public class CameraController : MonoBehaviour
     public GameObject player;
     public float mouseSensitivity = 2f;
     private float cameraVerticalRotation = 0f;
-    // (dont really use it) bool lockedCursor = true;
+    
     
 
     private Vector3 offset;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,12 +20,13 @@ public class CameraController : MonoBehaviour
        Cursor.visible = false;
        Cursor.lockState = CursorLockMode.Locked;
 
+
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-
+        //this is all for mouse movements
         float inputX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float inputY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
@@ -33,8 +36,12 @@ public class CameraController : MonoBehaviour
         transform.localEulerAngles = Vector3.right * cameraVerticalRotation;
         
         player.transform.Rotate(Vector3.up * inputX* mouseSensitivity * Time.deltaTime);
+
+        //this follows the player around
         transform.position = player.transform.position + offset;
     }
+
+   
 
     
 }
