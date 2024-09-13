@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float standard_speed;
+    public float standardSpeed;
     float speed;
     public new Transform camera;
 
     void Start()
     {
-        speed = standard_speed;
+        speed = standardSpeed;
     }
 
     void Movement()
@@ -44,14 +44,14 @@ public class PlayerController : MonoBehaviour
     {   
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            speed = standard_speed * 2f;
+            speed = standardSpeed * 2f;
         }
         else if (Input.GetKey(KeyCode.C))
         {
-            speed = standard_speed * .5f;
+            speed = standardSpeed * .5f;
         }
         else{
-            speed = standard_speed;
+            speed = standardSpeed;
         }
         
         Movement();
