@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     {
         speed = standard_speed;
         rb = GetComponent<Rigidbody>();
+        rb.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
     }
 
     void Movement()
@@ -55,6 +56,8 @@ public class PlayerController : MonoBehaviour
         else{
             speed = standard_speed;
         }
+
+        
         
         Movement();
     }
