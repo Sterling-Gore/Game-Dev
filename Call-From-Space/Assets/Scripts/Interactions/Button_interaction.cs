@@ -8,13 +8,16 @@ public class Button_interaction : Interactable
 {
     bool _doorOpened;
     Animator _doorAnimator;
-    //public UnityEvent onUp, onDown;
-    //public GameObject door;
-    //DoorMovement doorMove;
+    
+    public Material myMaterial;
 
-    // Start is called before the first frame update
+    public Texture redTexture;
+    public Texture greenTexture;
+
+
     void Start()
     {   
+        myMaterial.mainTexture = redTexture;
         _doorOpened = false;
         //doorMove = door.GetComponent<DoorMovement>();
         _doorAnimator = GetComponent<Animator>();
@@ -35,6 +38,7 @@ public class Button_interaction : Interactable
     {
         if (!_doorOpened){
             _doorAnimator.SetTrigger("open");
+            myMaterial.mainTexture = greenTexture;
         }
         _doorOpened = true;
         
