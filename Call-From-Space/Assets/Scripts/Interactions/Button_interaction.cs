@@ -9,8 +9,8 @@ public class Button_interaction : Interactable
     bool _doorOpened;
     Animator _doorAnimator;
     
+    //used to change the color of the shuttle_light
     public Material myMaterial;
-
     public Texture redTexture;
     public Texture greenTexture;
 
