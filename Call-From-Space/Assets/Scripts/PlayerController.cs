@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey("left shift"))
         {
-            speed = standard_speed * 1.5f;
+            speed = standard_speed * 2f;
         }
         else if (Input.GetKey("left ctrl"))
         {
