@@ -4,26 +4,37 @@ using UnityEngine;
 
 public class Holdable : Interactable
 {
+    //for grabing the interactir script
+    public GameObject playerInteractor;
+    //for grabing the player's collision mesh
     public GameObject playerCollider;
     public Transform holdPos;
     public Camera cam;
     public float weight = 0f;
-    private bool currentlyHolding;
+    //private bool currentlyHolding;
     private Rigidbody ObjRb;
     private int LayerNumber;
+
+
+
+    Interactor interactor;
+
     // Start is called before the first frame update
     void Start()
     {
         LayerNumber = LayerMask.NameToLayer("HoldLayer");
         Physics.IgnoreCollision(GetComponent<Collider>(), playerCollider.GetComponent<Collider>(), true);
-        currentlyHolding = false;
+        //currentlyHolding = false;
         ObjRb = gameObject.GetComponent<Rigidbody>();
+
+        //this gets the interactor script from the player, that way we can turn off interactins while holding an object
+        interactor = playerInteractor.GetComponent<Interactor>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(currentlyHolding) //not holding the object
+        if(interactor.isHolding) 
         {
             MoveObject();
             if (Input.GetKeyDown(KeyCode.Mouse0) ) 
@@ -57,12 +68,18 @@ public class Holdable : Interactable
     void pickUpObject()
     {
         transform.rotation = Quaternion.Euler(0, 0, 0);
-        currentlyHolding = true;
+        transform.rotation = holdPos.transform.rotation;
+        interactor.isHolding = true;
         ObjRb.isKinematic = true;
+        gameObject.transform.position = new Vector3(0,0,0);
         gameObject.transform.parent = holdPos.transform;
         gameObject.layer = LayerNumber;
         //---being used in start()---
         //Physics.IgnoreCollision(GetComponent<Collider>(), playerCollider.GetComponent<Collider>(), true);
+
+        //TransformDirection(Vector3.forward)
+
+        
     }
 
     void DropObject()
@@ -72,7 +89,9 @@ public class Holdable : Interactable
         gameObject.layer = 0;
         ObjRb.isKinematic = false;
         gameObject.transform.parent = null;
-        currentlyHolding = false;
+        interactor.isHolding = false;
+
+
     }
 
     void StopClipping() //called when dropping item

@@ -81,7 +81,12 @@ public class PlayerController : MonoBehaviour
 
     public float groundDrag;
 
+    [Header("Camera attributes")]
     public Transform orientation;
+
+    [Header("Inventory")]
+    public UI_Inventory uiInvetory;
+    public Inventory inventory;
 
     [Header("Slope handler")]
     public float maxSlope;
@@ -95,6 +100,9 @@ public class PlayerController : MonoBehaviour
         //rb.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
         speed = standard_speed;
         yscale = transform.localScale.y;
+
+        inventory = new Inventory();
+        uiInvetory.setInventory(inventory);
     }
 
     void FixedUpdate()

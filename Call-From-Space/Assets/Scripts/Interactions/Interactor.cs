@@ -8,28 +8,42 @@ public class Interactor : MonoBehaviour
     public Camera mainCam;
     public TMPro.TextMeshProUGUI interactionText;
 
+    public bool isHolding;
+
+    
+
+    void Start()
+    {
+        isHolding = false;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        //Ray ray = mainCam.ScreenPointToRay(new Vector3(Screen.width/2f, Screen.height/2f, 0f));
-        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-        RaycastHit hit;
-
-        bool successfulHit = false;
-
-        if (Physics.Raycast(ray, out hit, interactionDistance))
+        if(!isHolding)
         {
-            Interactable interactable = hit.collider.GetComponent<Interactable>();
+            //Ray ray = mainCam.ScreenPointToRay(new Vector3(Screen.width/2f, Screen.height/2f, 0f));
+            Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+            RaycastHit hit;
 
-            if (interactable != null){
-                HandleInteraction(interactable);
-                interactionText.text = interactable.GetDescription();
-                successfulHit = true;
+            bool successfulHit = false;
+
+            if (Physics.Raycast(ray, out hit, interactionDistance))
+            {
+                Interactable interactable = hit.collider.GetComponent<Interactable>();
+                
+
+                if (interactable != null){
+                    HandleInteraction(interactable);
+                    interactionText.text = interactable.GetDescription();
+                    successfulHit = true;
+                }
+
+                if(!successfulHit)
+                    interactionText.text = "";
             }
-
-            if(!successfulHit)
-                interactionText.text = "";
         }
+        
     }
 
     void HandleInteraction(Interactable interactable)
