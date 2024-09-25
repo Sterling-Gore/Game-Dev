@@ -4,67 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    //OLD MOVEMENT
-    /*
-    public float standard_speed;
-    float speed;
-    private Rigidbody rb;
-    public Transform camera;
-
-    void Start()
-    {
-        speed = standard_speed;
-        rb = GetComponent<Rigidbody>();
-        rb.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
-    }
-
-    void Movement()
-    {
-        //inputs
-        float moveHorizontal = Input.GetAxis ("Horizontal") * speed * Time.deltaTime;
-        float moveVertical = Input.GetAxis ("Vertical") * speed * Time.deltaTime;
-
-        //camera directions
-        Vector3 cameraForward = camera.forward;
-        Vector3 cameraRight = camera.right;
-
-        cameraForward.y = 0;
-        cameraRight.y = 0;
-
-        //creating relative camera direction
-        Vector3 forwardRelative = moveVertical * cameraForward;
-        Vector3 rightRelative = moveHorizontal * cameraRight;
-
-        Vector3 movementDirection = forwardRelative + rightRelative;
-
-
-        // (OLD) Vector3 Movement = new Vector3 (moveHorizontal, 0, moveVertical);
-        Vector3 Movement = new Vector3 (movementDirection.x, 0, movementDirection.z);
-    
-        //(old)transform.position += Vector3.ClampMagnitude(Movement, 1f);
-        rb.AddForce(transform.position + Vector3.ClampMagnitude(Movement, 1f));
-    }
-    
-    
-    void FixedUpdate()
-    {   
-        if (Input.GetKey("left shift"))
-        {
-            speed = standard_speed * 2f;
-        }
-        else if (Input.GetKey("c"))
-        {
-            speed = standard_speed * .5f;
-        }
-        else{
-            speed = standard_speed;
-        }
-
-        
-        
-        Movement();
-    }
-    */
 
     [Header("Movement")]
     public float standard_speed = 2f;
@@ -85,13 +24,18 @@ public class PlayerController : MonoBehaviour
     public Transform orientation;
 
     [Header("Inventory")]
+    public GameObject InventoryObject;
     public UI_Inventory uiInvetory;
     public Inventory inventory;
+    private bool showInventory;
 
     [Header("Slope handler")]
     public float maxSlope;
     public float playerHeight = 5;
     private RaycastHit slopeHit;
+
+    [Header("UI")]
+    Interactor interactor;
 
     void Start()
     {
@@ -102,7 +46,12 @@ public class PlayerController : MonoBehaviour
         yscale = transform.localScale.y;
 
         inventory = new Inventory();
+        uiInvetory = InventoryObject.GetComponent<UI_Inventory>();
+        showInventory = false;
+        //im putting this into the input function
         uiInvetory.setInventory(inventory);
+
+        interactor = gameObject.GetComponent<Interactor>();
     }
 
     void FixedUpdate()
@@ -134,6 +83,7 @@ public class PlayerController : MonoBehaviour
         else{
             speed = standard_speed;
         }
+        //for the actual scale of the crouch collider
         if (Input.GetKeyDown("left ctrl"))
         {
             transform.localScale = new Vector3(transform.localScale.x, yscale/2, transform.localScale.z);
@@ -142,6 +92,23 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetKeyUp("left ctrl")){
             speed = standard_speed;
             transform.localScale = new Vector3(transform.localScale.x, yscale, transform.localScale.z);
+        }
+
+        //toggle inventory
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            showInventory = !showInventory;
+            interactor.inUI = !interactor.inUI;
+            InventoryObject.SetActive(showInventory);
+            
+            if(showInventory)
+            {
+                uiInvetory.RefreshInventoryItems();
+            }
+            
+            
+            
+            
         }
         
     }

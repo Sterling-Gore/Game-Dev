@@ -9,24 +9,29 @@ public class Interactor : MonoBehaviour
     public TMPro.TextMeshProUGUI interactionText;
 
     public bool isHolding;
+    public bool inUI;
 
     
 
     void Start()
     {
         isHolding = false;
+        inUI = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!isHolding)
+        //bool successfulHit = false;
+
+        if(!isHolding || !inUI)
         {
+            bool successfulHit = false;
             //Ray ray = mainCam.ScreenPointToRay(new Vector3(Screen.width/2f, Screen.height/2f, 0f));
             Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
             RaycastHit hit;
 
-            bool successfulHit = false;
+            
 
             if (Physics.Raycast(ray, out hit, interactionDistance))
             {
@@ -39,10 +44,16 @@ public class Interactor : MonoBehaviour
                     successfulHit = true;
                 }
 
-                if(!successfulHit)
-                    interactionText.text = "";
+                
             }
+            if(!successfulHit)
+            {
+                interactionText.text = "";
+            }
+            
         }
+        
+            
         
     }
 

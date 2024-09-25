@@ -24,8 +24,16 @@ public class PickUp : Interactable
     {
         //inventory.AddItem(item);
         gameObject.SetActive(false);
-        pc.inventory.AddItem(item);
-        pc.uiInvetory.RefreshInventoryItems();
+        if(item.isItem)
+        {
+            pc.inventory.AddItem(item);
+        }
+        else
+        {
+            pc.inventory.AddJournal(item);
+        }
+        
+        //pc.uiInvetory.RefreshInventoryItems();
         
     }
 }
