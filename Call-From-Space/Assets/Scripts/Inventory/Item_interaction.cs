@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.EventSystems;
+using UnityEngine.EventSystems;
 
-public class Item_interaction : MonoBehaviour /*, IPointerEnterHandler, IPointerExitHandler*/
+public class Item_interaction : MonoBehaviour , IPointerEnterHandler, IPointerExitHandler
 {
-    /*
+    
     public TMPro.TextMeshProUGUI ItemText;
     public Item item;
+    public GameObject inspectorObj;
     bool mouse_over = false;
 
     void Update()
@@ -31,7 +32,18 @@ public class Item_interaction : MonoBehaviour /*, IPointerEnterHandler, IPointer
     {
         mouse_over = false;
     }
-    */
+
+    /*
+    public void loadInspector()
+    {
+        inspectorObj.SetActive(true);
+        item.obj.SetActive(true);
+        item.obj.GetComponent<Rigidbody>().useGravity = false;
+        item.obj.transform.position = new Vector3(1000,1000,1000);
+        //gameObject.SetActive(true);
+        
+    }*/
+    
     
 
 

@@ -8,14 +8,15 @@ public class UI_Inventory : MonoBehaviour
     private Inventory inventory;
     private Transform itemSlotContainer;
     private Transform itemSlotTemplate;
+    bool onItemScreen;
 
-    private List<RectTransform> ItemContainers;
-    private List<RectTransform> JournalContainers;
+    
 
     private void Awake()
     {
         itemSlotContainer = transform.Find("itemSlotContainer");
         itemSlotTemplate = itemSlotContainer.Find("itemSlotTemplate");
+        onItemScreen = true;
 
     }
     
@@ -25,6 +26,25 @@ public class UI_Inventory : MonoBehaviour
         this.inventory = inventory;
         //RefreshInventoryItems();
         //RefreshInventoryJournals();
+    }
+
+    public void refresh()
+    {
+        if(onItemScreen)
+        {
+            RefreshInventoryItems();
+        }
+        else
+        {
+            RefreshInventoryJournals();
+        }
+    }
+
+    public void is_ontItemScreen(){
+        onItemScreen = true;
+    }
+    public void not_ontItemScreen(){
+        onItemScreen = false;
     }
 
     public void RefreshInventoryItems()
@@ -49,8 +69,8 @@ public class UI_Inventory : MonoBehaviour
             image.sprite = item.itemImage;
 
 
-            //Item_interaction itemInter = itemSlotRectTransform.GetComponent<Item_interaction>();
-            //itemInter.item = item;
+            Item_interaction itemInter = itemSlotRectTransform.GetComponent<Item_interaction>();
+            itemInter.item = item;
 
             xpos += 1;
             if(xpos > 3)
@@ -85,11 +105,12 @@ public class UI_Inventory : MonoBehaviour
             Image image = itemSlotRectTransform.Find("Image").GetComponent<Image>();
             image.sprite = item.itemImage;
 
-            //Item_interaction itemInter = itemSlotRectTransform.GetComponent<Item_interaction>();
-            //itemInter.item = item;
-            //itemSlotRectTransform.GetComponent<Button>().OnPointerEnter = () => {
-            //    Debug.Log("working");
-            //};
+            Item_interaction itemInter = itemSlotRectTransform.GetComponent<Item_interaction>();
+            itemInter.item = item;
+
+            
+
+
 
 
             xpos += 1;

@@ -82,4 +82,13 @@ public class Interactor : MonoBehaviour
             
         }
     }
+
+    public void inside_UI()
+    {
+        inUI = true;
+    }
+    public void outside_UI()
+    {
+        inUI = false;
+    }
 }

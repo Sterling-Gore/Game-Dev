@@ -56,7 +56,8 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        MovePlayer();
+        if(!interactor.inUI)
+            MovePlayer();
         
     }
 
@@ -65,6 +66,7 @@ public class PlayerController : MonoBehaviour
         MyInput();
         SpeedControl();
         rb.drag = groundDrag;
+        
     }
 
     void MyInput()
@@ -97,20 +99,28 @@ public class PlayerController : MonoBehaviour
         //toggle inventory
         if(Input.GetKeyDown(KeyCode.I))
         {
-            showInventory = !showInventory;
-            interactor.inUI = !interactor.inUI;
-            InventoryObject.SetActive(showInventory);
-            
-            if(showInventory)
-            {
-                uiInvetory.RefreshInventoryItems();
+            if(!gameObject.GetComponent<Interactor>().isHolding){
+                toggleInventory();  
             }
-            
-            
-            
+                 
             
         }
         
+    }
+    public void toggleInventory()
+    {
+        showInventory = !showInventory;
+        //if im in inventory, then i am in a UI
+        if(showInventory)
+            interactor.inUI = true;
+        else
+            interactor.inUI = false;
+        InventoryObject.SetActive(showInventory);
+            
+        if(showInventory)
+        {
+            uiInvetory.refresh();
+        }
     }
 
     void MovePlayer()
