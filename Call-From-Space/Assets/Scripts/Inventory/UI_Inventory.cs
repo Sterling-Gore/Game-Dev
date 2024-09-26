@@ -17,9 +17,6 @@ public class UI_Inventory : MonoBehaviour
         itemSlotContainer = transform.Find("itemSlotContainer");
         itemSlotTemplate = itemSlotContainer.Find("itemSlotTemplate");
 
-        ItemContainers = new List<RectTransform>();
-        JournalContainers = new List<RectTransform>();
-
     }
     
 
@@ -51,6 +48,10 @@ public class UI_Inventory : MonoBehaviour
             Image image = itemSlotRectTransform.Find("Image").GetComponent<Image>();
             image.sprite = item.itemImage;
 
+
+            //Item_interaction itemInter = itemSlotRectTransform.GetComponent<Item_interaction>();
+            //itemInter.item = item;
+
             xpos += 1;
             if(xpos > 3)
             {
@@ -58,7 +59,6 @@ public class UI_Inventory : MonoBehaviour
                 xpos = 0;
             }
 
-            ItemContainers.Add(itemSlotRectTransform);
         }
     }
 
@@ -85,6 +85,13 @@ public class UI_Inventory : MonoBehaviour
             Image image = itemSlotRectTransform.Find("Image").GetComponent<Image>();
             image.sprite = item.itemImage;
 
+            //Item_interaction itemInter = itemSlotRectTransform.GetComponent<Item_interaction>();
+            //itemInter.item = item;
+            //itemSlotRectTransform.GetComponent<Button>().OnPointerEnter = () => {
+            //    Debug.Log("working");
+            //};
+
+
             xpos += 1;
             if(xpos > 3)
             {
@@ -92,7 +99,7 @@ public class UI_Inventory : MonoBehaviour
                 xpos = 0;
             }
 
-            JournalContainers.Add(itemSlotRectTransform);
+            
         }
     }
 
