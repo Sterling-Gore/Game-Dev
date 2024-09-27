@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour
     [Header("UI")]
     Interactor interactor;
 
+    
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -52,6 +54,9 @@ public class PlayerController : MonoBehaviour
         uiInvetory.setInventory(inventory);
 
         interactor = gameObject.GetComponent<Interactor>();
+
+
+        
     }
 
     void FixedUpdate()
@@ -74,6 +79,7 @@ public class PlayerController : MonoBehaviour
         HorizInput = Input.GetAxisRaw("Horizontal");
         VertInput = Input.GetAxisRaw("Vertical");
 
+        
         if (Input.GetKey("left shift"))
         {
             speed = standard_speed * 2f;
@@ -85,6 +91,8 @@ public class PlayerController : MonoBehaviour
         else{
             speed = standard_speed;
         }
+       
+        
         //for the actual scale of the crouch collider
         if (Input.GetKeyDown("left ctrl"))
         {
@@ -107,6 +115,8 @@ public class PlayerController : MonoBehaviour
         }
         
     }
+
+  
     public void toggleInventory()
     {
         showInventory = !showInventory;
