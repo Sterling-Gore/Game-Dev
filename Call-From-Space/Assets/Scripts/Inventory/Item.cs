@@ -8,6 +8,7 @@ public class Item : MonoBehaviour
     public bool isItem;
     public string itemName;
     public Sprite itemImage;
+    public GameObject obj;
 
 
 

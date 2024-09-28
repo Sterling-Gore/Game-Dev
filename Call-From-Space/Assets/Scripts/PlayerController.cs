@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour
     [Header("UI")]
     Interactor interactor;
 
+    
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -52,11 +54,15 @@ public class PlayerController : MonoBehaviour
         uiInvetory.setInventory(inventory);
 
         interactor = gameObject.GetComponent<Interactor>();
+
+
+        
     }
 
     void FixedUpdate()
     {
-        MovePlayer();
+        if(!interactor.inUI)
+            MovePlayer();
         
     }
 
@@ -65,6 +71,7 @@ public class PlayerController : MonoBehaviour
         MyInput();
         SpeedControl();
         rb.drag = groundDrag;
+        
     }
 
     void MyInput()
@@ -72,6 +79,7 @@ public class PlayerController : MonoBehaviour
         HorizInput = Input.GetAxisRaw("Horizontal");
         VertInput = Input.GetAxisRaw("Vertical");
 
+        
         if (Input.GetKey("left shift"))
         {
             speed = standard_speed * 2f;
@@ -83,6 +91,8 @@ public class PlayerController : MonoBehaviour
         else{
             speed = standard_speed;
         }
+       
+        
         //for the actual scale of the crouch collider
         if (Input.GetKeyDown("left ctrl"))
         {
@@ -97,20 +107,31 @@ public class PlayerController : MonoBehaviour
         //toggle inventory
         if(Input.GetKeyDown(KeyCode.I))
         {
-            showInventory = !showInventory;
-            interactor.inUI = !interactor.inUI;
-            InventoryObject.SetActive(showInventory);
-            
-            if(showInventory)
-            {
-                uiInvetory.RefreshInventoryItems();
+            if(!gameObject.GetComponent<Interactor>().isHolding){
+                toggleInventory();  
             }
-            
-            
-            
+                 
             
         }
+
         
+    }
+
+  
+    public void toggleInventory()
+    {
+        showInventory = !showInventory;
+        //if im in inventory, then i am in a UI
+        if(showInventory)
+            interactor.inUI = true;
+        else
+            interactor.inUI = false;
+        InventoryObject.SetActive(showInventory);
+            
+        if(showInventory)
+        {
+            uiInvetory.refresh();
+        }
     }
 
     void MovePlayer()
