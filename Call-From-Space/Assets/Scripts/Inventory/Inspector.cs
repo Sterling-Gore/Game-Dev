@@ -25,7 +25,9 @@ public class Inspector : MonoBehaviour, IDragHandler
         item = temp.GetComponent<Item_interaction>().item;
         item.obj.SetActive(true);
         item.obj.GetComponent<Rigidbody>().useGravity = false;
-        item.obj.transform.position = new Vector3(1000,1000,1003);
+        item.obj.GetComponent<Rigidbody>().isKinematic = true;
+        item.obj.transform.position = new Vector3(1000,1000,1001);
+        item.obj.transform.rotation = Quaternion.Euler(0, 180, 0);
         //gameObject.SetActive(true);
 
     }
@@ -42,6 +44,7 @@ public class Inspector : MonoBehaviour, IDragHandler
     public void unloadInspector()
     {
         item.obj.GetComponent<Rigidbody>().useGravity = true;
+        item.obj.GetComponent<Rigidbody>().isKinematic = false;
         item.obj.SetActive(false);
         gameObject.SetActive(false);
     }
