@@ -204,7 +204,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 27506415}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1689706082}
+        m_TargetAssemblyTypeName: StartingMenu, Assembly-CSharp
+        m_MethodName: ExitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &27506415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -690,7 +702,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 10
+  m_characterSpacing: 20
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -742,11 +754,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebe8ff082f096e64fa243a836bef87b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonText: {fileID: 0}
-  glowColor: {r: 0.13725491, g: 0.62352943, b: 0.74509805, a: 1}
-  outlineGlow: {r: 1, g: 0, b: 0, a: 1}
+  buttonText: {fileID: 1864286026}
+  glowColor: {r: 0.3830188, g: 0.9721364, b: 1, a: 1}
   glowIntensity: 1.5
-  outlineWidth: 0.2
 --- !u!1 &2016906577
 GameObject:
   m_ObjectHideFlags: 0
@@ -829,7 +839,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2016906580}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1689706082}
+        m_TargetAssemblyTypeName: StartingMenu, Assembly-CSharp
+        m_MethodName: PlayGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2016906580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -963,7 +985,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 10
+  m_characterSpacing: 20
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1015,11 +1037,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebe8ff082f096e64fa243a836bef87b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonText: {fileID: 0}
-  glowColor: {r: 0.13725491, g: 0.62352943, b: 0.74509805, a: 1}
-  outlineGlow: {r: 1, g: 0, b: 0, a: 1}
+  buttonText: {fileID: 2141564590}
+  glowColor: {r: 0.38431373, g: 0.972549, b: 1, a: 1}
   glowIntensity: 1.5
-  outlineWidth: 5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
