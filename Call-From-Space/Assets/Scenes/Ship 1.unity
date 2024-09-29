@@ -729,7 +729,13 @@ MonoBehaviour:
   normalSprite: {fileID: 21300000, guid: 0d0f8de507fb8fc4aa8d4264600cf368, type: 3}
   clickedSprite: {fileID: 21300000, guid: 21db12894d86e1b4d9ac2b0199c8d29c, type: 3}
   counterText: {fileID: 1232908868}
-  parentObject: {fileID: 0}
+  parentObject: {fileID: 1639918947}
+  defaultMessage: {fileID: 1021536942}
+  defaultMessageSprite: {fileID: 21300000, guid: 72a765862c83575438c4c454215e494d, type: 3}
+  incorrectMessage: {fileID: 21300000, guid: c3975c990ff38b0448e9577c8adfd363, type: 3}
+  correctMessage: {fileID: 21300000, guid: faa64b24477f37e4dbd83afd2292086f, type: 3}
+  generatorUI: {fileID: 961809484}
+  Player_for_interactor: {fileID: 362943805}
 --- !u!1 &64272890
 GameObject:
   m_ObjectHideFlags: 0
@@ -2176,7 +2182,13 @@ MonoBehaviour:
   normalSprite: {fileID: 21300000, guid: 10761f469b4537246b6b12cd00fff020, type: 3}
   clickedSprite: {fileID: 21300000, guid: 07ba3f545e409fd43b304d2cf06f3cd8, type: 3}
   counterText: {fileID: 216703579}
-  parentObject: {fileID: 0}
+  parentObject: {fileID: 1920154586}
+  defaultMessage: {fileID: 1021536942}
+  defaultMessageSprite: {fileID: 21300000, guid: 72a765862c83575438c4c454215e494d, type: 3}
+  incorrectMessage: {fileID: 21300000, guid: c3975c990ff38b0448e9577c8adfd363, type: 3}
+  correctMessage: {fileID: 21300000, guid: faa64b24477f37e4dbd83afd2292086f, type: 3}
+  generatorUI: {fileID: 961809484}
+  Player_for_interactor: {fileID: 362943805}
 --- !u!1 &166167474
 GameObject:
   m_ObjectHideFlags: 0
@@ -3687,7 +3699,13 @@ MonoBehaviour:
   normalSprite: {fileID: 21300000, guid: 10761f469b4537246b6b12cd00fff020, type: 3}
   clickedSprite: {fileID: 21300000, guid: 07ba3f545e409fd43b304d2cf06f3cd8, type: 3}
   counterText: {fileID: 1439573105}
-  parentObject: {fileID: 0}
+  parentObject: {fileID: 1920154586}
+  defaultMessage: {fileID: 1021536942}
+  defaultMessageSprite: {fileID: 21300000, guid: 72a765862c83575438c4c454215e494d, type: 3}
+  incorrectMessage: {fileID: 21300000, guid: c3975c990ff38b0448e9577c8adfd363, type: 3}
+  correctMessage: {fileID: 21300000, guid: faa64b24477f37e4dbd83afd2292086f, type: 3}
+  generatorUI: {fileID: 961809484}
+  Player_for_interactor: {fileID: 362943805}
 --- !u!1 &283818773
 GameObject:
   m_ObjectHideFlags: 0
@@ -4609,7 +4627,13 @@ MonoBehaviour:
   normalSprite: {fileID: 21300000, guid: 0d0f8de507fb8fc4aa8d4264600cf368, type: 3}
   clickedSprite: {fileID: 21300000, guid: 21db12894d86e1b4d9ac2b0199c8d29c, type: 3}
   counterText: {fileID: 216703579}
-  parentObject: {fileID: 0}
+  parentObject: {fileID: 1639918947}
+  defaultMessage: {fileID: 1021536942}
+  defaultMessageSprite: {fileID: 21300000, guid: 72a765862c83575438c4c454215e494d, type: 3}
+  incorrectMessage: {fileID: 21300000, guid: c3975c990ff38b0448e9577c8adfd363, type: 3}
+  correctMessage: {fileID: 21300000, guid: faa64b24477f37e4dbd83afd2292086f, type: 3}
+  generatorUI: {fileID: 961809484}
+  Player_for_interactor: {fileID: 362943805}
 --- !u!4 &322286718 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8c7e99f31794f7941add3e16296665fe, type: 3}
@@ -9367,7 +9391,13 @@ MonoBehaviour:
   normalSprite: {fileID: 21300000, guid: d01796407fe5d264bbf4931d39a3013a, type: 3}
   clickedSprite: {fileID: 21300000, guid: 5c45cdff2a6952b41bc6a7243feee95a, type: 3}
   counterText: {fileID: 1645483178}
-  parentObject: {fileID: 0}
+  parentObject: {fileID: 975551273}
+  defaultMessage: {fileID: 1021536942}
+  defaultMessageSprite: {fileID: 21300000, guid: 72a765862c83575438c4c454215e494d, type: 3}
+  incorrectMessage: {fileID: 21300000, guid: c3975c990ff38b0448e9577c8adfd363, type: 3}
+  correctMessage: {fileID: 21300000, guid: faa64b24477f37e4dbd83afd2292086f, type: 3}
+  generatorUI: {fileID: 961809484}
+  Player_for_interactor: {fileID: 362943805}
 --- !u!114 &737479388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9411,7 +9441,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 737479389}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 737479387}
+        m_TargetAssemblyTypeName: GeneratorGame, Assembly-CSharp
+        m_MethodName: SubmitSecretCode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &737479389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9601,7 +9643,13 @@ MonoBehaviour:
   normalSprite: {fileID: 21300000, guid: 0d0f8de507fb8fc4aa8d4264600cf368, type: 3}
   clickedSprite: {fileID: 21300000, guid: 21db12894d86e1b4d9ac2b0199c8d29c, type: 3}
   counterText: {fileID: 1769341312}
-  parentObject: {fileID: 0}
+  parentObject: {fileID: 1639918947}
+  defaultMessage: {fileID: 1021536942}
+  defaultMessageSprite: {fileID: 21300000, guid: 72a765862c83575438c4c454215e494d, type: 3}
+  incorrectMessage: {fileID: 21300000, guid: c3975c990ff38b0448e9577c8adfd363, type: 3}
+  correctMessage: {fileID: 21300000, guid: faa64b24477f37e4dbd83afd2292086f, type: 3}
+  generatorUI: {fileID: 961809484}
+  Player_for_interactor: {fileID: 362943805}
 --- !u!1 &748157072
 GameObject:
   m_ObjectHideFlags: 0
@@ -11500,7 +11548,13 @@ MonoBehaviour:
   normalSprite: {fileID: 21300000, guid: 10761f469b4537246b6b12cd00fff020, type: 3}
   clickedSprite: {fileID: 21300000, guid: 07ba3f545e409fd43b304d2cf06f3cd8, type: 3}
   counterText: {fileID: 988905742}
-  parentObject: {fileID: 0}
+  parentObject: {fileID: 1920154586}
+  defaultMessage: {fileID: 1021536942}
+  defaultMessageSprite: {fileID: 21300000, guid: 72a765862c83575438c4c454215e494d, type: 3}
+  incorrectMessage: {fileID: 21300000, guid: c3975c990ff38b0448e9577c8adfd363, type: 3}
+  correctMessage: {fileID: 21300000, guid: faa64b24477f37e4dbd83afd2292086f, type: 3}
+  generatorUI: {fileID: 961809484}
+  Player_for_interactor: {fileID: 362943805}
 --- !u!1 &986584783
 GameObject:
   m_ObjectHideFlags: 0
@@ -13047,7 +13101,13 @@ MonoBehaviour:
   normalSprite: {fileID: 21300000, guid: 10761f469b4537246b6b12cd00fff020, type: 3}
   clickedSprite: {fileID: 21300000, guid: 07ba3f545e409fd43b304d2cf06f3cd8, type: 3}
   counterText: {fileID: 1232908868}
-  parentObject: {fileID: 0}
+  parentObject: {fileID: 1920154586}
+  defaultMessage: {fileID: 1021536942}
+  defaultMessageSprite: {fileID: 21300000, guid: 72a765862c83575438c4c454215e494d, type: 3}
+  incorrectMessage: {fileID: 21300000, guid: c3975c990ff38b0448e9577c8adfd363, type: 3}
+  correctMessage: {fileID: 21300000, guid: faa64b24477f37e4dbd83afd2292086f, type: 3}
+  generatorUI: {fileID: 961809484}
+  Player_for_interactor: {fileID: 362943805}
 --- !u!1 &1195780726 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: fdbd3fef6b830e74d8c8e61cecb1b4bc, type: 3}
@@ -13267,7 +13327,13 @@ MonoBehaviour:
   normalSprite: {fileID: 21300000, guid: 0d0f8de507fb8fc4aa8d4264600cf368, type: 3}
   clickedSprite: {fileID: 21300000, guid: 21db12894d86e1b4d9ac2b0199c8d29c, type: 3}
   counterText: {fileID: 988905742}
-  parentObject: {fileID: 0}
+  parentObject: {fileID: 1639918947}
+  defaultMessage: {fileID: 1021536942}
+  defaultMessageSprite: {fileID: 21300000, guid: 72a765862c83575438c4c454215e494d, type: 3}
+  incorrectMessage: {fileID: 21300000, guid: c3975c990ff38b0448e9577c8adfd363, type: 3}
+  correctMessage: {fileID: 21300000, guid: faa64b24477f37e4dbd83afd2292086f, type: 3}
+  generatorUI: {fileID: 961809484}
+  Player_for_interactor: {fileID: 362943805}
 --- !u!1 &1201402953
 GameObject:
   m_ObjectHideFlags: 0
@@ -17120,7 +17186,13 @@ MonoBehaviour:
   normalSprite: {fileID: 21300000, guid: 0d0f8de507fb8fc4aa8d4264600cf368, type: 3}
   clickedSprite: {fileID: 21300000, guid: 21db12894d86e1b4d9ac2b0199c8d29c, type: 3}
   counterText: {fileID: 1439573105}
-  parentObject: {fileID: 0}
+  parentObject: {fileID: 1639918947}
+  defaultMessage: {fileID: 1021536942}
+  defaultMessageSprite: {fileID: 21300000, guid: 72a765862c83575438c4c454215e494d, type: 3}
+  incorrectMessage: {fileID: 21300000, guid: c3975c990ff38b0448e9577c8adfd363, type: 3}
+  correctMessage: {fileID: 21300000, guid: faa64b24477f37e4dbd83afd2292086f, type: 3}
+  generatorUI: {fileID: 961809484}
+  Player_for_interactor: {fileID: 362943805}
 --- !u!1 &1532005843
 GameObject:
   m_ObjectHideFlags: 0
@@ -18214,7 +18286,13 @@ MonoBehaviour:
   normalSprite: {fileID: 21300000, guid: 10761f469b4537246b6b12cd00fff020, type: 3}
   clickedSprite: {fileID: 21300000, guid: 07ba3f545e409fd43b304d2cf06f3cd8, type: 3}
   counterText: {fileID: 1769341312}
-  parentObject: {fileID: 0}
+  parentObject: {fileID: 1920154586}
+  defaultMessage: {fileID: 1021536942}
+  defaultMessageSprite: {fileID: 21300000, guid: 72a765862c83575438c4c454215e494d, type: 3}
+  incorrectMessage: {fileID: 21300000, guid: c3975c990ff38b0448e9577c8adfd363, type: 3}
+  correctMessage: {fileID: 21300000, guid: faa64b24477f37e4dbd83afd2292086f, type: 3}
+  generatorUI: {fileID: 961809484}
+  Player_for_interactor: {fileID: 362943805}
 --- !u!1 &1697863849
 GameObject:
   m_ObjectHideFlags: 0

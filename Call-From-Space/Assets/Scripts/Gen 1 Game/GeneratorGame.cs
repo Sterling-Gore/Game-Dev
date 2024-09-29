@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Palmmedia.ReportGenerator.Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;  
@@ -12,15 +13,30 @@ public class GeneratorGame : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public Sprite clickedSprite;
     public TextMeshProUGUI counterText;
     public GameObject parentObject;
+    public Image defaultMessage;
+    public Sprite defaultMessageSprite;
+    public Sprite incorrectMessage;
+    public Sprite correctMessage; 
     private int secretCode = 31574;
+    public GameObject generatorUI;
+    public GameObject Player_for_interactor;
+    Interactor interactor;
+
+    void Update() {
+      if (Input.GetKeyDown(KeyCode.Escape)) {
+        generatorUI.SetActive(false);
+        interactor.inUI = false;
+      }
+    }
 
     void Start() {
-        if (normalImage == null) {
-            normalImage = GetComponent<Image>();  
-        }
-        if (string.IsNullOrEmpty(counterText.text)) {
-            counterText.text = "0";
-        }
+      interactor = Player_for_interactor.GetComponent<Interactor>();
+      if (normalImage == null) {
+          normalImage = GetComponent<Image>();  
+      }
+      if (string.IsNullOrEmpty(counterText.text)) {
+          counterText.text = "0";
+      }
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
@@ -74,7 +90,7 @@ public class GeneratorGame : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         counterText.text = newNumber.ToString();
     }
 
-    public Boolean SubmitSecretCode(){
+    public void SubmitSecretCode(){
 
         string secretCodeStr = secretCode.ToString();
 
@@ -82,12 +98,26 @@ public class GeneratorGame : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
         for (int i = 0; i < textMeshChildren.Length; i++)
         {
-            string textMeshValue = textMeshChildren[i].text;
+            string textMeshValue = textMeshChildren[i].text.Trim();
             char secretCodeDigit = secretCodeStr[i];
             if (textMeshValue != secretCodeDigit.ToString()) {
-                return false;
-            }
+                Debug.Log("called");
+                updateImage(false);
+                return;
+            };
         }
-        return true;
+        updateImage(true);
     }
+
+    public void updateImage(bool correctCode){
+      if (defaultMessage != null) {
+        if (correctCode) {
+            defaultMessage.sprite = correctMessage;
+        } else {
+            defaultMessage.sprite = incorrectMessage;
+        }
+      }
+    }
+
+
 }
