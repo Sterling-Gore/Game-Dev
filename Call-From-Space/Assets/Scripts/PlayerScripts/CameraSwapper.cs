@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+//To add a security camera use the security camera prefab
 
 
 public class CameraSwapper : MonoBehaviour
@@ -32,7 +33,7 @@ public class CameraSwapper : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.F))
             ToggleManagerWindow();
     }
 
