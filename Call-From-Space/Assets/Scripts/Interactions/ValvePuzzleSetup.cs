@@ -18,8 +18,26 @@ public class ValvePuzzleSetup : MonoBehaviour
         SetupPuzzle();
     }
 
+    void Update()
+    {
+        //int test = ValveRandomizer();
+        //Debug.Log(test);
+    }
+
     void SetupPuzzle()
     {
+        bool[] valveUsage = ValveRandomizer();
+
+        int[] initialGaugeValues = new int[2];
+        //1st gaugeValue is below 5
+        initialGaugeValues[0] = Random.Range(0,5);
+        //2st gaugeValue is any number
+        initialGaugeValues[0] = Random.Range(0,max_pressure + 1);
+
+        
+
+
+        /*
         // generate initial gauge values
         int[] initialGaugeValues = new int[gauges.Length];
         for (int i = 0; i < gauges.Length; i++)
@@ -97,6 +115,53 @@ public class ValvePuzzleSetup : MonoBehaviour
 
         string solutionString = string.Join(", ", valveUsage.Select(b => b ? "ON" : "OFF"));
         Debug.Log($"solution: [{solutionString}]");
+        */
+    }
+
+    bool[]  ValveRandomizer()
+    {
+        bool[] valveUsage = new bool[4]; //should be 4 valves
+        int num_of_used_valves = 0;
+        bool temp;
+
+        //1st valve
+        temp = (Random.value > 0.25f); //75%
+        valveUsage[0] = temp;
+        if (temp)
+            num_of_used_valves += 1;
+
+        
+        //2nd valve
+        if (num_of_used_valves == 1)
+            temp = (Random.value > 0.5f); //50% if we have 1 used valve
+        else
+            temp = (Random.value > 0.25f); //75% if we have no used valves
+        valveUsage[1] = temp;
+        if (temp)
+            num_of_used_valves += 1;
+        
+        //3rd valve
+        if (num_of_used_valves == 1 || num_of_used_valves == 2)
+            temp = (Random.value > 0.5f); //50% if we have 1 or 2 used valves
+        else
+            temp = true; //100% if we have no used valves
+        valveUsage[2] = temp;
+        if (temp)
+            num_of_used_valves += 1;
+        
+        //4th value
+        if (num_of_used_valves == 2)
+            temp = (Random.value > 0.5f); //50% if we have 2 used valves
+        else if (num_of_used_valves == 1)
+            temp = true; //100% if we have 1 used valve
+        else
+            temp = false; // 0% if we have 3 used valves
+        valveUsage[3] = temp;
+        if (temp)
+            num_of_used_valves += 1;
+        
+        return valveUsage;
+
     }
 
 }
