@@ -15,6 +15,8 @@ public class Holdable : Interactable
     private Rigidbody ObjRb;
     private int LayerNumber;
 
+    bool localHold; //checks if you are holding object locally attached to script
+
 
 
     Interactor interactor;
@@ -29,12 +31,13 @@ public class Holdable : Interactable
 
         //this gets the interactor script from the player, that way we can turn off interactins while holding an object
         interactor = playerInteractor.GetComponent<Interactor>();
+        localHold = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(interactor.isHolding) 
+        if(localHold) 
         {
             MoveObject();
             if (Input.GetKeyDown(KeyCode.Mouse0) ) 
@@ -70,6 +73,7 @@ public class Holdable : Interactable
         transform.rotation = Quaternion.Euler(0, 0, 0);
         transform.rotation = holdPos.transform.rotation;
         interactor.isHolding = true;
+        localHold = true;
         ObjRb.isKinematic = true;
         gameObject.transform.position = new Vector3(0,0,0);
         gameObject.transform.parent = holdPos.transform;
@@ -90,6 +94,7 @@ public class Holdable : Interactable
         ObjRb.isKinematic = false;
         gameObject.transform.parent = null;
         interactor.isHolding = false;
+        localHold = false;
 
 
     }

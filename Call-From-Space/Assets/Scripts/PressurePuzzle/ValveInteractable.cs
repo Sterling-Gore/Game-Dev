@@ -2,7 +2,7 @@
 
 public class ValveInteractable : Interactable
 {
-    public ValveController valveController;
+    //public ValveController valveController;
     public GameObject valveManager;
     ValvePuzzleSetup controller;
     bool isOn;

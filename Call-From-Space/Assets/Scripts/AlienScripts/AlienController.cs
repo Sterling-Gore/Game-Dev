@@ -11,7 +11,7 @@ public class AlienController : MonoBehaviour
     float speed;
     public float standardSpeed;
 
-    bool isAwareOfPlayer = false;
+    public bool isAwareOfPlayer = false;
     public float awarenessRadius;
     public float attackRadius;
 
