@@ -620,8 +620,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 42636291}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -54.077, y: 0.079, z: 46.217}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -629,7 +629,7 @@ Transform:
   - {fileID: 1653762669}
   - {fileID: 1888299757}
   m_Father: {fileID: 1352283841}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &43544963 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 22d2d8b117f9b5447acfa7a67b75e06b, type: 3}
@@ -1120,7 +1120,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 8c2c30f674e74d340b408719eaa7b74c, type: 2}
     - target: {fileID: 919132149155446097, guid: cc4b214ecf58b4a419a80413c63d10cc, type: 3}
       propertyPath: m_Name
-      value: CircleGauge1
+      value: CircleGauge
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6383,7 +6383,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 0612c145da767dc4481b6c772744f2d1, type: 2}
     - target: {fileID: 919132149155446097, guid: 43b44e268e1a63647971a5d89092e003, type: 3}
       propertyPath: m_Name
-      value: blurryscreen1
+      value: blurryscreen
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8709,7 +8709,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -8729,6 +8729,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionType: 0
   valveManager: {fileID: 1352283839}
+  offMaterial: {fileID: 2100000, guid: 43596f050b1163e439b13fdba6afd2bd, type: 2}
+  onMaterial: {fileID: 2100000, guid: 1f78821413e9cec4892a9747bc51eecc, type: 2}
 --- !u!4 &497266671 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -3274006528333456403, guid: 22d2d8b117f9b5447acfa7a67b75e06b, type: 3}
@@ -13391,7 +13393,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 8c2c30f674e74d340b408719eaa7b74c, type: 2}
     - target: {fileID: 919132149155446097, guid: cc4b214ecf58b4a419a80413c63d10cc, type: 3}
       propertyPath: m_Name
-      value: CircleGauge2
+      value: CircleGauge
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13782,8 +13784,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 906214408}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -54.077, y: 0.079, z: 46.217}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13791,7 +13793,7 @@ Transform:
   - {fileID: 1374229956}
   - {fileID: 1820472301}
   m_Father: {fileID: 1352283841}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &909937706
 GameObject:
   m_ObjectHideFlags: 0
@@ -18440,7 +18442,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: b5da909719d3bdf4b9910ba8fbd1a1d6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -26.117
+      value: -24.537
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b5da909719d3bdf4b9910ba8fbd1a1d6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -18833,6 +18835,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionType: 0
   valveManager: {fileID: 1352283839}
+  offMaterial: {fileID: 2100000, guid: 43596f050b1163e439b13fdba6afd2bd, type: 2}
+  onMaterial: {fileID: 2100000, guid: 1f78821413e9cec4892a9747bc51eecc, type: 2}
 --- !u!65 &1304256626
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18848,7 +18852,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -19059,7 +19063,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -19079,6 +19083,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionType: 0
   valveManager: {fileID: 1352283839}
+  offMaterial: {fileID: 2100000, guid: 43596f050b1163e439b13fdba6afd2bd, type: 2}
+  onMaterial: {fileID: 2100000, guid: 1f78821413e9cec4892a9747bc51eecc, type: 2}
 --- !u!1 &1320078106
 GameObject:
   m_ObjectHideFlags: 0
@@ -19335,6 +19341,12 @@ MonoBehaviour:
   - {fileID: 493648847}
   - {fileID: 1317052519}
   - {fileID: 2120687744}
+  door: {fileID: 1763413725}
+  GaugeMat1: {fileID: 2100000, guid: 10302db2b44a31140b2c635d8d9db083, type: 2}
+  GaugeMat2: {fileID: 2100000, guid: 83aa76e34528c7a48aa5430a50a6ea0f, type: 2}
+  GaugeMat3: {fileID: 2100000, guid: b03358350b56347429ed2c89c515a204, type: 2}
+  GaugeMat4: {fileID: 2100000, guid: bc4dfcab22249244ca058e4dec8166dc, type: 2}
+  GaugeMat5: {fileID: 2100000, guid: 8c2c30f674e74d340b408719eaa7b74c, type: 2}
 --- !u!4 &1352283841
 Transform:
   m_ObjectHideFlags: 0
@@ -19511,7 +19523,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: b5da909719d3bdf4b9910ba8fbd1a1d6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -25.437
+      value: -23.857
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b5da909719d3bdf4b9910ba8fbd1a1d6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -23533,7 +23545,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: b5da909719d3bdf4b9910ba8fbd1a1d6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -27.437
+      value: -25.857
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b5da909719d3bdf4b9910ba8fbd1a1d6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -24476,7 +24488,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: b5da909719d3bdf4b9910ba8fbd1a1d6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -26.77
+      value: -25.19
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b5da909719d3bdf4b9910ba8fbd1a1d6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -25422,7 +25434,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1.4, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -26509,7 +26521,7 @@ MonoBehaviour:
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
+  m_overrideHtmlColors: 1
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
@@ -29340,7 +29352,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 0612c145da767dc4481b6c772744f2d1, type: 2}
     - target: {fileID: 919132149155446097, guid: 43b44e268e1a63647971a5d89092e003, type: 3}
       propertyPath: m_Name
-      value: blurryscreen2
+      value: blurryscreen
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -31406,7 +31418,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -31426,6 +31438,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionType: 0
   valveManager: {fileID: 1352283839}
+  offMaterial: {fileID: 2100000, guid: 43596f050b1163e439b13fdba6afd2bd, type: 2}
+  onMaterial: {fileID: 2100000, guid: 1f78821413e9cec4892a9747bc51eecc, type: 2}
 --- !u!1 &2123242904
 GameObject:
   m_ObjectHideFlags: 0
