@@ -9,9 +9,12 @@ public class ValveInteractable : Interactable
     int GaugeVal1;
     int GaugeVal2;
 
+    private Animator animation;
+
     void Start()
     {
         controller = valveManager.GetComponent<ValvePuzzleSetup>();
+        animation = GetComponent<Animator>();
     }
 
     public override string GetDescription()
@@ -23,9 +26,15 @@ public class ValveInteractable : Interactable
     {
         //gameobject.animate
         if(isOn)
+        {
             controller.AdjustPressure(-1* GaugeVal1, -1* GaugeVal2);
+            animation.SetTrigger("Off");
+        }
         else
+        {
             controller.AdjustPressure(GaugeVal1, GaugeVal2);
+            animation.SetTrigger("On");
+        }
         
         isOn = !isOn;
 
