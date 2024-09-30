@@ -5777,7 +5777,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &310064087
 Transform:
   m_ObjectHideFlags: 0
@@ -10914,6 +10914,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: INPLACE-Crouched-Walking-AlienV2
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9a4e99bf27e2e8e4097e1a3cee84f856, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -10927,6 +10931,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9a4e99bf27e2e8e4097e1a3cee84f856, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1845224672}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9a4e99bf27e2e8e4097e1a3cee84f856, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1845224673}
   m_SourcePrefab: {fileID: 100100000, guid: 9a4e99bf27e2e8e4097e1a3cee84f856, type: 3}
 --- !u!1 &664776894
 GameObject:
@@ -21168,10 +21175,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbbffd83f7ba0c84e9b77f3b44bc1563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  standardSpeed: 0
+  player: {fileID: 362943805}
+  standardSpeed: 5
   isAwareOfPlayer: 0
-  awarenessRadius: 0
+  awarenessRadius: 100
   attackRadius: 0
   mentalDelay: 5
   timeSinceLastThought: 0
@@ -21284,8 +21291,8 @@ Transform:
   m_GameObject: {fileID: 1514790461}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 59.31, y: 1.52, z: 6.62}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -53.34, y: 2.995, z: 6.62}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -25719,14 +25726,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 362943805}
-  standardSpeed: 50
+  standardSpeed: 5
   isAwareOfPlayer: 0
-  awarenessRadius: 5
-  attackRadius: 1
+  awarenessRadius: 100
+  attackRadius: 0
   mentalDelay: 5
   timeSinceLastThought: 0
   pathIndex: 0
   spaceDiscretization: 3
+--- !u!65 &1845224673
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845224669}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3, y: 5, z: 3.2}
+  m_Center: {x: 0, y: 2.59, z: 0.6}
 --- !u!1 &1848120282
 GameObject:
   m_ObjectHideFlags: 0
