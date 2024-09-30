@@ -18,6 +18,9 @@ public class ValvePuzzleSetup : MonoBehaviour
     private const int min_valve_effect = -3;
     private const int max_valve_effect = 3;
 
+    TextMeshPro Text1;
+    TextMeshPro Text2;
+
 
     void Start()
     {
@@ -32,6 +35,9 @@ public class ValvePuzzleSetup : MonoBehaviour
         {
             valves[i].GetComponent<ValveInteractable>().setGaugeVals(ValveValues[i][0], ValveValues[i][1]);
         }
+
+        Text1 = gauges[0].transform.Find("Text").GetComponent<TextMeshPro>();
+        Text2 = gauges[1].transform.Find("Text").GetComponent<TextMeshPro>();
         
        
 
@@ -45,8 +51,6 @@ public class ValvePuzzleSetup : MonoBehaviour
         {
             OpenAirlock();
         }
-        TextMeshPro Text1 = gauges[0].transform.Find("Text").GetComponent<TextMeshPro>();
-        TextMeshPro Text2 = gauges[1].transform.Find("Text").GetComponent<TextMeshPro>();
         Text1.text = GaugeValues[0].ToString();
         Text2.text = GaugeValues[1].ToString();
     }

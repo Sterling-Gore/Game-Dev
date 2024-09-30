@@ -15,14 +15,14 @@ public class TriggerDoor : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")){  // !!!!!!!!  LATER: will add alien tag 
-            _doorAnimator.SetTrigger("open");
+            _doorAnimator.SetTrigger("Open");
         }
     }
 
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player")){   // !!!!!!!!  LATER: will add alien tag 
-            _doorAnimator.SetTrigger("closed");
+            _doorAnimator.SetTrigger("Closed");
         }
     }
 }
