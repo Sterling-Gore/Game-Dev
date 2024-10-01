@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Start.unity
     guid: 704f4cb7a3f21e44099da5b7da45d5d9
   - enabled: 1
-    path: Assets/Scenes/Ship.unity
+    path: Assets/Scenes/Ship (old).unity
     guid: 5f28f4f45c9671145a30e5210e8a5e6d
   - enabled: 1
     path: Assets/Scenes/CutScenes/Intro_Scene.unity
