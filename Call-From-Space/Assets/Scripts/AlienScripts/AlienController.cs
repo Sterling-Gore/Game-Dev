@@ -68,7 +68,10 @@ public class AlienController : MonoBehaviour
             AttackPlayer();
         else
         {
-            Physics.Raycast(transform.position, directionToPlayer, out RaycastHit j, distanceToPlayer - .1f);
+            //Physics.Raycast(transform.position, directionToPlayer, out RaycastHit j, distanceToPlayer - .1f);
+            Physics.Raycast(transform.position+ (Vector3.up*.1f), directionToPlayer, out RaycastHit j, distanceToPlayer - .1f);
+            //Debug.
+            Debug.DrawRay(transform.position, directionToPlayer);
             if (j.rigidbody==playerRb)
             {// nothing in the way of alien and player
                 directionToPlayer /= distanceToPlayer;

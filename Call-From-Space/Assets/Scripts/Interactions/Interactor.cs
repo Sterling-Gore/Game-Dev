@@ -16,7 +16,7 @@ public class Interactor : MonoBehaviour
     void Start()
     {
         isHolding = false;
-        inUI = true;
+        inUI = false;
     }
 
     // Update is called once per frame

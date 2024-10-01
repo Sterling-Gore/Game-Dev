@@ -20,7 +20,7 @@ public class GeneratorGame : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private int secretCode = 31574;
     public GameObject generatorUI;
     public GameObject Player_for_interactor;
-    Interactor interactor;
+    public Interactor interactor;
 
     void Update() {
       if (Input.GetKeyDown(KeyCode.Escape)) {
@@ -29,7 +29,7 @@ public class GeneratorGame : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
       }
     }
 
-    void Start() {
+    void Awake() {
       interactor = Player_for_interactor.GetComponent<Interactor>();
       if (normalImage == null) {
           normalImage = GetComponent<Image>();  
@@ -37,6 +37,7 @@ public class GeneratorGame : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
       if (string.IsNullOrEmpty(counterText.text)) {
           counterText.text = "0";
       }
+      interactor.inUI = true;
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
@@ -107,6 +108,9 @@ public class GeneratorGame : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             };
         }
         updateImage(true);
+
+        //generatorUI.SetActive(false);
+        //interactor.inUI = false;
     }
 
     public void updateImage(bool correctCode){
