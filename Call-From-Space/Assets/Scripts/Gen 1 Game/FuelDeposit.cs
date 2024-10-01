@@ -6,6 +6,8 @@ public class FuelDeposit : Interactable
 {
     public GameObject FuelCell;
     public GameObject player;
+    public GameObject lights;
+    public GameObject alien;
     
 
     void OnTriggerEnter(Collider other)
@@ -16,6 +18,8 @@ public class FuelDeposit : Interactable
            FuelCell.GetComponent<Holdable>().enabled = false;
            FuelCell.transform.position = new Vector3(-55.318f, 3.705f, -3.61f);
            FuelCell.transform.rotation = Quaternion.Euler(0, 0, 90);
+           lights.SetActive(true);
+           alien.SetActive(true);
         }
     }
 
