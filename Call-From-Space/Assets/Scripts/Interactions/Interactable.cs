@@ -5,11 +5,13 @@ using UnityEngine.Events;
 
 public abstract class Interactable : MonoBehaviour
 {
+
     public enum InteractionType{
         Click,
         Hold,
         Minigame
     }
+    public bool special = false;
 
     public InteractionType interactionType;
 

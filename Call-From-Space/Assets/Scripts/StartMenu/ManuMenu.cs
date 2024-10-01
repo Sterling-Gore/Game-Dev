@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class StartingMenu : MonoBehaviour {
 
     public void PlayGame() {
-        SceneManager.LoadSceneAsync("Ship");
+        SceneManager.LoadSceneAsync("Intro_scene");
     }
 
     public void ExitGame() {

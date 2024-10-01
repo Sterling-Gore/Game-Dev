@@ -21,6 +21,7 @@ public class GeneratorGame : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public GameObject generatorUI;
     public GameObject Player_for_interactor;
     public Interactor interactor;
+    public GameObject gen;
 
     void Update() {
       if (Input.GetKeyDown(KeyCode.Escape)) {
@@ -108,6 +109,8 @@ public class GeneratorGame : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             };
         }
         updateImage(true);
+        gen.transform.Find("genDoor").GetComponent<Animator>().SetTrigger("Open");
+        gen.transform.Find("Fuel-deposit").GetComponent<Animator>().enabled = true;
 
         //generatorUI.SetActive(false);
         //interactor.inUI = false;
