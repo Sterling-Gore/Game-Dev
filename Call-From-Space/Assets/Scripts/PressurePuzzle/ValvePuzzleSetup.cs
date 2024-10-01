@@ -78,7 +78,8 @@ public class ValvePuzzleSetup : MonoBehaviour
         {
             valves[i].GetComponent<Collider>().enabled = false;
         }
-        door.GetComponent<Collider>().enabled = true;
+        //door.GetComponent<Collider>().enabled = true;
+        door.GetComponent<Animator>().SetTrigger("Open");
     }
 
     void updateMaterial()
@@ -89,23 +90,23 @@ public class ValvePuzzleSetup : MonoBehaviour
             {
                 case int n when n < 3:
                     gauges[i].transform.Find("CircleGauge").GetComponent<Renderer>().material = GaugeMat1;
-                    Text[i].color = new Color(222, 41, 22, 255);
+                    Text[i].color = new Color(255, 0, 0, 255);
                     break;
                 case int n when n < 5:
                     gauges[i].transform.Find("CircleGauge").GetComponent<Renderer>().material = GaugeMat2;
-                    Text[i].color = new Color(222, 41, 22, 255);
-                    break;;
+                    Text[i].color = new Color(255, 255, 0, 255);
+                    break;
                 case int n when n > 8:
                     gauges[i].transform.Find("CircleGauge").GetComponent<Renderer>().material = GaugeMat5;
-                    Text[i].color = new Color(222, 41, 22, 255);
+                    Text[i].color = new Color(255, 0, 0, 255);
                     break;
                 case int n when n > 5:
                     gauges[i].transform.Find("CircleGauge").GetComponent<Renderer>().material = GaugeMat4;
-                    Text[i].color = new Color(222, 41, 22, 255);
+                    Text[i].color = new Color(255, 255, 0, 255);
                     break;
                 default:
                     gauges[i].transform.Find("CircleGauge").GetComponent<Renderer>().material = GaugeMat3;
-                    Text[i].color = new Color(222, 41, 22, 255);
+                    Text[i].color = new Color(0, 255, 0, 255);
                     break;
 
             }
