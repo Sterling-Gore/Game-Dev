@@ -37,12 +37,12 @@ public class Interactor : MonoBehaviour
             {
                 Interactable interactable = hit.collider.GetComponent<Interactable>();
                 
-
-                if (interactable != null){
+                if ( interactable != null){
                     HandleInteraction(interactable);
                     interactionText.text = interactable.GetDescription();
                     successfulHit = true;
                 }
+                
 
                 
             }
