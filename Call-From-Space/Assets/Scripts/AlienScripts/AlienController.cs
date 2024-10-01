@@ -31,8 +31,13 @@ public class AlienController : MonoBehaviour
     NativeArray<AlienBrain.Point> memoryBuffer;
     NativeArray<int> memoryBufferLengthUsed;
 
+    GameObject endingScreen;
+    
     void Start()
     {
+        endingScreen = GameObject.Find("EndingScreen");
+        endingScreen.SetActive(false);
+
         speed = standardSpeed;
         playerRb = player.GetComponent<Rigidbody>();
         pointsInSpaceShip = AlienBrain.GetPointsInSpaceShip(spaceDiscretization);
@@ -90,7 +95,8 @@ public class AlienController : MonoBehaviour
 
     void AttackPlayer()
     {
-
+        if(endingScreen.active) return;
+        endingScreen.SetActive(true);
     }
 
     void FollowPathToPlayer()
