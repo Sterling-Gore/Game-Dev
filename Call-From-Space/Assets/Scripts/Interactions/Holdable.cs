@@ -17,6 +17,8 @@ public class Holdable : Interactable
 
     bool localHold; //checks if you are holding object locally attached to script
 
+    public string objName = "";
+
 
 
     Interactor interactor;
@@ -51,7 +53,7 @@ public class Holdable : Interactable
     public override string GetDescription()
     {
         
-        return ("");
+        return (objName);
     }
 
     public override void Interact()

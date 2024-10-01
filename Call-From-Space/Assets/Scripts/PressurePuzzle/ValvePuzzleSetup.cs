@@ -7,6 +7,7 @@ public class ValvePuzzleSetup : MonoBehaviour
 {
     public GameObject[] gauges;
     public GameObject[] valves;
+    public GameObject door;
 
     int[][] ValveValues = new int[4][];
     int[] GaugeValues = new int[2];
@@ -17,6 +18,14 @@ public class ValvePuzzleSetup : MonoBehaviour
     private const int max_pressure = 10;
     private const int min_valve_effect = -3;
     private const int max_valve_effect = 3;
+
+    TextMeshPro[] Text = new TextMeshPro[2];
+
+    public Material GaugeMat1;
+    public Material GaugeMat2;
+    public Material GaugeMat3;
+    public Material GaugeMat4;
+    public Material GaugeMat5;
 
 
     void Start()
@@ -32,6 +41,13 @@ public class ValvePuzzleSetup : MonoBehaviour
         {
             valves[i].GetComponent<ValveInteractable>().setGaugeVals(ValveValues[i][0], ValveValues[i][1]);
         }
+
+        Text[0] = gauges[0].transform.Find("Text").GetComponent<TextMeshPro>();
+        Text[1] = gauges[1].transform.Find("Text").GetComponent<TextMeshPro>();
+        Text[0].text = GaugeValues[0].ToString();
+        Text[1].text = GaugeValues[1].ToString();
+        updateMaterial();
+        
         
        
 
@@ -39,16 +55,12 @@ public class ValvePuzzleSetup : MonoBehaviour
 
     void Update()
     {
-        //int test = ValveRandomizer();
-        //Debug.Log(test);
+        
         if (CheckPuzzleCompletion())
         {
             OpenAirlock();
         }
-        TextMeshPro Text1 = gauges[0].transform.Find("Text").GetComponent<TextMeshPro>();
-        TextMeshPro Text2 = gauges[1].transform.Find("Text").GetComponent<TextMeshPro>();
-        Text1.text = GaugeValues[0].ToString();
-        Text2.text = GaugeValues[1].ToString();
+        
     }
 
     private bool CheckPuzzleCompletion()
@@ -62,13 +74,53 @@ public class ValvePuzzleSetup : MonoBehaviour
 
     private void OpenAirlock()
     {
-        // Implement airlock opening logic here
+        for( int i = 0; i < 4; i++)
+        {
+            valves[i].GetComponent<Collider>().enabled = false;
+        }
+        //door.GetComponent<Collider>().enabled = true;
+        door.GetComponent<Animator>().SetTrigger("Open");
+    }
+
+    void updateMaterial()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            switch( GaugeValues[i] )
+            {
+                case int n when n < 3:
+                    gauges[i].transform.Find("CircleGauge").GetComponent<Renderer>().material = GaugeMat1;
+                    Text[i].color = new Color(255, 0, 0, 255);
+                    break;
+                case int n when n < 5:
+                    gauges[i].transform.Find("CircleGauge").GetComponent<Renderer>().material = GaugeMat2;
+                    Text[i].color = new Color(255, 255, 0, 255);
+                    break;
+                case int n when n > 8:
+                    gauges[i].transform.Find("CircleGauge").GetComponent<Renderer>().material = GaugeMat5;
+                    Text[i].color = new Color(255, 0, 0, 255);
+                    break;
+                case int n when n > 5:
+                    gauges[i].transform.Find("CircleGauge").GetComponent<Renderer>().material = GaugeMat4;
+                    Text[i].color = new Color(255, 255, 0, 255);
+                    break;
+                default:
+                    gauges[i].transform.Find("CircleGauge").GetComponent<Renderer>().material = GaugeMat3;
+                    Text[i].color = new Color(0, 255, 0, 255);
+                    break;
+
+            }
+        }
+    
     }
 
     public void AdjustPressure(int gaugeVal1, int gaugeVal2)
     {
         GaugeValues[0] += gaugeVal1;
         GaugeValues[1] += gaugeVal2;
+        Text[0].text = GaugeValues[0].ToString();
+        Text[1].text = GaugeValues[1].ToString();
+        updateMaterial();
     }
 
     void SetupPuzzle()
@@ -307,7 +359,59 @@ public class ValvePuzzleSetup : MonoBehaviour
         bool[] valveUsage = new bool[4]; //should be 4 valves
         
         bool temp;
+        //for pre-duel
+        valveUsage[0] = false;
+        valveUsage[1] = true;
+        valveUsage[2] = false;
+        valveUsage[3] = true;
 
+        num_of_used_valves = 2;
+
+
+
+
+        //uses only 2 valves for solution
+        /*
+        //1st valve
+        temp = (Random.value > 0.65f); //35%
+        valveUsage[0] = temp;
+        if (temp)
+            num_of_used_valves += 1;
+
+        
+        //2nd valve
+        if (num_of_used_valves == 1)
+            temp = (Random.value > 0.5f); //50% if we have 1 used valve
+        else
+            temp = (Random.value > 0.3f); //70% if we have no used valves
+        valveUsage[1] = temp;
+        if (temp)
+            num_of_used_valves += 1;
+        
+        //3rd valve
+        if (num_of_used_valves == 2 )
+             temp = false; //0% if there is 2 values
+        else if (num_of_used_valves == 1 )
+            temp = (Random.value > 0.4f); //60% if we have 1 or 2 used valves
+        else
+            temp = true; //100% if we have no used valves
+        valveUsage[2] = temp;
+        if (temp)
+            num_of_used_valves += 1;
+        
+        //4th value
+        if (num_of_used_valves == 1)
+            temp = true; //100% if we have 1 used valve
+        else
+            temp = false; // 0% if we have 2 used valves
+        valveUsage[3] = temp;
+        if (temp)
+            num_of_used_valves += 1;
+        */
+
+
+        //uses both 2 valves or 3 valves for solution
+        /*
         //1st valve
         temp = (Random.value > 0.5f); //50%
         valveUsage[0] = temp;
@@ -343,6 +447,7 @@ public class ValvePuzzleSetup : MonoBehaviour
         valveUsage[3] = temp;
         if (temp)
             num_of_used_valves += 1;
+        */
         
         return valveUsage;
 
