@@ -36,7 +36,6 @@ public class AlienController : MonoBehaviour
     void Start()
     {
         endingScreen = GameObject.Find("EndingScreen");
-        endingScreen.SetActive(false);
 
         speed = standardSpeed;
         playerRb = player.GetComponent<Rigidbody>();
@@ -95,8 +94,8 @@ public class AlienController : MonoBehaviour
 
     void AttackPlayer()
     {
-        if(endingScreen.active) return;
-        endingScreen.SetActive(true);
+        var gameOver=endingScreen.transform.GetChild(0).gameObject;
+        gameOver.SetActive(true);
     }
 
     void FollowPathToPlayer()

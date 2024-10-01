@@ -1244,7 +1244,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &64609709
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1367,6 +1367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66769b02b1db70549aa2ccfddc229311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  special: 0
   interactionType: 0
   player: {fileID: 362943805}
 --- !u!114 &71646271
@@ -8876,6 +8877,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a690c69d870036d49a373c6f954c63fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  special: 0
   interactionType: 0
   valveManager: {fileID: 1352283839}
   offMaterial: {fileID: 2100000, guid: 43596f050b1163e439b13fdba6afd2bd, type: 2}
@@ -16147,6 +16149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 394ef5ada0c059543b535560c0ed8f72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  special: 0
   interactionType: 0
   playerInteractor: {fileID: 362943805}
   playerCollider: {fileID: 394856065}
@@ -17382,6 +17385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bb05a96fda92cc47a23ba9bd3cf56d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  special: 0
   interactionType: 0
   myMaterial: {fileID: 2100000, guid: b2e811c675d95764d9e115cb467f5814, type: 2}
   redTexture: {fileID: 2800000, guid: 21cb55c2834c3244ea414c77fa5ef0c3, type: 3}
@@ -18953,6 +18957,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a690c69d870036d49a373c6f954c63fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  special: 0
   interactionType: 0
   valveManager: {fileID: 1352283839}
   offMaterial: {fileID: 2100000, guid: 43596f050b1163e439b13fdba6afd2bd, type: 2}
@@ -19201,6 +19206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a690c69d870036d49a373c6f954c63fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  special: 0
   interactionType: 0
   valveManager: {fileID: 1352283839}
   offMaterial: {fileID: 2100000, guid: 43596f050b1163e439b13fdba6afd2bd, type: 2}
@@ -21606,6 +21612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66769b02b1db70549aa2ccfddc229311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  special: 0
   interactionType: 0
   player: {fileID: 362943805}
 --- !u!1 &1467878834
@@ -29520,6 +29527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 394ef5ada0c059543b535560c0ed8f72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  special: 0
   interactionType: 0
   playerInteractor: {fileID: 362943805}
   playerCollider: {fileID: 394856065}
@@ -31581,6 +31589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a690c69d870036d49a373c6f954c63fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  special: 0
   interactionType: 0
   valveManager: {fileID: 1352283839}
   offMaterial: {fileID: 2100000, guid: 43596f050b1163e439b13fdba6afd2bd, type: 2}
