@@ -6,6 +6,7 @@ public class GenAScreenInteraction : Interactable
 {
 
     public GameObject GenUI;
+    public GameObject player;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +28,9 @@ public class GenAScreenInteraction : Interactable
 
     public override void Interact()
     {
+        //GenUI.GetComponent<GeneratorGame>().interactor.inUI = true;
         GenUI.SetActive(true);
-        GenUI.GetComponent<GeneratorGame>().interactor.inUI = true;
+        player.GetComponent<Interactor>().inUI = true;
+        
     }
 }

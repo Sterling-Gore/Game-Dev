@@ -2624,10 +2624,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1508893454}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1800, y: 1000}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &141288992
 MonoBehaviour:
@@ -6903,7 +6903,7 @@ Transform:
   m_GameObject: {fileID: 362943805}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -20.05, y: 2.69, z: 21.02}
+  m_LocalPosition: {x: -19.568, y: 2.69, z: 20.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7300,7 +7300,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: fe639c74813cd3441ba45a51c88c2ac9, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.565
+  m_Volume: 0.331
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -23209,10 +23209,10 @@ RectTransform:
   - {fileID: 141288991}
   m_Father: {fileID: 74861391}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1514248750
 GameObject:
@@ -28695,7 +28695,7 @@ MonoBehaviour:
   standardSpeed: 5
   isAwareOfPlayer: 0
   awarenessRadius: 10000000
-  attackRadius: 1
+  attackRadius: 2
   mentalDelay: 5
   timeSinceLastThought: 0
   pathIndex: 0
@@ -29004,6 +29004,7 @@ MonoBehaviour:
   special: 0
   interactionType: 0
   GenUI: {fileID: 961809484}
+  player: {fileID: 362943805}
 --- !u!1 &1859101490
 GameObject:
   m_ObjectHideFlags: 0
@@ -32585,7 +32586,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2070371730
 Transform:
   m_ObjectHideFlags: 0
