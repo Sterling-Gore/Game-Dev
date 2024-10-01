@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Palmmedia.ReportGenerator.Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;  
@@ -110,7 +109,7 @@ public class GeneratorGame : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
         updateImage(true);
         gen.transform.Find("genDoor").GetComponent<Animator>().SetTrigger("Open");
-        gen.transform.Find("Fuel-deposit").GetComponent<Animator>().enabled = true;
+        gen.transform.Find("Fuel-Deposit").GetComponent<Animator>().enabled = true;
 
         //generatorUI.SetActive(false);
         //interactor.inUI = false;

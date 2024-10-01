@@ -358,7 +358,7 @@ public class ValvePuzzleSetup : MonoBehaviour
     {
         bool[] valveUsage = new bool[4]; //should be 4 valves
         
-        bool temp;
+        // private bool temp;
         //for pre-duel
         valveUsage[0] = false;
         valveUsage[1] = true;

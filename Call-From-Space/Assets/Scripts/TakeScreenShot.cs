@@ -53,14 +53,17 @@ public class TakeScreenShot : MonoBehaviour
 
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class TakeScreenshot : MonoBehaviour
 {
     Camera cam;
     public string pathFolder;
-    
+
     public List<GameObject> sceneObjects;
     //public List<InventoryItemData> dataObjects;
 
@@ -90,15 +93,19 @@ public class TakeScreenshot : MonoBehaviour
             yield return null;
             obj.gameObject.SetActive(false);
 
+            #if UNITY_EDITOR
             Sprite s = AssetDatabase.LoadAssetAtPath<Sprite>($"Assets/{pathFolder}/Icon.png");
             if(s!= null)
             {
                 //data.icon = s;
                 //EditorUtility.SetDirty(data);
             }
+            #endif
+
             yield return null;
         }
     }
+
     public void TakeShot(string fullPath)
     {
         if(cam == null)
@@ -112,7 +119,7 @@ public class TakeScreenshot : MonoBehaviour
         cam.Render();
         RenderTexture.active = rt;
 
-        screenShot.ReadPixels(new Rect(0, 0, 256, 256 ), 0, 0);
+        screenShot.ReadPixels(new Rect(0, 0, 256, 256), 0, 0);
         cam.targetTexture = null;
         RenderTexture.active = null;
 
@@ -127,9 +134,9 @@ public class TakeScreenshot : MonoBehaviour
 
         byte[] bytes = screenShot.EncodeToPNG();
         System.IO.File.WriteAllBytes(fullPath, bytes);
-#if UNITY_EDITOR
-        AssetDatabase.Refresh();
-#endif
 
+        #if UNITY_EDITOR
+        AssetDatabase.Refresh();
+        #endif
     }
 }
