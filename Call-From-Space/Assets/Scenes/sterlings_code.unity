@@ -1313,7 +1313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemTag: 1
-  isItem: 0
+  isItem: 1
   itemName: Sticky Note
   itemImage: {fileID: 21300000, guid: 94c8987c2173d9f4ea872cc7e94f6db5, type: 3}
   obj: {fileID: 71646264}
