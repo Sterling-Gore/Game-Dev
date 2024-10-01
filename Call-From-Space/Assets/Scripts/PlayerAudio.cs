@@ -8,7 +8,8 @@ public class PlayerAudio : MonoBehaviour
     AudioSource[]  MovementAudios;
     void Start()
     {
-      MovementAudios = gameObject.GetComponents<AudioSource>();  
+      MovementAudios = gameObject.GetComponents<AudioSource>();
+      MovementAudios[3].enabled = true;  
     }
 
     // Update is called once per frame
