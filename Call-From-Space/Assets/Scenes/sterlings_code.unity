@@ -16022,6 +16022,7 @@ MonoBehaviour:
   holdPos: {fileID: 439229296}
   cam: {fileID: 963194227}
   weight: 1
+  objName: 
 --- !u!1 &1076010664
 GameObject:
   m_ObjectHideFlags: 0
@@ -29382,6 +29383,7 @@ MonoBehaviour:
   holdPos: {fileID: 439229296}
   cam: {fileID: 963194227}
   weight: 0
+  objName: Fuel Cell
 --- !u!54 &1968838076
 Rigidbody:
   m_ObjectHideFlags: 0
