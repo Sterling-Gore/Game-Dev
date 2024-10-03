@@ -32,22 +32,34 @@ public class ValveInteractable : Interactable
     public override void Interact()
     {
         //gameobject.animate
-        
-        if(isOn)
+        isOn = !isOn;
+        UpdateMaterial();
+        animation.SetTrigger(isOn ? "On" : "Off");
+        StartCoroutine(AdjustPressureAfterDelay());
+        //if (isOn)
+        //{
+        //    controller.AdjustPressure(-1* GaugeVal1, -1* GaugeVal2);
+        //    animation.SetTrigger("Off");
+        //}
+        //else
+        //{
+        //    controller.AdjustPressure(GaugeVal1, GaugeVal2);
+        //    animation.SetTrigger("On");
+        //}
+        //valveController.ToggleValve();
+    }
+
+    private System.Collections.IEnumerator AdjustPressureAfterDelay()
+    {
+        yield return new WaitForSeconds(0.2f);
+        if (isOn)
         {
-            controller.AdjustPressure(-1* GaugeVal1, -1* GaugeVal2);
-            animation.SetTrigger("Off");
+            controller.AdjustPressure(GaugeVal1, GaugeVal2);
         }
         else
         {
-            controller.AdjustPressure(GaugeVal1, GaugeVal2);
-            animation.SetTrigger("On");
+            controller.AdjustPressure(-GaugeVal1, -GaugeVal2);
         }
-        
-        isOn = !isOn;
-        UpdateMaterial();
-
-        //valveController.ToggleValve();
     }
 
     public void setGaugeVals(int val1, int val2)
