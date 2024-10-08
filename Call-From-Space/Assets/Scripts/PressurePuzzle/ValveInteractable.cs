@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System.IO;
+using UnityEngine.Networking;
 
 public class ValveInteractable : Interactable
 {
@@ -14,9 +16,13 @@ public class ValveInteractable : Interactable
 
     public Material offMaterial;
     public Material onMaterial;
+    
+    public AudioSource audioSource;
 
+    
     void Start()
     {
+        
         controller = valveManager.GetComponent<ValvePuzzleSetup>();
         animation = GetComponent<Animator>();
         lightRenderer = transform.Find("Light").GetComponent<Renderer>();
@@ -31,22 +37,58 @@ public class ValveInteractable : Interactable
 
     public override void Interact()
     {
-        //gameobject.animate
         isOn = !isOn;
         UpdateMaterial();
         animation.SetTrigger(isOn ? "On" : "Off");
+        PlaySound();
         StartCoroutine(AdjustPressureAfterDelay());
-        //if (isOn)
-        //{
-        //    controller.AdjustPressure(-1* GaugeVal1, -1* GaugeVal2);
-        //    animation.SetTrigger("Off");
-        //}
-        //else
-        //{
-        //    controller.AdjustPressure(GaugeVal1, GaugeVal2);
-        //    animation.SetTrigger("On");
-        //}
-        //valveController.ToggleValve();
+    }
+    
+    private void PlaySound()
+    {
+        string soundPath = Path.Combine(Application.dataPath, "Sound", "Valves");
+        DirectoryInfo dir = new DirectoryInfo(soundPath);
+        FileInfo[] info = dir.GetFiles("*.mp3");
+        
+        if (info.Length == 0)
+        {
+            Debug.LogWarning("No .mp3 files found in the Sound/Valves folder!");
+            return;
+        }
+
+        string randomFile = info[Random.Range(0, info.Length)].FullName;
+        StartCoroutine(LoadAndPlayAudio(randomFile));
+    }
+
+    private System.Collections.IEnumerator LoadAndPlayAudio(string path)
+    {
+        using UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip("file://" + path, AudioType.MPEG);
+        yield return www.SendWebRequest();
+
+        if (www.result == UnityWebRequest.Result.Success)
+        {
+            AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
+            if (clip)
+            {
+                if (audioSource)
+                {
+                    audioSource.clip = clip;
+                    audioSource.Play();
+                }
+                else
+                {
+                    Debug.LogWarning("Audio source not found on the valve object!");
+                }
+            }
+            else
+            {
+                Debug.LogError("Failed to create AudioClip from file: " + path);
+            }
+        }
+        else
+        {
+            Debug.LogError("Error loading audio file: " + www.error);
+        }
     }
 
     private System.Collections.IEnumerator AdjustPressureAfterDelay()
@@ -70,7 +112,7 @@ public class ValveInteractable : Interactable
 
     public void UpdateMaterial()
     {
-        if (lightRenderer != null)
+        if (lightRenderer)
         {
             lightRenderer.material = isOn ? onMaterial : offMaterial;
         }
