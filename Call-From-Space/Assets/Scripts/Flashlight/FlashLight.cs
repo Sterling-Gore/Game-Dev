@@ -5,10 +5,13 @@ using UnityEngine;
 public class Flashlight : MonoBehaviour
 {
     Light light;
-    
+    public AudioSource audioSource;
+    public AudioClip flashlightSoundOn;
+    public AudioClip flashlightSoundOff;
+
     void Start()
     {
-
+        
         light = GetComponent<Light>();
     }
 
@@ -17,9 +20,19 @@ public class Flashlight : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.F))
         {
+            if (light.enabled)
+            {
+                audioSource.clip = flashlightSoundOff;
+            }
+            else
+            {
+                audioSource.clip = flashlightSoundOn;
+            }
+            audioSource.Play();
             light.enabled = !light.enabled;
         }
     } 
       
+    
 
 }
