@@ -20,15 +20,8 @@ public class Flashlight : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.F))
         {
-            if (light.enabled)
-            {
-                audioSource.clip = flashlightSoundOff;
-            }
-            else
-            {
-                audioSource.clip = flashlightSoundOn;
-            }
-            audioSource.Play();
+            audioSource.clip = light.enabled ? flashlightSoundOff : flashlightSoundOn;
+            audioSource.PlayOneShot(clip: audioSource.clip);
             light.enabled = !light.enabled;
         }
     } 
