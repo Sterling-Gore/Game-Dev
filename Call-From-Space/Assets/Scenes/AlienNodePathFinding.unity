@@ -29317,6 +29317,7 @@ MonoBehaviour:
   special: 0
   interactionType: 0
   GenUI: {fileID: 961809484}
+  player: {fileID: 0}
 --- !u!1 &1859101490
 GameObject:
   m_ObjectHideFlags: 0
