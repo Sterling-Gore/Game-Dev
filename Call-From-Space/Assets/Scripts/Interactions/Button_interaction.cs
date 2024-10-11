@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
-
 
 public class Button_interaction : Interactable
 {
@@ -14,17 +10,27 @@ public class Button_interaction : Interactable
     public Texture redTexture;
     public Texture greenTexture;
 
+    public AudioSource audioSource;
+    public AudioClip buttonClickSound;
+    public AudioClip doorOpenSound;
+    
 
     void Start()
     {   
         myMaterial.mainTexture = redTexture;
         _doorOpened = false;
-        //doorMove = door.GetComponent<DoorMovement>();
         _doorAnimator = GetComponent<Animator>();
         
+        if (!audioSource)
+        {
+            audioSource = GetComponent<AudioSource>();
+            if (!audioSource)
+            {
+                audioSource = gameObject.AddComponent<AudioSource>();
+            }
+        }
+        audioSource.playOnAwake = false;
     }
-
-    
 
     public override string GetDescription()
     {
@@ -36,14 +42,34 @@ public class Button_interaction : Interactable
 
     public override void Interact()
     {
-        if (!_doorOpened){
+        if (!_doorOpened)
+        {
             _doorAnimator.SetTrigger("open");
             myMaterial.mainTexture = greenTexture;
+            
+            PlaySound(buttonClickSound);
+            
+            StartCoroutine(PlayDelayedSound(doorOpenSound, 0.5f));
+            
+            _doorOpened = true;
         }
-        _doorOpened = true;
-        
     }
     
-
-
+    private void PlaySound(AudioClip clip)
+    {
+        if (audioSource  && clip )
+        {
+            audioSource.PlayOneShot(clip);
+        }
+        else
+        {
+            Debug.LogWarning("AudioSource or AudioClip is missing!");
+        }
+    }
+    
+    private System.Collections.IEnumerator PlayDelayedSound(AudioClip clip, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        PlaySound(clip);
+    }
 }

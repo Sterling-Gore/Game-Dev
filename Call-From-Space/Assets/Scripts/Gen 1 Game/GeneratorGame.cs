@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Gen_1_Game;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;  
@@ -21,6 +22,7 @@ public class GeneratorGame : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public GameObject Player_for_interactor;
     public Interactor interactor;
     public GameObject gen;
+    public GeneratorAudio generatorAudio;
 
     void Update() {
       if (Input.GetKeyDown(KeyCode.Escape)) {
@@ -113,6 +115,11 @@ public class GeneratorGame : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
         //generatorUI.SetActive(false);
         //interactor.inUI = false;
+
+        if (generatorAudio != null)
+        {
+            generatorAudio.TurnOnGenerator();
+        }
     }
 
     public void updateImage(bool correctCode){
