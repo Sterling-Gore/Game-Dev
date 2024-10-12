@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.IO;
 using UnityEngine.Networking;
+using System.Collections;
 
 public class ValveInteractable : Interactable
 {
@@ -18,8 +19,8 @@ public class ValveInteractable : Interactable
     public Material onMaterial;
     
     public AudioSource audioSource;
+    private Collider valveCollider;
 
-    
     void Start()
     {
         
@@ -28,6 +29,7 @@ public class ValveInteractable : Interactable
         lightRenderer = transform.Find("Light").GetComponent<Renderer>();
         isOn = false;
         UpdateMaterial();
+        valveCollider = GetComponent<Collider>();
     }
 
     public override string GetDescription()
@@ -37,13 +39,20 @@ public class ValveInteractable : Interactable
 
     public override void Interact()
     {
+        StartCoroutine(InteractSequence());
+    }
+
+    private IEnumerator InteractSequence()
+    {
+        valveCollider.enabled = false;
         isOn = !isOn;
         UpdateMaterial();
         animation.SetTrigger(isOn ? "On" : "Off");
         PlaySound();
-        StartCoroutine(AdjustPressureAfterDelay());
+        yield return StartCoroutine(AdjustPressureAfterDelay());
+        valveCollider.enabled = true;
     }
-    
+
     private void PlaySound()
     {
         string soundPath = Path.Combine(Application.dataPath, "Sound", "Valves");
