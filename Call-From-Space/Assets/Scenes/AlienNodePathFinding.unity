@@ -28974,14 +28974,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 362943805}
-  standardSpeed: 1
-  awarenessRadius: 100
+  speed: 2
   attackRadius: 1
+  awarenessRadius: 25
+  isAwareOfPlayer: 0
   mentalDelay: 1
-  timeSinceLastThought: 0
-  spaceDiscretization: 3
-  pathIndex: 0
-  canSeePlayer: 0
+  timeToLookAroundFor: 0.1
 --- !u!65 &1845224673
 BoxCollider:
   m_ObjectHideFlags: 0

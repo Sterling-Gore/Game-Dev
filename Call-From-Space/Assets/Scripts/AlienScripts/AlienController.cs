@@ -1,48 +1,33 @@
-using System.Collections.Generic;
 using UnityEngine;
-using Unity.Jobs;
-using Unity.Collections;
-using System.Linq;
 
 public class AlienController : MonoBehaviour
 {
     public GameObject player;
     GameObject endingScreen;
 
-    float speed;
-    bool isAwareOfPlayer = false;
 
-    public float standardSpeed;
-    public float awarenessRadius;
+    public float speed;
     public float attackRadius;
+    public float awarenessRadius;
+    public bool isAwareOfPlayer = false;
     public float mentalDelay = 5.0f;
-    public float timeSinceLastThought;
-    public int spaceDiscretization = 3;
-
-    JobHandle thoughtHandle;
-    bool hasStartedThinking = false;
-    List<Vector3> pathToPlayer = new();
-    public int pathIndex = 0;
-    const int maxPathLength = 30000;
+    public float timeToLookAroundFor;
 
     Rigidbody playerRb;
-    AlienBrain.PathGraph pathGraph;
-    NativeArray<Vector3> memoryBuffer;
-    NativeArray<int> memoryBufferLengthUsed;
+    public PathGraph pathGraph;
 
-    public bool canSeePlayer = false;
+    PathFindingController pathFinder;
+    RoamController roamer;
 
     void Start()
     {
         endingScreen = GameObject.Find("EndingScreen");
 
-        speed = standardSpeed;
         playerRb = player.GetComponent<Rigidbody>();
-        pathGraph = new AlienBrain.PathGraph(GameObject.Find("AlienPathNodes").transform);
-        memoryBuffer = new(maxPathLength, Allocator.Persistent);
-        memoryBufferLengthUsed = new(1, Allocator.Persistent);
+        pathGraph = new PathGraph(GameObject.Find("AlienPathNodes").transform);
 
-        thoughtHandle.Complete();
+        pathFinder = new(this);
+        roamer = new(this);
     }
 
     void Update()
@@ -55,16 +40,15 @@ public class AlienController : MonoBehaviour
                 isAwareOfPlayer = true;
                 AnnounceAwarenessOfPlayer();
             }
-            RoamAround();
+            roamer.RoamAround();
         }
         else
-            MoveTowardsPlayer();
+            HuntPlayer();
     }
 
     void OnDestroy()
     {
-        memoryBuffer.Dispose();
-        memoryBufferLengthUsed.Dispose();
+        pathFinder.Dispose();
         pathGraph.Dispose();
     }
 
@@ -78,12 +62,7 @@ public class AlienController : MonoBehaviour
 
     }
 
-    void RoamAround()
-    {
-
-    }
-
-    void MoveTowardsPlayer()
+    void HuntPlayer()
     {
         var directionToPlayer = player.transform.position - transform.position;
         var distanceToPlayer = Vector3.Magnitude(directionToPlayer);
@@ -92,17 +71,15 @@ public class AlienController : MonoBehaviour
         Debug.DrawRay(transform.position, directionToPlayer);
         if (j.rigidbody == playerRb)
         {
-            canSeePlayer = true;
             if (distanceToPlayer < attackRadius)
                 AttackPlayer();
             else
-                GoStraightToPlayer(directionToPlayer / distanceToPlayer);
+                GoStraightToPlayer();
         }
         else
         {
-            canSeePlayer = false;
-            CalculatePathPeriodically();
-            FollowPathToPlayer();
+            pathFinder.CalculatePathPeriodically();
+            pathFinder.FollowPath();
         }
     }
 
@@ -112,93 +89,29 @@ public class AlienController : MonoBehaviour
         gameOver.SetActive(true);
     }
 
-    void GoStraightToPlayer(Vector3 directionToPlayer)
+    void GoStraightToPlayer()
     {
-        var movement = speed * Time.deltaTime * new Vector3(directionToPlayer.x, 0, directionToPlayer.z);
-        transform.position += Vector3.ClampMagnitude(movement, 1f);
-        var playerPosition = player.transform.position;
-        playerPosition.y = transform.position.y;
-        transform.LookAt(playerPosition);
-
+        MoveTowards(player.transform.position);
         //don't go back to path just recalculate path
-        pathIndex = 0;
+        pathFinder.Recalculate();
     }
 
-    void FollowPathToPlayer()
+    /// <returns>true if reached target </returns>
+    public bool MoveTowards(Vector3 target)
     {
-        if (pathIndex < 0 || pathToPlayer.Count == 0)
-            return;
-        var nextPathPoint = pathToPlayer[pathIndex];
-        var directionToPath = nextPathPoint - transform.position;
-        Debug.DrawRay(transform.position, directionToPath, Color.cyan);
-        pathToPlayer.ForEach(point => Debug.DrawRay(point, Vector3.up * 100, Color.blue));
+        var directionToTarget = target - transform.position;
+        directionToTarget.y = 0;
+        var distanceToTarget = directionToTarget.magnitude;
+        directionToTarget.Normalize();
 
-        directionToPath.y = 0;
-        var distanceToPath = directionToPath.magnitude;
-        directionToPath.Normalize();
         var dPos = speed * Time.deltaTime;
-        var movement = dPos * directionToPath;
+        var movement = dPos * directionToTarget;
         transform.position += Vector3.ClampMagnitude(movement, 1f);
 
-        nextPathPoint.y = transform.position.y;
-        transform.LookAt(nextPathPoint);
+        target.y = transform.position.y;
+        transform.LookAt(target);
 
-        if (distanceToPath <= dPos)//close enough to path point, move on
-            pathIndex--;
-    }
-
-    void CalculatePathPeriodically()
-    {
-        timeSinceLastThought += Time.deltaTime;
-
-        if (ShouldRecalculatePath())
-        {
-            if (hasStartedThinking)
-            {
-                thoughtHandle.Complete();
-                CopyPathToPlayer();
-            }
-
-            timeSinceLastThought = 0;
-
-            thoughtHandle = new AlienBrain.AlienThought
-            {
-                maxPathLength = maxPathLength,
-                spaceDiscretization = spaceDiscretization,
-                alienPosition = transform.position,
-                playerPosition = player.transform.position,
-                pathToPlayer = memoryBuffer,
-                graph = pathGraph.WithPositions(transform.position, player.transform.position),
-                lengthOfPath = memoryBufferLengthUsed
-            }.Schedule();
-
-            hasStartedThinking = true;
-        }
-    }
-
-    void CopyPathToPlayer()
-    {
-        pathToPlayer.Clear();
-        pathToPlayer.Capacity = memoryBufferLengthUsed[0];
-        for (int i = 0; i < memoryBufferLengthUsed[0]; ++i)
-            pathToPlayer.Add(memoryBuffer[i]);
-
-        pathIndex = pathToPlayer.Count - 1;
-    }
-
-    bool ShouldRecalculatePath()
-    {
-        if (timeSinceLastThought < mentalDelay || pathIndex > 0)
-            return false;
-        if (pathToPlayer.Count == 0)
-            return true;
-        return true;
-
-        // var pathEnd = pathToPlayer[0];
-        // var directionToPlayer = player.transform.position - pathEnd;
-        // Physics.Raycast(pathEnd, directionToPlayer, out RaycastHit j, directionToPlayer.magnitude);
-
-        // return j.rigidbody != playerRb;
+        return distanceToTarget <= dPos;
     }
 }
 
