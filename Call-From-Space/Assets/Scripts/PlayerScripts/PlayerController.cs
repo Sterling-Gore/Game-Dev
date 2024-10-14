@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("UI")]
     Interactor interactor;
+    public GameObject pauseMenuUI;
+    public bool isPaused = false;
 
     
 
@@ -115,7 +117,24 @@ public class PlayerController : MonoBehaviour
             
         }
 
-        
+       if (Input.GetKeyUp(KeyCode.Escape)) {
+            if (isPaused) {
+                Resume();
+            } else {
+                Pause();
+            }
+        }
+    }
+    public void Resume() {
+        pauseMenuUI.SetActive(false);
+        Time.timeScale = 1f;
+        isPaused = false;
+    }
+
+    public void Pause() {
+        pauseMenuUI.SetActive(true);
+        Time.timeScale = 0f;
+        isPaused = true;
     }
 
   
