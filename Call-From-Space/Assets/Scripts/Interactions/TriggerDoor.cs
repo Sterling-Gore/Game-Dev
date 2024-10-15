@@ -14,6 +14,7 @@ public class TriggerDoor : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log("YAAAAAAAAAAAAS");
         if (other.CompareTag("Player")){  // !!!!!!!!  LATER: will add alien tag 
             _doorAnimator.SetTrigger("Open");
         }
