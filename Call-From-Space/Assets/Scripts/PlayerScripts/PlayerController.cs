@@ -75,33 +75,33 @@ public class PlayerController : MonoBehaviour
     }
 
     void Update()
-{
-    MyInput();
-    SpeedControl();
-    rb.drag = groundDrag;
-
-    if (oxygenSystem != null)
     {
-        // Adjust oxygen based on movement
-        if (rb.velocity.magnitude > 0.1f) // Check if the player is moving
+        MyInput();
+        SpeedControl();
+        rb.drag = groundDrag;
+
+        if (oxygenSystem != null)
         {
-            if (Input.GetKey(KeyCode.LeftShift))
+            // Adjust oxygen based on movement
+            if (rb.velocity.magnitude > 0.1f) // Check if the player is moving
             {
-                // Running
-                oxygenSystem.DecreaseOxygen(runningOxygenCost * Time.deltaTime);
-            }
-            else
-            {
-                // Walking
-                oxygenSystem.DecreaseOxygen(walkingOxygenCost * Time.deltaTime);
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    // Running
+                    oxygenSystem.DecreaseOxygen(runningOxygenCost * Time.deltaTime);
+                }
+                else
+                {
+                    // Walking
+                    oxygenSystem.DecreaseOxygen(walkingOxygenCost * Time.deltaTime);
+                }
             }
         }
+        else
+        {
+            Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
+        }
     }
-    else
-    {
-        Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
-    }
-}
 
     void MyInput()
     {
