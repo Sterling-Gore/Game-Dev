@@ -20,13 +20,13 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.3679245, g: 0.31065324, b: 0.31065324, a: 1}
+  m_AmbientSkyColor: {r: 0.6981132, g: 0.6948202, b: 0.6948202, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -19016,6 +19016,132 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2120687746}
   m_SourcePrefab: {fileID: 100100000, guid: b5da909719d3bdf4b9910ba8fbd1a1d6, type: 3}
+--- !u!1001 &1608064673
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 9373cb65e573a944da7a5ad9de915ff4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9373cb65e573a944da7a5ad9de915ff4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9373cb65e573a944da7a5ad9de915ff4, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9373cb65e573a944da7a5ad9de915ff4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -56.42446
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9373cb65e573a944da7a5ad9de915ff4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.71
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9373cb65e573a944da7a5ad9de915ff4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 21.251472
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9373cb65e573a944da7a5ad9de915ff4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9373cb65e573a944da7a5ad9de915ff4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9373cb65e573a944da7a5ad9de915ff4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9373cb65e573a944da7a5ad9de915ff4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9373cb65e573a944da7a5ad9de915ff4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9373cb65e573a944da7a5ad9de915ff4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9373cb65e573a944da7a5ad9de915ff4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9373cb65e573a944da7a5ad9de915ff4, type: 3}
+      propertyPath: m_Name
+      value: Clean-Alien-4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9373cb65e573a944da7a5ad9de915ff4, type: 3}
+--- !u!1001 &1608924198
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: a3691aa583165ab478da37570c69bc11, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -54.56566
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3691aa583165ab478da37570c69bc11, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.21
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3691aa583165ab478da37570c69bc11, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 27.025017
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3691aa583165ab478da37570c69bc11, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3691aa583165ab478da37570c69bc11, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3691aa583165ab478da37570c69bc11, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3691aa583165ab478da37570c69bc11, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3691aa583165ab478da37570c69bc11, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3691aa583165ab478da37570c69bc11, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3691aa583165ab478da37570c69bc11, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a3691aa583165ab478da37570c69bc11, type: 3}
+      propertyPath: m_Name
+      value: Crouched Walking-NewAlien
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a3691aa583165ab478da37570c69bc11, type: 3}
 --- !u!1 &1612320034
 GameObject:
   m_ObjectHideFlags: 0
@@ -27284,3 +27410,5 @@ SceneRoots:
   - {fileID: 1277141564}
   - {fileID: 899926711}
   - {fileID: 1226977675}
+  - {fileID: 1608064673}
+  - {fileID: 1608924198}
