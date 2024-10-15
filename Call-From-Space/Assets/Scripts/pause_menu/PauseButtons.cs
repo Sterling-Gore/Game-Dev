@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -11,13 +8,19 @@ public class PauseButtons : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public Color glowColor = new Color32(8, 248, 255, 255);
     public float glowIntensity = 1.5f;
     private Color originalColor;
-    private PlayerController player;
+    public GameObject player;
+
+    PlayerController playercontroller;
+    Interactor interactor;
 
     void Start() {
         if (buttonText == null) {
             buttonText = GetComponentInChildren<TextMeshProUGUI>();
         }
         originalColor = buttonText.color;
+
+        playercontroller = player.GetComponent<PlayerController>();
+        interactor = player.GetComponent<Interactor>();
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
@@ -29,8 +32,9 @@ public class PauseButtons : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     }
     public void Resume() {
         if (player != null) {
-            player.isPaused = false;
-            player.pauseMenuUI.SetActive(false);
+            interactor.inUI = false;
+            playercontroller.isPaused = false;
+            playercontroller.pauseMenuUI.SetActive(false);
             Time.timeScale = 1f;
         }
     }

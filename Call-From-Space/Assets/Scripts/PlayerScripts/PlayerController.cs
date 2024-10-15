@@ -126,12 +126,14 @@ public class PlayerController : MonoBehaviour
         }
     }
     public void Resume() {
+        interactor.inUI = false;
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
     }
 
     public void Pause() {
+        interactor.inUI = true;
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
