@@ -12,7 +12,6 @@ public class CameraSwapper : MonoBehaviour
     List<Camera> securityCameras;
     Camera activeSecurityCamera;
     RenderTexture activeCameraTexture;
-    GUILayoutOption[] cameraViewOptions;
     bool openManager=false;
 
 
@@ -26,23 +25,24 @@ public class CameraSwapper : MonoBehaviour
                                 .Where(camera => camera.CompareTag(SECURITY_CAMERA))
                                 .ToList();
         securityCameras.ForEach(camera => camera.targetTexture = new RenderTexture(512, 512, 16));
-        var cameraViewWidth = Screen.width / securityCameras.Count;
-        var cameraViewHeight = Screen.height / securityCameras.Count;
-        cameraViewOptions = new []{ GUILayout.Width(cameraViewWidth), GUILayout.Height(cameraViewHeight) };
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.C))
             ToggleManagerWindow();
     }
 
     private void OnGUI()
     {
-        if (!openManager)
+        if (!openManager || securityCameras.Count==0)
             return;
+        
+        var cameraViewWidth = Screen.width / securityCameras.Count;
+        var cameraViewHeight = Screen.height / securityCameras.Count;
+        var cameraViewOptions = new []{ GUILayout.Width(cameraViewWidth), GUILayout.Height(cameraViewHeight) };
 
-        GUILayout.Box("choose a camera");
+        // GUILayout.Box("choose a camera");
         GUILayout.BeginHorizontal();
         securityCameras.ForEach(camera =>
         {

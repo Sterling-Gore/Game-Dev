@@ -26,7 +26,11 @@ public class ValvePuzzleSetup : MonoBehaviour
     public Material GaugeMat3;
     public Material GaugeMat4;
     public Material GaugeMat5;
+    
+    public AudioSource audioSource;
+    public AudioClip airlockOpenSound;
 
+    private bool airlockOpened = false;
 
     void Start()
     {
@@ -48,7 +52,10 @@ public class ValvePuzzleSetup : MonoBehaviour
         Text[1].text = GaugeValues[1].ToString();
         updateMaterial();
         
-        
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
        
 
     }
@@ -56,7 +63,7 @@ public class ValvePuzzleSetup : MonoBehaviour
     void Update()
     {
         
-        if (CheckPuzzleCompletion())
+        if (!airlockOpened && CheckPuzzleCompletion())
         {
             OpenAirlock();
         }
@@ -74,12 +81,21 @@ public class ValvePuzzleSetup : MonoBehaviour
 
     private void OpenAirlock()
     {
+        if (airlockOpened)
+        {
+            return;
+        }
+        airlockOpened = true;
         for( int i = 0; i < 4; i++)
         {
             valves[i].GetComponent<Collider>().enabled = false;
         }
         //door.GetComponent<Collider>().enabled = true;
         door.GetComponent<Animator>().SetTrigger("Open");
+        if (audioSource  && airlockOpenSound )
+        {
+            audioSource.PlayOneShot(airlockOpenSound);
+        }
     }
 
     void updateMaterial()
