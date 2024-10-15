@@ -28427,7 +28427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 362943805}
-  standardSpeed: 5
+  standardSpeed: 0
   isAwareOfPlayer: 0
   awarenessRadius: 1000000
   attackRadius: 0
@@ -35046,7 +35046,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 362943805}
-  standardSpeed: 5
+  standardSpeed: 0
   isAwareOfPlayer: 0
   awarenessRadius: 10000000
   attackRadius: 2
