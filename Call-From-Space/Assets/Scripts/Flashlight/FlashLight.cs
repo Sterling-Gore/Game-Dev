@@ -5,11 +5,15 @@ using UnityEngine;
 public class Flashlight : MonoBehaviour
 {
     Light light;
-    
-    void Start()
-    {
+    public bool playSound;
+    public AudioSource audioSource;
+    public AudioClip flashlightSoundOn;
+    public AudioClip flashlightSoundOff;
 
+    void Start()
+    { 
         light = GetComponent<Light>();
+        light.enabled = false;
     }
 
     
@@ -17,9 +21,15 @@ public class Flashlight : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.F))
         {
+            if (playSound)
+            {
+                audioSource.clip = light.enabled ? flashlightSoundOff : flashlightSoundOn;
+                audioSource.PlayOneShot(clip: audioSource.clip);
+            }
             light.enabled = !light.enabled;
         }
     } 
       
+    
 
 }

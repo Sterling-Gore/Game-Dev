@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameDev.Scripts.Oxygen; // Replace 'GameDev' with your actual project root namespace
 
 public class PlayerController : MonoBehaviour
 {
-
     [Header("Movement")]
     public float standard_speed = 2f;
     float speed;
@@ -37,7 +37,10 @@ public class PlayerController : MonoBehaviour
     [Header("UI")]
     Interactor interactor;
 
-    
+    [Header("Oxygen System")]
+    public OxygenSystem oxygenSystem;
+    public float runningOxygenCost = 2f;
+    public float walkingOxygenCost = 0.5f;
 
     void Start()
     {
@@ -55,31 +58,56 @@ public class PlayerController : MonoBehaviour
 
         interactor = gameObject.GetComponent<Interactor>();
 
-
-        
+        if (oxygenSystem != null)
+        {
+            Debug.Log("OxygenSystem is assigned in PlayerController.");
+        }
+        else
+        {
+            Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
+        }
     }
 
     void FixedUpdate()
     {
-        if(!interactor.inUI)
+        if (!interactor.inUI)
             MovePlayer();
-        
     }
 
     void Update()
+{
+    MyInput();
+    SpeedControl();
+    rb.drag = groundDrag;
+
+    if (oxygenSystem != null)
     {
-        MyInput();
-        SpeedControl();
-        rb.drag = groundDrag;
-        
+        // Adjust oxygen based on movement
+        if (rb.velocity.magnitude > 0.1f) // Check if the player is moving
+        {
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                // Running
+                oxygenSystem.DecreaseOxygen(runningOxygenCost * Time.deltaTime);
+            }
+            else
+            {
+                // Walking
+                oxygenSystem.DecreaseOxygen(walkingOxygenCost * Time.deltaTime);
+            }
+        }
     }
+    else
+    {
+        Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
+    }
+}
 
     void MyInput()
     {
         HorizInput = Input.GetAxisRaw("Horizontal");
         VertInput = Input.GetAxisRaw("Vertical");
 
-        
         if (Input.GetKey("left shift"))
         {
             speed = standard_speed * 2f;
@@ -88,48 +116,45 @@ public class PlayerController : MonoBehaviour
         {
             speed = standard_speed * .5f;
         }
-        else{
+        else
+        {
             speed = standard_speed;
         }
-       
-        
+
         //for the actual scale of the crouch collider
         if (Input.GetKeyDown("left ctrl"))
         {
-            transform.localScale = new Vector3(transform.localScale.x, yscale/2, transform.localScale.z);
+            transform.localScale = new Vector3(transform.localScale.x, yscale / 2, transform.localScale.z);
             rb.AddForce(Vector3.down * 6f, ForceMode.Impulse);
         }
-        else if (Input.GetKeyUp("left ctrl")){
+        else if (Input.GetKeyUp("left ctrl"))
+        {
             speed = standard_speed;
             transform.localScale = new Vector3(transform.localScale.x, yscale, transform.localScale.z);
             rb.AddForce(Vector3.down * 6f, ForceMode.Impulse);
         }
 
         //toggle inventory
-        if(Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I))
         {
-            if(!gameObject.GetComponent<Interactor>().isHolding){
-                toggleInventory();  
+            if (!gameObject.GetComponent<Interactor>().isHolding)
+            {
+                toggleInventory();
             }
-                 
-            
         }
-
-        
     }
 
-  
     public void toggleInventory()
     {
         showInventory = !showInventory;
         //if im in inventory, then i am in a UI
-        if(showInventory)
+        if (showInventory)
             interactor.inUI = true;
         else
             interactor.inUI = false;
         InventoryObject.SetActive(showInventory);
-            
-        if(showInventory)
+
+        if (showInventory)
         {
             uiInvetory.refresh();
         }
@@ -141,10 +166,9 @@ public class PlayerController : MonoBehaviour
 
         if (OnSlope())
             rb.AddForce(GetSlopeMoveDirection() * speed * 10f, ForceMode.Force);
-
-            
-        else{
-            rb.AddForce(moveDirection.normalized * speed  * 10f, ForceMode.Force);
+        else
+        {
+            rb.AddForce(moveDirection.normalized * speed * 10f, ForceMode.Force);
         }
 
         rb.useGravity = !OnSlope();
@@ -152,31 +176,31 @@ public class PlayerController : MonoBehaviour
 
     void SpeedControl()
     {
-
         //limiting speed on slope
-        if(OnSlope())
+        if (OnSlope())
         {
-            if(rb.velocity.magnitude > speed)
+            if (rb.velocity.magnitude > speed)
             {
                 rb.velocity = rb.velocity.normalized * speed;
             }
-                
         }
-        else{ //not on slope
+        else
+        { //not on slope
             Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
             //limit velocity
-            if(flatVel.magnitude > speed)
+            if (flatVel.magnitude > speed)
             {
                 Vector3 limitedVel = flatVel.normalized * speed;
-                rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z); 
+                rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
             }
         }
     }
 
     bool OnSlope()
     {
-        if(Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.1f)){
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.1f))
+        {
             float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
             return angle < maxSlope && angle != 0;
         }
@@ -187,5 +211,4 @@ public class PlayerController : MonoBehaviour
     {
         return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
     }
-
 }
