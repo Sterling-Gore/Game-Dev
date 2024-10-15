@@ -3,17 +3,31 @@ using UnityEngine.UI;
 
 namespace GameDev.Scripts.Oxygen
 {
-    public class OxygenStation : MonoBehaviour
+    public class OxygenStation : Interactable
     {
-        public Text interactionText; // Reference to the UI Text component
+        //public Text interactionText; // Reference to the UI Text component
 
         private void Start()
         {
-            if (interactionText != null)
-            {
-                interactionText.gameObject.SetActive(false); // Hide the text initially
-            }
+            //if (interactionText != null)
+            //{
+            //    interactionText.gameObject.SetActive(false); // Hide the text initially
+            //}
         }
+
+        public override string GetDescription()
+        {
+            
+            return ("Oxygen Station");
+        }
+
+        public override void Interact()
+        {
+            Debug.Log("test");
+            // fill this with the oxygen refill logic
+        }
+
+        /*
 
         private void OnTriggerStay(Collider other)
         {
@@ -49,5 +63,6 @@ namespace GameDev.Scripts.Oxygen
                 }
             }
         }
+        */
     }
 }
