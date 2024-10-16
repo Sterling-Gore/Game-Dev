@@ -60,11 +60,11 @@ public class PlayerController : MonoBehaviour
 
         if (oxygenSystem != null)
         {
-            Debug.Log("OxygenSystem is assigned in PlayerController.");
+            //Debug.Log("OxygenSystem is assigned in PlayerController.");
         }
         else
         {
-            Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
+            //Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
         }
     }
 
@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
     }
     else
     {
-        Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
+        //Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
     }
 }
 
