@@ -7,6 +7,7 @@ public class LaserScript : MonoBehaviour
     private LineRenderer lr;
     [SerializeField]
     private Transform startPoint;
+    public bool on = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,18 +20,26 @@ public class LaserScript : MonoBehaviour
     {
         lr.SetPosition(0, startPoint.position);
         RaycastHit hit;
-        if(Physics.Raycast(transform.position, - transform.right, out hit))
+        if(on)
         {
-            if (hit.collider)
+            if(Physics.Raycast(transform.position, - transform.right, out hit))
             {
-                lr.SetPosition(1, hit.point);
+                if (hit.collider)
+                {
+                    lr.SetPosition(1, hit.point);
+                }
+                
             }
-            
+            else
+            {
+                lr.SetPosition(1, -transform.right *5000);
+            }
         }
         else
         {
-            lr.SetPosition(1, -transform.right *5000);
+            lr.SetPosition(1, startPoint.position);
         }
+        
         
     }
 }
