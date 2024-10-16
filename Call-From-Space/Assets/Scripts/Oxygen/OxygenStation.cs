@@ -17,14 +17,21 @@ namespace GameDev.Scripts.Oxygen
 
         public override string GetDescription()
         {
-            
             return ("Oxygen Station");
         }
 
         public override void Interact()
         {
-            Debug.Log("test");
-            // fill this with the oxygen refill logic
+            Debug.Log("Starting to refill oxygen...");
+            OxygenSystem oxygenSystem = gameObject.GetComponent<OxygenSystem>(); // Get the OxygenSystem component
+            if (oxygenSystem != null)
+            {
+                oxygenSystem.RefillOxygen(); // Call the RefillOxygen method
+            }
+            else
+            {
+                Debug.Log("No OxygenSystem component found.");
+            }
         }
 
         /*
