@@ -10,11 +10,13 @@ public class LaserScript : MonoBehaviour
     public bool on = false;
     LaserScript previousLaserReflector;
     public bool isEndPoint = false;
+    public LayerMask ignoreCollider;
     // Start is called before the first frame update
     void Start()
     {
         lr = GetComponent<LineRenderer>();
         previousLaserReflector = null;
+        ignoreCollider = ~ignoreCollider;
         
     }
 
@@ -27,7 +29,7 @@ public class LaserScript : MonoBehaviour
             RaycastHit hit;
             if(on)
             {
-                if(Physics.Raycast(transform.position, - transform.right, out hit))
+                if(Physics.Raycast(transform.position, - transform.right, out hit, 500, ignoreCollider))
                 {
                     if (hit.collider)
                     {
@@ -51,7 +53,7 @@ public class LaserScript : MonoBehaviour
                 else
                 {
                     checkPreviousReflector();
-                    lr.SetPosition(1, -transform.right *5000);
+                    lr.SetPosition(1, -transform.right *500);
                 }
             }
             else
