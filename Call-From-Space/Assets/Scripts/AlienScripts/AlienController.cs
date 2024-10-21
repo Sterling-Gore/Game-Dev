@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AlienController : MonoBehaviour
@@ -6,28 +7,48 @@ public class AlienController : MonoBehaviour
     GameObject endingScreen;
 
 
-    public float speed;
     public float attackRadius;
     public float awarenessRadius;
     public bool isAwareOfPlayer = false;
     public float mentalDelay = 5.0f;
     public float timeToLookAroundFor;
+    public int roamingPathPointMemory;
+    public float turnRadius;
+    public float turnSpeed;
+    public float walkSpeed;
+    public float runSpeed;
+    public float tiredSpeed;
+    public float restingPeriod;
+    public float walkingStamina;
+    public float runningStamina;
+
+    float curSpeed;
+    float nextSpeed;
+    float timeInSpeed;
 
     Rigidbody playerRb;
     public PathGraph pathGraph;
 
     PathFindingController pathFinder;
     RoamController roamer;
+    public Transform head;
 
     void Start()
     {
         endingScreen = GameObject.Find("EndingScreen");
 
         playerRb = player.GetComponent<Rigidbody>();
-        pathGraph = new PathGraph(GameObject.Find("AlienPathNodes").transform);
+        pathGraph = new PathGraph(new() {
+            GameObject.Find("AlienPathNodesA").transform,
+            GameObject.Find("AlienPathNodesB").transform,
+            GameObject.Find("AlienPathNodesC").transform
+        });
 
         pathFinder = new(this);
         roamer = new(this);
+
+        head = GameObject.Find("spine.005").transform;
+        curSpeed = nextSpeed = walkSpeed;
     }
 
     void Update()
@@ -40,6 +61,7 @@ public class AlienController : MonoBehaviour
                 isAwareOfPlayer = true;
                 AnnounceAwarenessOfPlayer();
             }
+            nextSpeed = walkSpeed;
             roamer.RoamAround();
         }
         else
@@ -71,6 +93,7 @@ public class AlienController : MonoBehaviour
         Debug.DrawRay(transform.position, directionToPlayer);
         if (j.rigidbody == playerRb)
         {
+            nextSpeed = runSpeed;
             if (distanceToPlayer < attackRadius)
                 AttackPlayer();
             else
@@ -78,6 +101,7 @@ public class AlienController : MonoBehaviour
         }
         else
         {
+            nextSpeed = walkSpeed;
             pathFinder.CalculatePathPeriodically();
             pathFinder.FollowPath();
         }
@@ -99,19 +123,36 @@ public class AlienController : MonoBehaviour
     /// <returns>true if reached target </returns>
     public bool MoveTowards(Vector3 target)
     {
-        var directionToTarget = target - transform.position;
-        directionToTarget.y = 0;
-        var distanceToTarget = directionToTarget.magnitude;
-        directionToTarget.Normalize();
-
-        var dPos = speed * Time.deltaTime;
-        var movement = dPos * directionToTarget;
-        transform.position += Vector3.ClampMagnitude(movement, 1f);
-
         target.y = transform.position.y;
-        transform.LookAt(target);
+        var targetRotation = Quaternion.LookRotation(target - transform.position);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * turnSpeed);
 
-        return distanceToTarget <= dPos;
+        var dPos = CurSpeed() * Time.deltaTime;
+        transform.Translate(Vector3.forward * dPos);
+
+        return Vector3.Distance(transform.position, target) <= dPos;
+    }
+
+    float CurSpeed()
+    {
+        timeInSpeed += Time.deltaTime;
+        if (curSpeed == runSpeed && timeInSpeed > runningStamina)
+        {
+            curSpeed = walkSpeed;
+            timeInSpeed = 0;
+        }
+        else if (curSpeed == walkSpeed && timeInSpeed > walkingStamina)
+        {
+            curSpeed = tiredSpeed;
+            timeInSpeed = 0;
+        }
+        else if (curSpeed == tiredSpeed && timeInSpeed > restingPeriod)
+        {
+            curSpeed = nextSpeed;
+            timeInSpeed = 0;
+        }
+
+        return curSpeed;
     }
 }
 
@@ -124,5 +165,5 @@ public class AlienController : MonoBehaviour
  * Also if theres a ray from alien to player with nothing in between go straight
  * 
  * 
- * TODO: make attack, add roaming, make path finding for noise/specific events
+ * TODO: make attack, make path finding for noise/specific events
  */

@@ -33,10 +33,12 @@ public class PathFindingController
             return;
         var nextPathPoint = pathToPlayer[pathIndex];
         var directionToPath = nextPathPoint - alien.transform.position;
+        var distanceToPath = directionToPath.magnitude;
 
         Debug.DrawRay(alien.transform.position, directionToPath, Color.cyan);
-        pathToPlayer.ForEach(point => Debug.DrawRay(point, Vector3.up * 100, Color.blue));
-
+        Debug.DrawRay(nextPathPoint, -alien.turnRadius * directionToPath.normalized, Color.magenta);
+        if (pathIndex > 0 && distanceToPath < alien.turnRadius)
+            nextPathPoint = pathToPlayer[pathIndex - 1];
         if (alien.MoveTowards(nextPathPoint))
             pathIndex--;
     }
@@ -70,6 +72,8 @@ public class PathFindingController
 
     void CopyPathToPlayer()
     {
+        pathToPlayer.ForEach(point => Debug.DrawRay(point, Vector3.up * 100, Color.blue, alien.mentalDelay));
+
         thoughtHandle.Complete();
 
         pathToPlayer.Clear();
@@ -87,6 +91,7 @@ public class PathFindingController
         memoryBufferLengthUsed.Dispose();
     }
 }
+
 public struct AlienThought : IJob
 {
     public int maxPathLength;

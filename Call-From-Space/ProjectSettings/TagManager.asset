@@ -8,6 +8,7 @@ TagManager:
   - Holdable
   - SecurityCamera
   - FuelCell
+  - Alien
   layers:
   - Default
   - TransparentFX
