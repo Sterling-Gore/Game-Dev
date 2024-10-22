@@ -88,12 +88,12 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 // Running
-                oxygenSystem.DecreaseOxygen(runningOxygenCost * Time.deltaTime);
+                oxygenSystem.DecreaseOxygen(runningOxygenCost);
             }
             else
             {
                 // Walking
-                oxygenSystem.DecreaseOxygen(walkingOxygenCost * Time.deltaTime);
+                oxygenSystem.DecreaseOxygen(walkingOxygenCost);
             }
         }
     }

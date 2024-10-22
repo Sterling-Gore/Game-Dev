@@ -7,6 +7,7 @@ public class OxygenSystem : MonoBehaviour
     public float oxygenLevel = 100f;
     public Text oxygenLevelText;
     private bool isRefilling = false;
+    public float refillSpeed = 5f;
 
 
     private void Update()
@@ -18,35 +19,14 @@ public class OxygenSystem : MonoBehaviour
         }
     }
 
-
-    public void RefillOxygen()
-    {
-        if (!isRefilling)
-        {
-            StartCoroutine(RefillOxygenOverTime());
-        }
-    }
-
-    private IEnumerator RefillOxygenOverTime()
-    {
-        isRefilling = true;
-        while (oxygenLevel < 100f)
-        {
-            oxygenLevel += Time.deltaTime; // Increase oxygen level over time
-            Debug.Log("Oxygen level: " + oxygenLevel);
-            yield return null; // Wait for the next frame
-        }
-        Debug.Log("Oxygen refilled to max level.");
-        isRefilling = false;
-    }
-
     public void DecreaseOxygen(float amount)
     {
-        oxygenLevel -= amount;
+        oxygenLevel = Mathf.Clamp(oxygenLevel - (amount * Time.deltaTime), 0, 100);
     }
 
-    private void IncreaseOxygen(float amount)
+    public void IncreaseOxygen()
     {
-        oxygenLevel += amount;
+        oxygenLevel = Mathf.Clamp(oxygenLevel + (refillSpeed * Time.deltaTime), 0, 100);
     }
+
 }
