@@ -60,11 +60,11 @@ public class PlayerController : MonoBehaviour
 
         if (oxygenSystem != null)
         {
-            Debug.Log("OxygenSystem is assigned in PlayerController.");
+            //Debug.Log("OxygenSystem is assigned in PlayerController.");
         }
         else
         {
-            Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
+            //Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
         }
     }
 
@@ -75,33 +75,33 @@ public class PlayerController : MonoBehaviour
     }
 
     void Update()
-    {
-        MyInput();
-        SpeedControl();
-        rb.drag = groundDrag;
+{
+    MyInput();
+    SpeedControl();
+    rb.drag = groundDrag;
 
-        if (oxygenSystem != null)
+    if (oxygenSystem != null)
+    {
+        // Adjust oxygen based on movement
+        if (rb.velocity.magnitude > 0.1f) // Check if the player is moving
         {
-            // Adjust oxygen based on movement
-            if (rb.velocity.magnitude > 0.1f) // Check if the player is moving
+            if (Input.GetKey(KeyCode.LeftShift))
             {
-                if (Input.GetKey(KeyCode.LeftShift))
-                {
-                    // Running
-                    oxygenSystem.DecreaseOxygen(runningOxygenCost * Time.deltaTime);
-                }
-                else
-                {
-                    // Walking
-                    oxygenSystem.DecreaseOxygen(walkingOxygenCost * Time.deltaTime);
-                }
+                // Running
+                oxygenSystem.DecreaseOxygen(runningOxygenCost * Time.deltaTime);
+            }
+            else
+            {
+                // Walking
+                oxygenSystem.DecreaseOxygen(walkingOxygenCost * Time.deltaTime);
             }
         }
-        else
-        {
-            Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
-        }
     }
+    else
+    {
+        //Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
+    }
+}
 
     void MyInput()
     {
