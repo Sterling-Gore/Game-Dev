@@ -39,8 +39,9 @@ public class PlayerController : MonoBehaviour
 
     [Header("Oxygen System")]
     public OxygenSystem oxygenSystem;
-    public float runningOxygenCost = 2f;
-    public float walkingOxygenCost = 0.5f;
+    public float runningOxygenCost = 3f;
+    public float walkingOxygenCost = .75f;
+    public float stationaryOxygenCost = 0.25f;
 
     void Start()
     {
@@ -60,11 +61,11 @@ public class PlayerController : MonoBehaviour
 
         if (oxygenSystem != null)
         {
-            Debug.Log("OxygenSystem is assigned in PlayerController.");
+            //Debug.Log("OxygenSystem is assigned in PlayerController.");
         }
         else
         {
-            Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
+            //Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
         }
     }
 
@@ -88,18 +89,23 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 // Running
-                oxygenSystem.DecreaseOxygen(runningOxygenCost * Time.deltaTime);
+                oxygenSystem.DecreaseOxygen(runningOxygenCost);
             }
             else
             {
                 // Walking
-                oxygenSystem.DecreaseOxygen(walkingOxygenCost * Time.deltaTime);
+                oxygenSystem.DecreaseOxygen(walkingOxygenCost);
             }
+        }
+        else
+        {
+            // not moving
+            oxygenSystem.DecreaseOxygen(walkingOxygenCost);
         }
     }
     else
     {
-        Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
+        //Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
     }
 }
 
