@@ -39,8 +39,9 @@ public class PlayerController : MonoBehaviour
 
     [Header("Oxygen System")]
     public OxygenSystem oxygenSystem;
-    public float runningOxygenCost = 2f;
-    public float walkingOxygenCost = 0.5f;
+    public float runningOxygenCost = 3f;
+    public float walkingOxygenCost = .75f;
+    public float stationaryOxygenCost = 0.25f;
 
     void Start()
     {
@@ -95,6 +96,11 @@ public class PlayerController : MonoBehaviour
                 // Walking
                 oxygenSystem.DecreaseOxygen(walkingOxygenCost);
             }
+        }
+        else
+        {
+            // not moving
+            oxygenSystem.DecreaseOxygen(walkingOxygenCost);
         }
     }
     else
