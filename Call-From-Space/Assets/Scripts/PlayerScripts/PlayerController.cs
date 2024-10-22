@@ -23,8 +23,11 @@ public class PlayerController : MonoBehaviour
     [Header("Camera attributes")]
     public Transform orientation;
 
-    [Header("Inventory")]
-    public GameObject InventoryObject;
+    [Header("Inventory and Camera UI")]
+    public GameObject Inventory_and_camera_UI;
+    public GameObject Inventory_UI_Object;
+    public GameObject Camera_UI_Object;
+    public GameObject Inspector_UI_Object;
     public UI_Inventory uiInvetory;
     public Inventory inventory;
     private bool showInventory;
@@ -36,6 +39,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("UI")]
     Interactor interactor;
+    int UI_Value;
 
     [Header("Oxygen System")]
     public OxygenSystem oxygenSystem;
@@ -43,8 +47,16 @@ public class PlayerController : MonoBehaviour
     public float walkingOxygenCost = .75f;
     public float stationaryOxygenCost = 0.25f;
 
+
+    [Header("Generator UI")]
+    public GameObject Generator1_UI;
+
     void Start()
     {
+        //start the game with no screens on
+        UI_Value = 0;
+
+
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         //rb.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
@@ -52,7 +64,7 @@ public class PlayerController : MonoBehaviour
         yscale = transform.localScale.y;
 
         inventory = new Inventory();
-        uiInvetory = InventoryObject.GetComponent<UI_Inventory>();
+        uiInvetory = Inventory_UI_Object.GetComponent<UI_Inventory>();
         showInventory = false;
         //im putting this into the input function
         uiInvetory.setInventory(inventory);
@@ -114,30 +126,33 @@ public class PlayerController : MonoBehaviour
         HorizInput = Input.GetAxisRaw("Horizontal");
         VertInput = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKey("left shift"))
+        if(!interactor.inUI)
         {
-            speed = standard_speed * 2f;
-        }
-        else if (Input.GetKey("left ctrl"))
-        {
-            speed = standard_speed * .5f;
-        }
-        else
-        {
-            speed = standard_speed;
-        }
+            if (Input.GetKey("left shift"))
+            {
+                speed = standard_speed * 2f;
+            }
+            else if (Input.GetKey("left ctrl"))
+            {
+                speed = standard_speed * .5f;
+            }
+            else
+            {
+                speed = standard_speed;
+            }
 
-        //for the actual scale of the crouch collider
-        if (Input.GetKeyDown("left ctrl"))
-        {
-            transform.localScale = new Vector3(transform.localScale.x, yscale / 2, transform.localScale.z);
-            rb.AddForce(Vector3.down * 6f, ForceMode.Impulse);
-        }
-        else if (Input.GetKeyUp("left ctrl"))
-        {
-            speed = standard_speed;
-            transform.localScale = new Vector3(transform.localScale.x, yscale, transform.localScale.z);
-            rb.AddForce(Vector3.down * 6f, ForceMode.Impulse);
+            //for the actual scale of the crouch collider
+            if (Input.GetKeyDown("left ctrl"))
+            {
+                transform.localScale = new Vector3(transform.localScale.x, yscale / 2, transform.localScale.z);
+                rb.AddForce(Vector3.down * 6f, ForceMode.Impulse);
+            }
+            else if (Input.GetKeyUp("left ctrl"))
+            {
+                speed = standard_speed;
+                transform.localScale = new Vector3(transform.localScale.x, yscale, transform.localScale.z);
+                rb.AddForce(Vector3.down * 6f, ForceMode.Impulse);
+            }
         }
 
         //toggle inventory
@@ -145,25 +160,69 @@ public class PlayerController : MonoBehaviour
         {
             if (!gameObject.GetComponent<Interactor>().isHolding)
             {
-                toggleInventory();
+                toggle_INV_and_CAM(true);
             }
+        }
+        else if( Input.GetKeyDown(KeyCode.C))
+        {
+            if (!gameObject.GetComponent<Interactor>().isHolding)
+            {
+                toggle_INV_and_CAM(false);
+            }
+        }
+        else if(Input.GetKeyDown(KeyCode.Escape))
+        {
+           ESCAPE();
         }
     }
 
-    public void toggleInventory()
+    public void toggle_INV_and_CAM(bool isInventory)
     {
-        showInventory = !showInventory;
-        //if im in inventory, then i am in a UI
-        if (showInventory)
-            interactor.inUI = true;
-        else
-            interactor.inUI = false;
-        InventoryObject.SetActive(showInventory);
-
-        if (showInventory)
+        Set_UI_Value(1);
+        interactor.inUI = true;
+        Inventory_and_camera_UI.SetActive(true);
+        if(isInventory)
         {
+            Inventory_UI_Object.SetActive(true);
             uiInvetory.refresh();
+            Camera_UI_Object.SetActive(false);
+            Inspector_UI_Object.SetActive(false);
         }
+        else
+        {
+            Camera_UI_Object.SetActive(true);
+            Inventory_UI_Object.SetActive(false);
+            Inspector_UI_Object.SetActive(false);
+        }
+    }
+
+    public void ESCAPE()
+    {
+        //if you are in inspector
+        if( UI_Value == 2)
+        {
+            //go to the inventory screen
+            Inspector_UI_Object.GetComponent<Inspector>().unloadInspector();
+            toggle_INV_and_CAM(true);
+        }
+        //if you are in inventory or generator screen
+        else if(UI_Value == 1)
+        {
+            Inventory_and_camera_UI.SetActive(false);
+            Generator1_UI.SetActive(false);
+            interactor.inUI = false;
+
+        }
+        // go to the escape menu
+        else
+        {
+
+        }
+    }
+
+    public void Set_UI_Value(int val)
+    {
+        UI_Value = val;
     }
 
     void MovePlayer()

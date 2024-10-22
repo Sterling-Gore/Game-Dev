@@ -1488,7 +1488,6 @@ RectTransform:
   m_Children:
   - {fileID: 431987958}
   - {fileID: 2062843676}
-  - {fileID: 711899814}
   - {fileID: 883232918}
   - {fileID: 961809485}
   - {fileID: 1508893454}
@@ -7172,13 +7171,18 @@ MonoBehaviour:
   standard_speed: 5
   groundDrag: 5
   orientation: {fileID: 1202797645}
-  InventoryObject: {fileID: 1434148441}
+  Inventory_and_camera_UI: {fileID: 883232917}
+  Inventory_UI_Object: {fileID: 1434148441}
+  Camera_UI_Object: {fileID: 1804600570}
+  Inspector_UI_Object: {fileID: 711899813}
   uiInvetory: {fileID: 1434148443}
   maxSlope: 40
   playerHeight: 0
   oxygenSystem: {fileID: 0}
   runningOxygenCost: 2
   walkingOxygenCost: 0.5
+  stationaryOxygenCost: 0.25
+  Generator1_UI: {fileID: 961809484}
 --- !u!114 &362943809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12826,7 +12830,7 @@ GameObject:
   - component: {fileID: 711899815}
   - component: {fileID: 711899817}
   m_Layer: 5
-  m_Name: InspectorImage
+  m_Name: UI_Inspector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12846,7 +12850,7 @@ RectTransform:
   m_Children:
   - {fileID: 1838718354}
   - {fileID: 158130834}
-  m_Father: {fileID: 74861391}
+  m_Father: {fileID: 883232918}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -14927,7 +14931,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &883232918
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14943,12 +14947,13 @@ RectTransform:
   - {fileID: 2008289241}
   - {fileID: 1434148442}
   - {fileID: 1804600571}
+  - {fileID: 711899814}
   m_Father: {fileID: 74861391}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &887818126
 GameObject:
@@ -23251,7 +23256,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1434148442
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25393,10 +25398,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 362943808}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: toggleInventory
-        m_Mode: 1
+      - m_Target: {fileID: 1434148441}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -25413,6 +25418,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 362943808}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: Set_UI_Value
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -28883,7 +28900,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1804600571
 RectTransform:
   m_ObjectHideFlags: 0
