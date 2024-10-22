@@ -1,22 +1,32 @@
-namespace GameDev.Scripts.Oxygen
+using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+
+public class OxygenSystem : MonoBehaviour
 {
-    using UnityEngine;
-    using UnityEngine.UI;
+    public float oxygenLevel = 100f;
+    public Text oxygenLevelText;
+    private bool isRefilling = false;
+    public float refillSpeed = 5f;
 
-    public class OxygenSystem : MonoBehaviour
+
+    private void Update()
     {
-        public float oxygenLevel = 100f;
-
-        public void DecreaseOxygen(float amount)
+        // Update the UI text with the current oxygen level
+        if (oxygenLevelText != null)
         {
-            oxygenLevel -= amount;
-            oxygenLevel = Mathf.Clamp(oxygenLevel, 0f, 100f);
-        }
-
-        public void IncreaseOxygen(float amount)
-        {
-            oxygenLevel += amount;
-            oxygenLevel = Mathf.Clamp(oxygenLevel, 0f, 100f);
+            oxygenLevelText.text = "Oxygen Level: " + Mathf.RoundToInt(oxygenLevel).ToString();
         }
     }
+
+    public void DecreaseOxygen(float amount)
+    {
+        oxygenLevel = Mathf.Clamp(oxygenLevel - (amount * Time.deltaTime), 0, 100);
+    }
+
+    public void IncreaseOxygen()
+    {
+        oxygenLevel = Mathf.Clamp(oxygenLevel + (refillSpeed * Time.deltaTime), 0, 100);
+    }
+
 }
