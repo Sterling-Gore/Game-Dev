@@ -10,14 +10,14 @@ public class Inspector : MonoBehaviour, IDragHandler
     float xRot = 0f;
     float yRot = 0f;
     
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            unloadInspector();
-            player.GetComponent<PlayerController>().toggleInventory();
-        }
-    }
+    //void Update()
+    //{
+    //    if (Input.GetKey(KeyCode.Escape))
+    //    {
+    //        unloadInspector();
+    //        player.GetComponent<PlayerController>().toggle_INV_and_CAM(true);
+    //    }
+    //}
 
     public void loadInspector(GameObject temp)
     {

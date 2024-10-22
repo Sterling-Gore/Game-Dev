@@ -21,6 +21,16 @@ public class Inventory
         itemList.Add(item);
     }
 
+    public void DeleteItem(Item item)
+    {
+        itemList.RemoveAll(x => x == item);
+    }
+
+    public bool IsItemInList(Item item)
+    {
+        return itemList.Contains(item);
+    }
+
     public void AddJournal(Item journal)
     {
         journalList.Add(journal);

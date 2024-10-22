@@ -66,7 +66,7 @@ public class Holdable : Interactable
     //functions for the holdable
     void MoveObject()
     {
-        transform.position = holdPos.transform.position;
+        transform.position = holdPos.transform.position ;
         //transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
