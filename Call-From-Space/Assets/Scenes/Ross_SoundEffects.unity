@@ -2032,6 +2032,58 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &94274517
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 94274519}
+  - component: {fileID: 94274518}
+  m_Layer: 0
+  m_Name: PowerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &94274518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94274517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daffff1e18cb59f43b875eb8a88b3e10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentPowerLevel: 0
+  maxPowerLevel: 3
+  powerZones:
+  - zoneName: 
+    lights: []
+    cameras: []
+    requiredPowerLevel: 0
+  cameraSwapper: {fileID: 1166336988}
+--- !u!4 &94274519
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94274517}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 140.90355, y: 237.77924, z: -1493.5846}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &95385149
 GameObject:
   m_ObjectHideFlags: 0
@@ -18789,9 +18841,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 253956b815c8e2a46b6a437d30ef00a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  securityCameras:
-  - {fileID: 1193921484}
-  - {fileID: 1714370298}
   displayImage: {fileID: 113002242}
   sharedRenderTexture: {fileID: 0}
 --- !u!4 &1170623025 stripped
@@ -19228,11 +19277,6 @@ MonoBehaviour:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 22d2d8b117f9b5447acfa7a67b75e06b, type: 3}
   m_PrefabInstance: {fileID: 2424045}
-  m_PrefabAsset: {fileID: 0}
---- !u!20 &1193921484 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 7240650378522938864, guid: 6e0129e5bfa219a4abb04bd903c4cb58, type: 3}
-  m_PrefabInstance: {fileID: 61431295}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1195780726 stripped
 GameObject:
@@ -27725,11 +27769,6 @@ PrefabInstance:
       addedObject: {fileID: 753073398}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22d2d8b117f9b5447acfa7a67b75e06b, type: 3}
---- !u!20 &1714370298 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 7240650378522938864, guid: 6e0129e5bfa219a4abb04bd903c4cb58, type: 3}
-  m_PrefabInstance: {fileID: 1792671039}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1723014279
 GameObject:
   m_ObjectHideFlags: 0
@@ -35654,3 +35693,4 @@ SceneRoots:
   - {fileID: 1275740437}
   - {fileID: 1579127464}
   - {fileID: 1166336987}
+  - {fileID: 94274519}
