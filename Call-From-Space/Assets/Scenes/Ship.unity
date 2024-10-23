@@ -45416,9 +45416,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1556012833}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57a8ed1a0eedad74a9b0ad3ad053bc5c, type: 3}
+  m_Script: {fileID: 11500000, guid: 62c0fef20e6440f4da464e6605943c7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonText: {fileID: 820293109}
+  glowColor: {r: 0.03137255, g: 0.972549, b: 1, a: 1}
+  glowIntensity: 1.5
 --- !u!4 &1558034142 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b8b6b2117bfabf446a4cac0ee06206ad, type: 3}
@@ -52513,7 +52516,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1833503493}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1833503495}
+        m_TargetAssemblyTypeName: PauseButtons, Assembly-CSharp
+        m_MethodName: LeaveGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1833503493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52561,9 +52576,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1833503490}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57a8ed1a0eedad74a9b0ad3ad053bc5c, type: 3}
+  m_Script: {fileID: 11500000, guid: 62c0fef20e6440f4da464e6605943c7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonText: {fileID: 1275645527}
+  glowColor: {r: 0.03137255, g: 0.972549, b: 1, a: 1}
+  glowIntensity: 1.5
 --- !u!1001 &1837895516
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -56452,13 +56470,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 57a8ed1a0eedad74a9b0ad3ad053bc5c, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 362943808}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: ESCAPE
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -56511,9 +56529,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1945819221}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57a8ed1a0eedad74a9b0ad3ad053bc5c, type: 3}
+  m_Script: {fileID: 11500000, guid: 62c0fef20e6440f4da464e6605943c7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonText: {fileID: 1448003719}
+  glowColor: {r: 0.03137255, g: 0.972549, b: 1, a: 1}
+  glowIntensity: 1.5
 --- !u!1 &1946835281
 GameObject:
   m_ObjectHideFlags: 0

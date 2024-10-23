@@ -179,6 +179,11 @@ public class PlayerController : MonoBehaviour
 
     public void toggle_INV_and_CAM(bool isInventory)
     {
+        //inside a UI
+        if (UI_Value == 1)
+        {
+            ESCAPE();
+        }
         Set_UI_Value(1);
         interactor.inUI = true;
         Inventory_and_camera_UI.SetActive(true);
