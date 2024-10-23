@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("UI")]
     Interactor interactor;
+    public GameObject pauseMenuUI;
     int UI_Value;
 
     [Header("Oxygen System")]
@@ -208,15 +209,27 @@ public class PlayerController : MonoBehaviour
         //if you are in inventory or generator screen
         else if(UI_Value == 1)
         {
+            Set_UI_Value(0);
             Inventory_and_camera_UI.SetActive(false);
             Generator1_UI.SetActive(false);
             interactor.inUI = false;
 
         }
         // go to the escape menu
+        else if(UI_Value == 0)
+        {
+            Set_UI_Value(-1);
+            interactor.inUI = true;
+            pauseMenuUI.SetActive(true);
+            Time.timeScale = 0f;
+        }
+        //leaving the escape menu     if UI_Value == -1
         else
         {
-
+            Set_UI_Value(0);
+            interactor.inUI = false;
+            pauseMenuUI.SetActive(false);
+            Time.timeScale = 1f;
         }
     }
 
