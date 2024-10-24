@@ -16,7 +16,7 @@ public class RoamController
     {
         this.alien = alien;
         pathNeighbors = alien.pathGraph
-            .WithPositions(alien.transform.position, alien.transform.position)
+            .WithPosition(alien.transform.position)
             .ToDictionary();
         recentPoints = new(alien.roamingPathPointMemory);
         preferedPoints = pathNeighbors.Select(point => point.Key).ToHashSet();
@@ -46,13 +46,18 @@ public class RoamController
         var alienPos = alien.transform.position;
         alienPos.y = alien.pathGraph.YLevel;
 
+        if (!pathNeighbors.ContainsKey(alienPos))
+            pathNeighbors = alien.pathGraph
+                .WithPosition(alienPos)
+                .ToDictionary();
+
         var possibleNextPoints = pathNeighbors[alienPos];
         var preferedNextPoints = possibleNextPoints
           .Where(p => preferedPoints.Contains(p))
           .ToList();
-        if (possibleNextPoints.Count > 0)
+        if (preferedNextPoints.Count > 0)
         {
-            var randomIndex = Mathf.FloorToInt(Random.value * (possibleNextPoints.Count - 1));
+            var randomIndex = Mathf.FloorToInt(Random.value * preferedNextPoints.Count);
             nextPathPoint = preferedNextPoints[randomIndex];
         }
         else

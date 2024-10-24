@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Collections;
 using System.Linq;
+using System;
 public struct PathGraph
 {
     public struct Neighbors
@@ -39,36 +40,30 @@ public struct PathGraph
             }
         }
 
-        neighbors = new(pairs.Count + 1, Allocator.Persistent);
+        neighbors = new(pairs.Count + numChildren, Allocator.Persistent);
         for (int i = 0; i < pairs.Count; i++)
             neighbors[i] = pairs[i];
     }
 
-    public PathGraph WithPositions(Vector3 alienPosition, Vector3 playerPosition)
+    public PathGraph WithPosition(Vector3 alienPosition)
     {
-        playerPosition.y = alienPosition.y = YLevel;
-        var minDistance = float.MaxValue;
+        alienPosition.y = YLevel;
+        int idx = neighbors.Length - pathPoints.Length - 1;
         for (int i = 0; i < pathPoints.Length - 1; i++)
-        {
             if (HasNothingInBetween(pathPoints[i], alienPosition))
-            {
-                var dist = Vector3.Distance(playerPosition, pathPoints[i]);
-                if (dist < minDistance)
-                {
-                    neighbors[^1] = new() { a = pathPoints[i], b = alienPosition };
-                    minDistance = dist;
-                }
-            }
-        }
+                neighbors[idx++] = new() { a = pathPoints[i], b = alienPosition };
+        while (idx < neighbors.Length)
+            neighbors[idx++] = new();
+
         Debug.DrawRay(alienPosition, neighbors[^1].a - alienPosition, Color.green, 100);
         pathPoints[^1] = alienPosition;
         return this;
     }
+
     public Dictionary<Vector3, HashSet<Vector3>> ToDictionary()
     {
-        int numChildren = pathPoints.Length;
-        Dictionary<Vector3, HashSet<Vector3>> neighborPoints = new(numChildren, new VectorComparer());
-        for (int i = 0; i < numChildren; i++)
+        Dictionary<Vector3, HashSet<Vector3>> neighborPoints = new(pathPoints.Length, new VectorComparer());
+        for (int i = 0; i < pathPoints.Length; i++)
             neighborPoints[pathPoints[i]] = new();
 
         for (int i = 0; i < neighbors.Length; i++)
@@ -82,6 +77,7 @@ public struct PathGraph
         }
         return neighborPoints;
     }
+
     public void Dispose()
     {
         pathPoints.Dispose();

@@ -1,18 +1,25 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AlienController : MonoBehaviour
 {
+    public SoundSource target;
     public GameObject player;
     GameObject endingScreen;
 
-
+    [Header("Decision Making")]
     public float attackRadius;
-    public float awarenessRadius;
-    public bool isAwareOfPlayer = false;
+    public bool heardSomething = false;
     public float mentalDelay = 5.0f;
+
+    [Header("Roaming")]
     public float timeToLookAroundFor;
     public int roamingPathPointMemory;
+
+    [Header("Movement")]
     public float turnRadius;
     public float turnSpeed;
     public float walkSpeed;
@@ -32,6 +39,9 @@ public class AlienController : MonoBehaviour
     PathFindingController pathFinder;
     RoamController roamer;
     public Transform head;
+    public HashSet<SoundSource> blackListedSoundSources = new();
+    public GameObject soundSource;
+    bool justHeardSomething;
 
     void Start()
     {
@@ -49,18 +59,19 @@ public class AlienController : MonoBehaviour
 
         head = GameObject.Find("spine.005").transform;
         curSpeed = nextSpeed = walkSpeed;
+        SoundSourcesController.GetInstance().SubscribeToSoundSources(this);
     }
 
     void Update()
     {
+        //Debug
+        soundSource.transform.position = target.position;
+
         KeepUpright();
-        if (!isAwareOfPlayer)
+        if (!heardSomething)
         {
-            if (Vector3.Distance(player.transform.position, transform.position) < awarenessRadius)
-            {
-                isAwareOfPlayer = true;
-                AnnounceAwarenessOfPlayer();
-            }
+            if (target != new SoundSource())
+                AnnounceHeardSomething();
             nextSpeed = walkSpeed;
             roamer.RoamAround();
         }
@@ -79,15 +90,17 @@ public class AlienController : MonoBehaviour
         transform.rotation.Set(0, 0, 0, 0);
     }
 
-    void AnnounceAwarenessOfPlayer()
+    void AnnounceHeardSomething()
     {
-
+        justHeardSomething = true;
+        heardSomething = true;
+        Debug.Log("I hear you");
     }
 
     void HuntPlayer()
     {
         var directionToPlayer = player.transform.position - transform.position;
-        var distanceToPlayer = Vector3.Magnitude(directionToPlayer);
+        var distanceToPlayer = directionToPlayer.magnitude;
 
         Physics.Raycast(transform.position + Vector3.up, directionToPlayer, out RaycastHit j, distanceToPlayer - .1f);
         Debug.DrawRay(transform.position, directionToPlayer);
@@ -99,12 +112,19 @@ public class AlienController : MonoBehaviour
             else
                 GoStraightToPlayer();
         }
+        else if (!justHeardSomething && pathFinder.HasArrived())
+        {
+            blackListedSoundSources.Add(target);
+            target = new SoundSource();
+            heardSomething = false;
+        }
         else
         {
             nextSpeed = walkSpeed;
             pathFinder.CalculatePathPeriodically();
             pathFinder.FollowPath();
         }
+        justHeardSomething = false;
     }
 
     void AttackPlayer()
@@ -128,9 +148,30 @@ public class AlienController : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * turnSpeed);
 
         var dPos = CurSpeed() * Time.deltaTime;
+
+        var prevPos = transform.position;
         transform.Translate(Vector3.forward * dPos);
+        var curPos = transform.position;
+        var closestPoint = GetClosestPointToLine(prevPos, (curPos - prevPos).normalized, prevPos - target);
+
+        transform.position = Clamp(closestPoint, prevPos, curPos);
 
         return Vector3.Distance(transform.position, target) <= dPos;
+    }
+
+    Vector3 GetClosestPointToLine(Vector3 origin, Vector3 direction, Vector3 point2origin) =>
+        origin - Vector3.Dot(point2origin, direction) * direction;
+
+    Vector3 Clamp(Vector3 point, Vector3 start, Vector3 end)
+    {
+        var start2end = (end - start).normalized;
+        var start2point = (point - start).normalized;
+        if (start2point != start2end)
+            return start;
+        var end2point = (point - start).normalized;
+        if (end2point == start2end)
+            return end;
+        return point;
     }
 
     float CurSpeed()
@@ -159,10 +200,10 @@ public class AlienController : MonoBehaviour
 /*
  * Ideas:
  * To save on CPU usage, only run A* every now and then
- * Path will be calculated and alien will follow it until its close enough to player
+ * Path will be calculated and alien will follow it until its close enough to target
  * Alien will use path nodes defined under the "AlienPathNodes" gameobject. 
  * 
- * Also if theres a ray from alien to player with nothing in between go straight
+ * Also if theres a ray from alien to target with nothing in between go straight
  * 
  * 
  * TODO: make attack, make path finding for noise/specific events
