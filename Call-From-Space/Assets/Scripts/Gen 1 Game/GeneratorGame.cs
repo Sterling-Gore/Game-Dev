@@ -24,12 +24,6 @@ public class GeneratorGame : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public GameObject gen;
     public GeneratorAudio generatorAudio;
 
-    void Update() {
-      if (Input.GetKeyDown(KeyCode.Escape)) {
-        generatorUI.SetActive(false);
-        interactor.inUI = false;
-      }
-    }
 
     void Awake() {
       interactor = Player_for_interactor.GetComponent<Interactor>();

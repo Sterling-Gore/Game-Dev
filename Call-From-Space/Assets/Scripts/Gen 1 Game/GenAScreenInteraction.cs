@@ -8,18 +8,6 @@ public class GenAScreenInteraction : Interactable
     public GameObject GenUI;
     public GameObject player;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public override string GetDescription()
     {
         
@@ -31,6 +19,7 @@ public class GenAScreenInteraction : Interactable
         //GenUI.GetComponent<GeneratorGame>().interactor.inUI = true;
         GenUI.SetActive(true);
         player.GetComponent<Interactor>().inUI = true;
+        player.GetComponent<PlayerController>().Set_UI_Value(1);
         
     }
 }

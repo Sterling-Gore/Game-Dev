@@ -35,7 +35,7 @@ public class Button_interaction : Interactable
     public override string GetDescription()
     {
         if (!_doorOpened){
-            return ("Press [E] to <color=red>open<color=red> the door.");
+            return ("<color=red>Press [E]</color=red> to open the door.");
         }
         return ("");
     }

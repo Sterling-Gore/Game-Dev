@@ -1,92 +1,67 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
-
-//To add a security camera use the security camera prefab
-
 
 public class CameraSwapper : MonoBehaviour
 {
-    Camera playerCamera;
-    List<Camera> securityCameras;
-    Camera activeSecurityCamera;
-    RenderTexture activeCameraTexture;
-    bool openManager=false;
 
+    public RawImage displayImage;
+    public RenderTexture sharedRenderTexture;
 
-    const string SECURITY_CAMERA = "SecurityCamera";
-    const string MAIN_CAMERA = "MainCamera";
+    private Camera[] securityCameras;
+    private int currentCameraIndex = 0;
 
     void Start()
     {
-        playerCamera = Camera.main;
-        securityCameras = Camera.allCameras
-                                .Where(camera => camera.CompareTag(SECURITY_CAMERA))
-                                .ToList();
-        securityCameras.ForEach(camera => camera.targetTexture = new RenderTexture(512, 512, 16));
-    }
+        // Find all security cameras in the scene
+        securityCameras = GameObject.FindGameObjectsWithTag("SecurityCamera")
+                                    .Select(go => go.GetComponent<Camera>())
+                                    .Where(cam => cam != null)
+                                    .ToArray();
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.C))
-            ToggleManagerWindow();
-    }
-
-    private void OnGUI()
-    {
-        if (!openManager || securityCameras.Count==0)
+        if (securityCameras.Length == 0 || displayImage == null)
+        {
+            Debug.LogError("CameraSwapper: No security cameras found or display image not set!");
             return;
-        
-        var cameraViewWidth = Screen.width / securityCameras.Count;
-        var cameraViewHeight = Screen.height / securityCameras.Count;
-        var cameraViewOptions = new []{ GUILayout.Width(cameraViewWidth), GUILayout.Height(cameraViewHeight) };
+        }
 
-        // GUILayout.Box("choose a camera");
-        GUILayout.BeginHorizontal();
-        securityCameras.ForEach(camera =>
+        // Create a shared render texture if not provided
+        if (sharedRenderTexture == null)
         {
-            if (GUILayout.Button(camera.activeTexture, cameraViewOptions))
-            {
-                UseSecurityCamera(camera);
-                ToggleManagerWindow();
-            }
-        });
-        GUILayout.EndHorizontal();
+            sharedRenderTexture = new RenderTexture(256, 256, 24);
+            sharedRenderTexture.name = "SharedSecurityCameraRT";
+        }
+
+        // Set up the first camera
+        SetActiveCamera(0);
     }
 
-    void ToggleManagerWindow()
+    public void NextCamera()
     {
-        if (openManager) OpenManagerWindow(false);
-        else if (activeSecurityCamera == null) OpenManagerWindow();
-        else UsePlayerCamera();
+        SetActiveCamera((currentCameraIndex + 1) % securityCameras.Length);
     }
 
-    void OpenManagerWindow(bool open=true)
+    public void PreviousCamera()
     {
-        Cursor.visible = open;
-        Cursor.lockState = open ? CursorLockMode.None : CursorLockMode.Locked;
-        openManager = open;
-        securityCameras.ForEach(camera =>
+        SetActiveCamera((currentCameraIndex - 1 + securityCameras.Length) % securityCameras.Length);
+    }
+
+    private void SetActiveCamera(int index)
+    {
+        // Disable all cameras
+        foreach (Camera cam in securityCameras)
         {
-            if (camera != activeSecurityCamera) camera.enabled = open;
-        });
-    }
+            cam.enabled = false;
+            cam.targetTexture = null;
+        }
 
-    void UsePlayerCamera()
-    {
-        activeSecurityCamera.tag = SECURITY_CAMERA;
-        activeSecurityCamera.targetTexture = activeCameraTexture;
-        playerCamera.enabled = true;
-        activeSecurityCamera = null;
-    }
+        // Enable and set up the selected camera
+        currentCameraIndex = index;
+        Camera activeCamera = securityCameras[currentCameraIndex];
+        activeCamera.enabled = true;
+        activeCamera.targetTexture = sharedRenderTexture;
 
-    void UseSecurityCamera(Camera camera)
-    {
-        activeSecurityCamera = camera;
-        camera.tag = MAIN_CAMERA;
-        activeCameraTexture = camera.targetTexture;
-        camera.targetTexture = null;
-        playerCamera.enabled = false;
+        // Update the display image
+        displayImage.texture = sharedRenderTexture;
     }
 }
