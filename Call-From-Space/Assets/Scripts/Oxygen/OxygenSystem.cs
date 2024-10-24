@@ -1,10 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class OxygenSystem : MonoBehaviour
 {
     public float oxygenLevel = 100f;
     public Text oxygenLevelText;
+    public Image oxygenBar;
+    public Image oxygenRadial;
+    private bool isRefilling = false;
+    public float refillSpeed = 10f;
+
 
     private void Update()
     {
@@ -13,21 +19,22 @@ public class OxygenSystem : MonoBehaviour
         {
             oxygenLevelText.text = "Oxygen Level: " + Mathf.RoundToInt(oxygenLevel).ToString();
         }
-    }
-
-    public void RefillOxygen()
-    {
-        oxygenLevel = 100f;
-        Debug.Log("Oxygen refilled to max level.");
+        oxygenBar.fillAmount = oxygenLevel / 100;
+        oxygenRadial.fillAmount = oxygenLevel / 100;
     }
 
     public void DecreaseOxygen(float amount)
     {
-        oxygenLevel -= amount;
+        oxygenLevel = Mathf.Clamp(oxygenLevel - (amount * Time.deltaTime), 0, 100);
+        oxygenBar.fillAmount = oxygenLevel / 100;
+        oxygenRadial.fillAmount = oxygenLevel / 100;
     }
 
-    private void IncreaseOxygen(float amount)
+    public void IncreaseOxygen()
     {
-        oxygenLevel += amount;
+        oxygenLevel = Mathf.Clamp(oxygenLevel + (refillSpeed * Time.deltaTime), 0, 100);
+        oxygenBar.fillAmount = oxygenLevel / 100;
+        oxygenRadial.fillAmount = oxygenLevel / 100;
     }
+
 }

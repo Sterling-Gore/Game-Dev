@@ -3,51 +3,38 @@ using UnityEngine.UI;
 
 namespace GameDev.Scripts.Oxygen
 {
-    public class OxygenStation : MonoBehaviour
+    public class OxygenStation : Interactable
     {
-        public Text interactionText; // Reference to the UI Text component
+        //public Text interactionText; // Reference to the UI Text component
+        public OxygenSystem oxygenSystem;
+        public GameObject oxygenRadial;
 
-        private void Start()
+        void Update()
         {
-            if (interactionText != null)
+            if(Input.GetKeyUp(KeyCode.E))
             {
-                interactionText.gameObject.SetActive(false); // Hide the text initially
+                oxygenRadial.SetActive(false);
+            }
+        }
+        public override string GetDescription()
+        {
+            return ("<color=red>Hold [E]</color=red> to Refill Oxygen");
+        }
+
+        public override void Interact()
+        {
+            Debug.Log("Starting to refill oxygen...");
+            // OxygenSystem oxygenSystem = gameObject.GetComponent<OxygenSystem>(); // Get the OxygenSystem component
+            if (oxygenSystem != null)
+            {
+                oxygenRadial.SetActive(true);
+                oxygenSystem.IncreaseOxygen(); // Call the RefillOxygen method
+            }
+            else
+            {
+                Debug.Log("No OxygenSystem component found.");
             }
         }
 
-        private void OnTriggerStay(Collider other)
-        {
-            if (other.CompareTag("Player"))
-            {
-                if (interactionText != null)
-                {
-                    interactionText.gameObject.SetActive(true); // Show the text
-                }
-
-                if (Input.GetKey(KeyCode.E))
-                {
-                    OxygenSystem oxygenSystem = other.GetComponent<OxygenSystem>();
-                    if (oxygenSystem != null)
-                    {
-                        oxygenSystem.RefillOxygen();
-                    }
-                    else
-                    {
-                        Debug.LogWarning("OxygenSystem component not found on Player.");
-                    }
-                }
-            }
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.CompareTag("Player"))
-            {
-                if (interactionText != null)
-                {
-                    interactionText.gameObject.SetActive(false); // Hide the text when the player leaves
-                }
-            }
-        }
     }
 }
