@@ -3985,6 +3985,7 @@ MonoBehaviour:
   attackRadius: 1
   heardSomething: 0
   mentalDelay: 1
+  soundSourcesMemory: 5
   timeToLookAroundFor: 4
   roamingPathPointMemory: 7
   turnRadius: 4
@@ -11025,8 +11026,8 @@ MonoBehaviour:
   walkingOxygenCost: 0.5
   stationaryOxygenCost: 0.5
   Generator1_UI: {fileID: 961809484}
-  runningSoundRadius: 0
-  walkingSoundRadius: 0
+  runningSoundRadius: 30
+  walkingSoundRadius: 10
 --- !u!114 &362943809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54445,6 +54446,7 @@ MonoBehaviour:
   attackRadius: 2
   heardSomething: 0
   mentalDelay: 5
+  soundSourcesMemory: 0
   timeToLookAroundFor: 0
   roamingPathPointMemory: 0
   turnRadius: 0
@@ -58289,7 +58291,7 @@ MonoBehaviour:
   lights: {fileID: 2070371729}
   alien: {fileID: 1845224669}
   powerLevel: {fileID: 0}
-  soundRadius: 0
+  soundRadius: 1000
 --- !u!1 &1955900158
 GameObject:
   m_ObjectHideFlags: 0

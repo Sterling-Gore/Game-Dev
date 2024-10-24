@@ -14,6 +14,7 @@ public class AlienController : MonoBehaviour
     public float attackRadius;
     public bool heardSomething = false;
     public float mentalDelay = 5.0f;
+    public int soundSourcesMemory;
 
     [Header("Roaming")]
     public float timeToLookAroundFor;
@@ -39,7 +40,7 @@ public class AlienController : MonoBehaviour
     PathFindingController pathFinder;
     RoamController roamer;
     public Transform head;
-    public HashSet<SoundSource> blackListedSoundSources = new();
+    public List<SoundSource> blackListedSoundSources = new();
     public GameObject soundSource;
     bool justHeardSomething;
     PowerLevel powerLevelManager;
@@ -119,6 +120,8 @@ public class AlienController : MonoBehaviour
         else if (!justHeardSomething && pathFinder.HasArrived())
         {
             blackListedSoundSources.Add(target);
+            if (blackListedSoundSources.Count > soundSourcesMemory)
+                blackListedSoundSources.RemoveAt(0);
             target = new SoundSource();
             heardSomething = false;
         }

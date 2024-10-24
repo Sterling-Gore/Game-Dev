@@ -90,8 +90,10 @@ public class PathFindingController
 
     public void Recalculate() => pathIndex = 0;
 
-    public bool HasArrived() =>
-        pathIndex < 0 || (pathIndex == 0 && Vector3.Distance(pathToTarget[pathIndex], alien.transform.position) < .5);
+    public bool HasArrived() => pathIndex < 0 || pathToTarget.Count == 0 || (
+        pathIndex == 0 &&
+        Vector3.Distance(pathToTarget[pathIndex], alien.transform.position) < .5
+    );
 
     public void Dispose()
     {
