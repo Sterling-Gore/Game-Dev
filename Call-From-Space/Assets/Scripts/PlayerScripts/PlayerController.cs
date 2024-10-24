@@ -52,6 +52,11 @@ public class PlayerController : MonoBehaviour
     [Header("Generator UI")]
     public GameObject Generator1_UI;
 
+    [Header("Sound System")]
+    public float runningSoundRadius;
+    public float walkingSoundRadius;
+    SoundSourcesController soundSources;
+
     void Start()
     {
         //start the game with no screens on
@@ -80,6 +85,7 @@ public class PlayerController : MonoBehaviour
         {
             //Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
         }
+        soundSources = SoundSourcesController.GetInstance();
     }
 
     void FixedUpdate()
@@ -89,36 +95,39 @@ public class PlayerController : MonoBehaviour
     }
 
     void Update()
-{
-    MyInput();
-    SpeedControl();
-    rb.drag = groundDrag;
-
-    if (oxygenSystem != null)
     {
-        // Adjust oxygen based on movement
-        if (rb.velocity.magnitude > 0.1f) // Check if the player is moving
+        MyInput();
+        SpeedControl();
+        rb.drag = groundDrag;
+        
+        if (oxygenSystem != null)
         {
-            if (Input.GetKey(KeyCode.LeftShift))
+            // Adjust oxygen based on movement
+            if (rb.velocity.magnitude > 0.1f) // Check if the player is moving
             {
-                // Running
-                oxygenSystem.DecreaseOxygen(runningOxygenCost);
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    // Running
+                    oxygenSystem.DecreaseOxygen(runningOxygenCost);
+                    soundSources.CreateNewSoundSource(transform.position, runningSoundRadius);
+                }
+                else
+                {
+                    // Walking
+                    oxygenSystem.DecreaseOxygen(walkingOxygenCost);
+                    soundSources.CreateNewSoundSource(transform.position, walkingSoundRadius);
+                }
             }
             else
             {
-                // Walking
+                // not moving
                 oxygenSystem.DecreaseOxygen(walkingOxygenCost);
             }
         }
         else
         {
-            // not moving
-            oxygenSystem.DecreaseOxygen(walkingOxygenCost);
+            //Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
         }
-    }
-    else
-    {
-        //Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
     }
 }
 
