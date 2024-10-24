@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
         MyInput();
         SpeedControl();
         rb.drag = groundDrag;
-        
+
         if (oxygenSystem != null)
         {
             // Adjust oxygen based on movement
@@ -129,14 +129,13 @@ public class PlayerController : MonoBehaviour
             //Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
         }
     }
-}
 
     void MyInput()
     {
         HorizInput = Input.GetAxisRaw("Horizontal");
         VertInput = Input.GetAxisRaw("Vertical");
 
-        if(!interactor.inUI)
+        if (!interactor.inUI)
         {
             if (Input.GetKey("left shift"))
             {
@@ -173,16 +172,16 @@ public class PlayerController : MonoBehaviour
                 toggle_INV_and_CAM(true);
             }
         }
-        else if( Input.GetKeyDown(KeyCode.C))
+        else if (Input.GetKeyDown(KeyCode.C))
         {
             if (!gameObject.GetComponent<Interactor>().isHolding)
             {
                 toggle_INV_and_CAM(false);
             }
         }
-        else if(Input.GetKeyDown(KeyCode.Escape))
+        else if (Input.GetKeyDown(KeyCode.Escape))
         {
-           ESCAPE();
+            ESCAPE();
         }
     }
 
@@ -196,7 +195,7 @@ public class PlayerController : MonoBehaviour
         Set_UI_Value(1);
         interactor.inUI = true;
         Inventory_and_camera_UI.SetActive(true);
-        if(isInventory)
+        if (isInventory)
         {
             Inventory_UI_Object.SetActive(true);
             uiInvetory.refresh();
@@ -214,14 +213,14 @@ public class PlayerController : MonoBehaviour
     public void ESCAPE()
     {
         //if you are in inspector
-        if( UI_Value == 2)
+        if (UI_Value == 2)
         {
             //go to the inventory screen
             Inspector_UI_Object.GetComponent<Inspector>().unloadInspector();
             toggle_INV_and_CAM(true);
         }
         //if you are in inventory or generator screen
-        else if(UI_Value == 1)
+        else if (UI_Value == 1)
         {
             Set_UI_Value(0);
             Inventory_and_camera_UI.SetActive(false);
@@ -230,7 +229,7 @@ public class PlayerController : MonoBehaviour
 
         }
         // go to the escape menu
-        else if(UI_Value == 0)
+        else if (UI_Value == 0)
         {
             Set_UI_Value(-1);
             interactor.inUI = true;

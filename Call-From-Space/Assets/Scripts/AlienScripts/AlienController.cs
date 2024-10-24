@@ -42,6 +42,8 @@ public class AlienController : MonoBehaviour
     public HashSet<SoundSource> blackListedSoundSources = new();
     public GameObject soundSource;
     bool justHeardSomething;
+    PowerLevel powerLevelManager;
+    int curPowerLevel = 0;
 
     void Start()
     {
@@ -49,9 +51,7 @@ public class AlienController : MonoBehaviour
 
         playerRb = player.GetComponent<Rigidbody>();
         pathGraph = new PathGraph(new() {
-            GameObject.Find("AlienPathNodesA").transform,
-            GameObject.Find("AlienPathNodesB").transform,
-            GameObject.Find("AlienPathNodesC").transform
+            GameObject.Find("AlienPathNodesA").transform
         });
 
         pathFinder = new(this);
@@ -60,6 +60,8 @@ public class AlienController : MonoBehaviour
         head = GameObject.Find("spine.005").transform;
         curSpeed = nextSpeed = walkSpeed;
         SoundSourcesController.GetInstance().SubscribeToSoundSources(this);
+        powerLevelManager = GameObject.Find("PowerManager").GetComponent<PowerLevel>();
+        curPowerLevel = powerLevelManager.GetCurrentPowerLevel();
     }
 
     void Update()
@@ -77,6 +79,8 @@ public class AlienController : MonoBehaviour
         }
         else
             HuntPlayer();
+
+        AdjustPathGraph();
     }
 
     void OnDestroy()
@@ -127,6 +131,25 @@ public class AlienController : MonoBehaviour
         justHeardSomething = false;
     }
 
+    void AdjustPathGraph()
+    {
+        int powerLevel = powerLevelManager.GetCurrentPowerLevel();
+        if (powerLevel != curPowerLevel)
+        {
+            if (powerLevel == 1)
+                pathGraph = new PathGraph(new() {
+                    GameObject.Find("AlienPathNodesA").transform,
+                    GameObject.Find("AlienPathNodesB").transform
+                });
+            else if (powerLevel == 2)
+                pathGraph = new PathGraph(new() {
+                    GameObject.Find("AlienPathNodesA").transform,
+                    GameObject.Find("AlienPathNodesB").transform,
+                    GameObject.Find("AlienPathNodesC").transform
+                });
+            curPowerLevel = powerLevel;
+        }
+    }
     void AttackPlayer()
     {
         var gameOver = endingScreen.transform.GetChild(0).gameObject;
