@@ -6,7 +6,6 @@ public class TriggerDoor : MonoBehaviour
 {
 
     private Animator _doorAnimator; //references to the Animator component on the door
-    // Start is called before the first frame update
     void Start()
     {
         _doorAnimator = GetComponent<Animator>();
@@ -15,14 +14,16 @@ public class TriggerDoor : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         Debug.Log("YAAAAAAAAAAAAS");
-        if (other.CompareTag("Player")){  // !!!!!!!!  LATER: will add alien tag 
+        if (other.CompareTag("Player") || other.CompareTag("Alien"))
+        {
             _doorAnimator.SetTrigger("Open");
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player")){   // !!!!!!!!  LATER: will add alien tag 
+        if (other.CompareTag("Player") || other.CompareTag("Alien"))
+        {
             _doorAnimator.SetTrigger("Closed");
         }
     }
