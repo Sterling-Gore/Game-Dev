@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class OxygenSystem : MonoBehaviour
 {
@@ -8,9 +7,8 @@ public class OxygenSystem : MonoBehaviour
     public Text oxygenLevelText;
     public Image oxygenBar;
     public Image oxygenRadial;
-    private bool isRefilling = false;
     public float refillSpeed = 10f;
-
+    public ParticleSystem breathEffect; // Reference to the particle system
 
     private void Update()
     {
@@ -21,6 +19,13 @@ public class OxygenSystem : MonoBehaviour
         }
         oxygenBar.fillAmount = oxygenLevel / 100;
         oxygenRadial.fillAmount = oxygenLevel / 100;
+
+        // Adjust the particle effect based on the oxygen level
+        if (breathEffect != null)
+        {
+            var emission = breathEffect.emission;
+            emission.rateOverTime = Mathf.Lerp(0, 50, 1 - (oxygenLevel / 100)); // Increase emission rate as oxygen level decreases
+        }
     }
 
     public void DecreaseOxygen(float amount)
@@ -36,5 +41,4 @@ public class OxygenSystem : MonoBehaviour
         oxygenBar.fillAmount = oxygenLevel / 100;
         oxygenRadial.fillAmount = oxygenLevel / 100;
     }
-
 }
