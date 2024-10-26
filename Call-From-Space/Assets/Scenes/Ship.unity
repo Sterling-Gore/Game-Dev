@@ -651,7 +651,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 521437876}
         m_TargetAssemblyTypeName: CameraSwapper, Assembly-CSharp
         m_MethodName: NextCamera
         m_Mode: 1
@@ -15952,8 +15952,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 253956b815c8e2a46b6a437d30ef00a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayImage: {fileID: 0}
-  sharedRenderTexture: {fileID: 0}
+  displayImage: {fileID: 1540268260}
+  sharedRenderTexture: {fileID: 8400000, guid: 2d6f3b9f202dd804da20d9dbb40c55d9, type: 2}
 --- !u!4 &521437877
 Transform:
   m_ObjectHideFlags: 0
@@ -41523,18 +41523,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1351950742}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: daffff1e18cb59f43b875eb8a88b3e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentPowerLevel: 0
   maxPowerLevel: 3
-  powerZones:
-  - zoneName: 
-    lights: []
-    cameras: []
-    requiredPowerLevel: 0
+  powerZones: []
   cameraSwapper: {fileID: 0}
 --- !u!4 &1351950744
 Transform:
@@ -48732,7 +48728,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1586280679
 RectTransform:
   m_ObjectHideFlags: 0
@@ -50539,7 +50535,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 521437876}
         m_TargetAssemblyTypeName: CameraSwapper, Assembly-CSharp
         m_MethodName: PreviousCamera
         m_Mode: 1
@@ -54433,6 +54429,10 @@ PrefabInstance:
     - target: {fileID: 3926574748245173614, guid: 6e0129e5bfa219a4abb04bd903c4cb58, type: 3}
       propertyPath: m_Name
       value: Security Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926574748245173614, guid: 6e0129e5bfa219a4abb04bd903c4cb58, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 4316809887571039834, guid: 6e0129e5bfa219a4abb04bd903c4cb58, type: 3}
       propertyPath: m_LocalPosition.x
