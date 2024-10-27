@@ -6,23 +6,29 @@ public class ReflectorRotater : Interactable
 {
     private Animator animation;
     int animationSequence;
+    public bool PuzzleIsCompleted;
 
     // Start is called before the first frame update
     void Start()
     {
         animation = GetComponent<Animator>();
         animationSequence = 0;
+        PuzzleIsCompleted = false;
     }
 
 
     public override string GetDescription()
     {
-        return "Turn Reflector";
+        if (PuzzleIsCompleted)
+            return "";
+        else
+            return "Turn Reflector";
     }
 
     public override void Interact()
     {
-        changeAnimation();
+        if (!PuzzleIsCompleted)
+            changeAnimation();
     }
 
     void changeAnimation()
