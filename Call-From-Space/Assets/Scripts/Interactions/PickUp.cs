@@ -13,7 +13,7 @@ public class PickUp : Interactable
         item = GetComponent<Item>();
         pc = player.GetComponent<PlayerController>();
 
-        Physics.IgnoreCollision(transform.Find("Collider").GetComponent<Collider>(), player.transform.Find("Player Model").GetComponent<Collider>(), true);
+        //Physics.IgnoreCollision(transform.Find("Collider").GetComponent<Collider>(), player.transform.Find("Player Model").GetComponent<Collider>(), true);
     }
 
     public override string GetDescription()
