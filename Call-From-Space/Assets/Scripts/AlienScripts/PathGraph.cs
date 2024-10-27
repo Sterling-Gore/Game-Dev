@@ -7,24 +7,24 @@ public struct PathGraph
 {
     public struct Neighbors
     {
-        public Vector3 a, b;
+        public PathNode a, b;
     }
-    public NativeArray<Vector3> pathPoints;
+    public NativeArray<PathNode> pathPoints;
 
     public NativeArray<Neighbors> neighbors;
 
-    public float YLevel => pathPoints[0].y;
+    public float YLevel => pathPoints[0].pos.y;
 
-    public PathGraph(List<Transform> pathNodeGroups)
+    public PathGraph(List<Transform> pathNodes)
     {
-        int numChildren = pathNodeGroups.Sum(group => group.childCount);
+        int numChildren = pathNodes.Count;
+
         pathPoints = new(numChildren + 1, Allocator.Persistent);
         List<Neighbors> pairs = new();
 
         int idx = 0;
-        foreach (var pathNodes in pathNodeGroups)
-            foreach (Transform pathNode in pathNodes)
-                pathPoints[idx++] = pathNode.position;
+        foreach (Transform pathNode in pathNodes)
+            pathPoints[idx++] = new(pathNode);
 
         for (int i = 0; i < numChildren; i++)
         {
@@ -32,10 +32,10 @@ public struct PathGraph
             for (int j = i - 1; j >= 0; j--)
             {
                 var point2 = pathPoints[j];
-                if (HasNothingInBetween(point1, point2))
+                if (HasNothingInBetween(point1.pos, point2.pos))
                 {
                     pairs.Add(new() { a = point1, b = point2 });
-                    Debug.DrawRay(point1, point2 - point1, Color.red, 100);
+                    Debug.DrawRay(point1.pos, point2.pos - point1.pos, Color.red, 100);
                 }
             }
         }
@@ -48,21 +48,21 @@ public struct PathGraph
     public PathGraph WithPosition(Vector3 alienPosition)
     {
         alienPosition.y = YLevel;
+        PathNode alienPositionNode = new() { pos = alienPosition, radius = 0 };
         int idx = neighbors.Length - pathPoints.Length - 1;
         for (int i = 0; i < pathPoints.Length - 1; i++)
-            if (HasNothingInBetween(pathPoints[i], alienPosition))
-                neighbors[idx++] = new() { a = pathPoints[i], b = alienPosition };
+            if (HasNothingInBetween(pathPoints[i].pos, alienPosition))
+                neighbors[idx++] = new() { a = pathPoints[i], b = alienPositionNode };
         while (idx < neighbors.Length)
             neighbors[idx++] = new();
 
-        Debug.DrawRay(alienPosition, neighbors[^1].a - alienPosition, Color.green, 100);
-        pathPoints[^1] = alienPosition;
+        pathPoints[^1] = alienPositionNode;
         return this;
     }
 
-    public Dictionary<Vector3, HashSet<Vector3>> ToDictionary()
+    public Dictionary<PathNode, HashSet<PathNode>> ToDictionary()
     {
-        Dictionary<Vector3, HashSet<Vector3>> neighborPoints = new(pathPoints.Length, new VectorComparer());
+        Dictionary<PathNode, HashSet<PathNode>> neighborPoints = new(pathPoints.Length);
         for (int i = 0; i < pathPoints.Length; i++)
             neighborPoints[pathPoints[i]] = new();
 
@@ -91,8 +91,21 @@ public struct PathGraph
     }
 }
 
-class VectorComparer : IEqualityComparer<Vector3>
+public struct PathNode
 {
-    public bool Equals(Vector3 vec1, Vector3 vec2) => vec1 == vec2;
-    public int GetHashCode(Vector3 vec) => Mathf.RoundToInt(vec.x + vec.z);
+    public Vector3 pos;
+    public float radius;
+
+    public PathNode(Transform node)
+    {
+        pos = node.position;
+        radius = node.localScale.x;
+    }
+    public override bool Equals(object obj) =>
+        obj is PathNode node2 && pos == node2.pos && radius == node2.radius;
+    public override int GetHashCode() =>
+        Mathf.RoundToInt(pos.x + pos.z + radius);
+
+    public static bool operator ==(PathNode node1, PathNode node2) => node1.pos == node2.pos && node1.radius == node2.radius;
+    public static bool operator !=(PathNode node1, PathNode node2) => !(node1 == node2);
 }

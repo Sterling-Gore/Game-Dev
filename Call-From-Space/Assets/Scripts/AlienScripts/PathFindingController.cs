@@ -2,12 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Jobs;
 using Unity.Collections;
-using Unity.VisualScripting;
 
 public class PathFindingController
 {
     AlienController alien;
-    List<Vector3> pathToTarget = new();
+    List<PathNode> pathToTarget = new();
     public int pathIndex = -1;
 
     const int maxPathLength = 30000;
@@ -16,7 +15,7 @@ public class PathFindingController
 
     JobHandle thoughtHandle;
 
-    NativeArray<Vector3> memoryBuffer;
+    NativeArray<PathNode> memoryBuffer;
     NativeArray<int> memoryBufferLengthUsed;
 
     public PathFindingController(AlienController alien)
@@ -33,16 +32,16 @@ public class PathFindingController
         if (pathIndex < 0 || pathToTarget.Count == 0)
             return;
         var nextPathPoint = pathToTarget[pathIndex];
-        var directionToPath = nextPathPoint - alien.transform.position;
+        var directionToPath = nextPathPoint.pos - alien.transform.position;
         directionToPath.y = 0;
         var distanceToPath = directionToPath.magnitude;
 
-        Debug.DrawRay(alien.transform.position, directionToPath, Color.cyan);
-        Debug.DrawRay(nextPathPoint, -alien.turnRadius * directionToPath.normalized, Color.magenta);
+        Debug.DrawRay(alien.transform.position, directionToPath, Color.cyan, 10);
+        Debug.DrawRay(nextPathPoint.pos, -alien.turnRadius * directionToPath.normalized, Color.magenta);
 
         if (distanceToPath < alien.turnRadius)
             pathIndex--;
-        alien.MoveTowards(nextPathPoint);
+        alien.MoveTowards(nextPathPoint.pos);
     }
 
     public void CalculatePathPeriodically()
@@ -54,19 +53,32 @@ public class PathFindingController
             if (hasStartedThinking)
                 CopyPathToTarget();
 
-            thoughtHandle = new AlienThought
-            {
-                maxPathLength = maxPathLength,
-                alienPosition = alien.transform.position,
-                targetPosition = alien.target.position,
-                pathToTarget = memoryBuffer,
-                graph = alien.pathGraph.WithPosition(alien.transform.position),
-                lengthOfPath = memoryBufferLengthUsed
-            }.Schedule();
+            StartCalculatingPath(alien.target.pos);
 
             timeSinceLastThought = 0;
             hasStartedThinking = true;
         }
+    }
+
+    public void CalculatePathNow(Vector3 target)
+    {
+        StartCalculatingPath(target);
+        CopyPathToTarget();
+        timeSinceLastThought = 0;
+        hasStartedThinking = true;
+    }
+
+    void StartCalculatingPath(Vector3 target)
+    {
+        thoughtHandle = new AlienThought
+        {
+            maxPathLength = maxPathLength,
+            alienPosition = alien.transform.position,
+            targetPosition = target,
+            pathToTarget = memoryBuffer,
+            graph = alien.pathGraph.WithPosition(alien.transform.position),
+            lengthOfPath = memoryBufferLengthUsed
+        }.Schedule();
     }
 
     bool ShouldRecalculatePath() => (
@@ -76,7 +88,7 @@ public class PathFindingController
 
     void CopyPathToTarget()
     {
-        pathToTarget.ForEach(point => Debug.DrawRay(point, Vector3.up * 100, Color.blue, alien.mentalDelay));
+        pathToTarget.ForEach(point => Debug.DrawRay(point.pos, Vector3.up * 100, Color.blue, alien.mentalDelay));
 
         thoughtHandle.Complete();
 
@@ -92,7 +104,7 @@ public class PathFindingController
 
     public bool HasArrived() => pathIndex < 0 || pathToTarget.Count == 0 || (
         pathIndex == 0 &&
-        Vector3.Distance(pathToTarget[pathIndex], alien.transform.position) < .5
+        Vector3.Distance(pathToTarget[pathIndex].pos, alien.transform.position) < .5
     );
 
     public void Dispose()
@@ -109,18 +121,18 @@ public struct AlienThought : IJob
     public Vector3 alienPosition, targetPosition;
     public PathGraph graph;
 
-    public NativeArray<Vector3> pathToTarget;
+    public NativeArray<PathNode> pathToTarget;
     public NativeArray<int> lengthOfPath;
     public void Execute()
     {
-        var newPathToTarget = new List<Vector3>();
-
+        var newPathToTarget = new List<PathNode>();
+        PathNode alienPathNode = new() { pos = alienPosition, radius = 0 };
         new AlienPathFinding
         {
             yLevel = graph.YLevel,
             targetPosition = targetPosition,
             graph = graph.ToDictionary()
-        }.FindPath(newPathToTarget, alienPosition, maxPathLength);
+        }.FindPath(newPathToTarget, alienPathNode, maxPathLength);
 
         for (int i = 0; i < newPathToTarget.Count; ++i)
             pathToTarget[i] = newPathToTarget[i];
@@ -128,13 +140,20 @@ public struct AlienThought : IJob
     }
 }
 
-class AlienPathFinding : AStar<Vector3>
+class AlienPathFinding : AStar<PathNode>
 {
     public float yLevel;
     public Vector3 targetPosition;
-    public Dictionary<Vector3, HashSet<Vector3>> graph;
+    public Dictionary<PathNode, HashSet<PathNode>> graph;
 
-    protected override void Neighbors(Vector3 p, List<Vector3> neighbors) => neighbors.AddRange(graph[new(p.x, yLevel, p.z)]);
-    protected override float Cost(Vector3 p1, Vector3 p2) => Mathf.Pow(p1.x - p2.x, 2) + Mathf.Pow(p1.z - p2.z, 2);
-    protected override float Heuristic(Vector3 p) => Vector3.Distance(p, targetPosition);
+    protected override void Neighbors(PathNode p, List<PathNode> neighbors) =>
+        neighbors.AddRange(graph[new()
+        {
+            pos = new(p.pos.x, yLevel, p.pos.z),
+            radius = p.radius
+        }]);
+    protected override float Cost(PathNode p1, PathNode p2) =>
+        Mathf.Pow(p1.pos.x - p2.pos.x, 2) + Mathf.Pow(p1.pos.z - p2.pos.z, 2);
+    protected override float Heuristic(PathNode p) =>
+        Vector3.Distance(p.pos, targetPosition);
 }

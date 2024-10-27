@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using SoundSource = PathNode;
 
 public class SoundSourcesController : MonoBehaviour
 {
@@ -22,11 +23,11 @@ public class SoundSourcesController : MonoBehaviour
     // Debug.Log(soundSources.Count + " | " + aliens.Count);
     soundSources.ForEach(source =>
     {
-      Debug.DrawRay(source.position, Vector3.up * source.radius * 100, Color.white, 4);
+      Debug.DrawRay(source.pos, Vector3.up * source.radius * 100, Color.white, 4);
       aliens.ForEach(alien =>
       {
         if (
-          Vector3.Distance(alien.transform.position, source.position) < source.radius &&
+          Vector3.Distance(alien.transform.position, source.pos) < source.radius &&
           !alien.blackListedSoundSources.Contains(source)
         )
           alien.target = source;
@@ -43,7 +44,7 @@ public class SoundSourcesController : MonoBehaviour
     position.y = yLevel;
     soundSources.Add(new()
     {
-      position = position,
+      pos = position,
       radius = radius
     });
   }
@@ -52,15 +53,6 @@ public class SoundSourcesController : MonoBehaviour
     GameObject.Find("SoundSourcesController").GetComponent<SoundSourcesController>();
 }
 
-public struct SoundSource
-{
-  public Vector3 position;
-  public float radius;
-
-  public static bool operator ==(SoundSource a, SoundSource b) =>
-    a.position == b.position && a.radius == b.radius;
-  public static bool operator !=(SoundSource a, SoundSource b) => !(a == b);
-}
 /*
   a source will only exist to the alien if alien was there to hear it at first
   if a new source appears go towards it
