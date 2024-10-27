@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GenAScreenInteraction : Interactable
+public class GenScreenInteraction : Interactable
 {
 
     public GameObject GenUI;

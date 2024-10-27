@@ -6,8 +6,6 @@ public class FuelDeposit : Interactable
 {
     public GameObject FuelCell;
     public GameObject player;
-    public GameObject lights;
-    public GameObject alien;
     public PowerLevel powerLevel;
     public float soundRadius;
     public Vector3 rotation;
@@ -31,7 +29,6 @@ public class FuelDeposit : Interactable
                 powerLevel.GeneratorActivated();
                 SoundSourcesController.GetInstance().CreateNewSoundSource(transform.position, soundRadius);
             }
-            //alien.SetActive(true);
         }
     }
 

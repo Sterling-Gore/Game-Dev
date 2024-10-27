@@ -14,26 +14,29 @@ public class BoxesPuzzle : MonoBehaviour
 
     public Interactor interactor;
 
-    int[] answerArray = new int[] 
-{
-    0, 1, 1, 1, 
-    1, 0, 1, 1, 
-    1, 1, 0, 1, 
-    1, 1, 1, 0
-};
+    int[] answerArray; 
 
-    int[] currentAnswerArray = new int[]
-    {
-        0, 0, 0, 0,
-        0, 0, 0, 0,
-        0, 0, 0, 0,
-        0, 0, 0, 0
-    };
+    int[] currentAnswerArray;
 
     bool won = false;
+
+    public GameObject gen;
     void Start()
     {
-        
+        answerArray = new int[] 
+        {
+            0, 1, 1, 1, 
+            1, 0, 1, 1, 
+            1, 1, 0, 1, 
+            1, 1, 1, 0
+        };
+        currentAnswerArray  = new int[]
+        {
+            0, 0, 0, 0,
+            0, 0, 0, 0,
+            0, 0, 0, 0,
+            0, 0, 0, 0
+        };
     }
 
     // Update is called once per frame
@@ -53,52 +56,15 @@ public class BoxesPuzzle : MonoBehaviour
 
     void OnEnable() {
         // makeNewLevel();
-int[] answerArray = new int[] 
-{
-    0, 1, 1, 1, 
-    1, 0, 1, 1, 
-    1, 1, 0, 1, 
-    1, 1, 1, 0
-};
-int[] currentAnswerArray = new int[]
-{
-    0, 0, 0, 0,
-    0, 0, 0, 0,
-    0, 0, 0, 0,
-    0, 0, 0, 0
-    
-};
-Debug.Log("hey" + currentAnswerArray[0]);
 
+        if(!won)
+        {
+            Debug.Log("hey" + currentAnswerArray[0]);
+            TurnInteractableButtons(true);
+        }
 
-TurnInteractableButtons(true);
-
-
-        // StartCoroutine(ColorOrder());
     }
 
-    // void makeNewLevel(){
-    //     buttonsClicked = 0;
-    //     Debug.Log("LEVEL! " + level);
-    //     lightArray = new int[level * 3];
-    //     for(int i = 0; i < lightArray.Length; i++){
-    //         lightArray[i] = (Random.Range(0,4));
-    //   }
-    // }
-
-    // IEnumerator ColorOrder(){
-    //     yield return new WaitForSeconds(1F);
-
-    //     for(int i = 0; i < lightArray.Length; i++){
-    //         buttonsOn[lightArray[i]].SetActive(true);
-    //         yield return new WaitForSeconds(0.5F);
-    //         buttonsOn[lightArray[i]].SetActive(false);
-    //         yield return new WaitForSeconds(0.25F);
-    //     }
-
-    //     enableButtons(true);
-    //     TurnInteractableButtons(true);
-    // }
 
     void TurnInteractableButtons(bool enable){
         for(int i = 0; i < buttonsOn.Length; i++){
@@ -148,6 +114,10 @@ TurnInteractableButtons(true);
     if (isMatch)
     {
         Debug.Log("All elements match.");
+        won = true;
+        gen.transform.Find("genDoor").GetComponent<Animator>().SetTrigger("Open");
+        gen.transform.Find("Fuel-Deposit").GetComponent<Collider>().enabled = true;
+        TurnInteractableButtons(false);
     }
 }
    
