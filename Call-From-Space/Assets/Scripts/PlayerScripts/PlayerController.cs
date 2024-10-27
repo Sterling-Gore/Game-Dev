@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
     [Header("UI")]
     Interactor interactor;
     public GameObject pauseMenuUI;
+    public GameObject optionsMenu;
     int UI_Value;
 
     [Header("Oxygen System")]
@@ -237,18 +238,25 @@ public class PlayerController : MonoBehaviour
             Time.timeScale = 0f;
         }
         //leaving the escape menu     if UI_Value == -1
-        else
+        else if (UI_Value == -1)
         {
             Set_UI_Value(0);
             interactor.inUI = false;
             pauseMenuUI.SetActive(false);
             Time.timeScale = 1f;
         }
+        //leaving the options menu     if UI_Value == -2
+        else
+        {
+            Set_UI_Value(-1);
+            optionsMenu.SetActive(false);
+        }
     }
 
     public void Set_UI_Value(int val)
     {
         UI_Value = val;
+        Debug.Log(UI_Value);
     }
 
     void MovePlayer()
