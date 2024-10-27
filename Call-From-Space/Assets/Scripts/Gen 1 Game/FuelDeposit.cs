@@ -10,6 +10,9 @@ public class FuelDeposit : Interactable
     public GameObject alien;
     public PowerLevel powerLevel;
     public float soundRadius;
+    public Vector3 rotation;
+    public Vector3 position;
+
 
     void OnTriggerEnter(Collider other)
     {
@@ -18,8 +21,8 @@ public class FuelDeposit : Interactable
             FuelCell.GetComponent<Rigidbody>().useGravity = false;
             FuelCell.GetComponent<Rigidbody>().isKinematic = true;
             FuelCell.GetComponent<Holdable>().enabled = false;
-            FuelCell.transform.position = new Vector3(-55.318f, 3.705f, -3.61f);
-            FuelCell.transform.rotation = Quaternion.Euler(0, 0, 90);
+            FuelCell.transform.position = position;
+            FuelCell.transform.rotation = Quaternion.Euler(rotation.x, rotation.y, rotation.z);
             //lights.SetActive(true);
             //PowerLevel powerLevel = FindObjectOfType<PowerLevel>();
             if (powerLevel != null)
