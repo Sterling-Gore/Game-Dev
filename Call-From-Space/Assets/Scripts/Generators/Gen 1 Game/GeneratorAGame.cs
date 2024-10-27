@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;  
 using UnityEngine.UI;            
-public class GeneratorGame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler { 
+public class GeneratorAGame : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler { 
     public Sprite hoverSprite;   
     public Image normalImage;  
     public Sprite normalSprite;
@@ -105,7 +105,7 @@ public class GeneratorGame : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
         updateImage(true);
         gen.transform.Find("genDoor").GetComponent<Animator>().SetTrigger("Open");
-        gen.transform.Find("Fuel-Deposit").GetComponent<Animator>().enabled = true;
+        gen.transform.Find("Fuel-Deposit").GetComponent<Collider>().enabled = true;
 
         //generatorUI.SetActive(false);
         //interactor.inUI = false;

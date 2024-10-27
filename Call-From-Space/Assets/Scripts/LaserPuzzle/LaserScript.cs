@@ -11,6 +11,7 @@ public class LaserScript : MonoBehaviour
     LaserScript previousLaserReflector;
     public bool isEndPoint = false;
     public LayerMask ignoreCollider;
+
     // Start is called before the first frame update
     void Start()
     {

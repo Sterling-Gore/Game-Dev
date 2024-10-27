@@ -4,12 +4,22 @@ using UnityEngine;
 
 public class LazerPuzzleController : MonoBehaviour
 {
-    public List<GameObject> reflectors_and_endpoint; //9 slots
+    public GameObject endpoint; 
+    public List<GameObject> reflectors; //list of the 6 reflectors we can move (not including the 2 you cant move)
     public bool isCompleted;
+    float timer;
+
+
+    public Material LightOn; // for when the light turns on
+    public Material FuelCellOn; //for when the fuelcell is charged
+    public GameObject FuelCell;
+    public GameObject NeedsRechargingCollider;
+    public Color lightOnColor;
 
     void Start()
     {
         isCompleted = false;
+        timer = 0;
     }
     // Update is called once per frame
     void Update()
@@ -19,24 +29,38 @@ public class LazerPuzzleController : MonoBehaviour
             if(CheckCompletion())
             {
                 isCompleted = true;
+                //all the visuals
+                FuelCell.GetComponent<Renderer>().material = FuelCellOn;
+                transform.Find("Light").GetComponent<Renderer>().material = LightOn;
+                transform.Find("Light").Find("Point Light").GetComponent<Light>().color = lightOnColor;
+                FuelCell.transform.Find("Point Light").gameObject.SetActive(true);
+                NeedsRechargingCollider.SetActive(false);
+
+                //making sure the player cant turn the lasers anymore
+                foreach(GameObject reflector in reflectors)
+                    reflector.GetComponent<ReflectorRotater>().PuzzleIsCompleted = true;
+
+
+
                 //completion logic
-                Debug.Log("Bruddha");
             }
         }
     }
 
     bool CheckCompletion()
     {
-        return( 
-            reflectors_and_endpoint[0].GetComponent<LaserScript>().on && 
-            reflectors_and_endpoint[1].GetComponent<LaserScript>().on  && 
-            reflectors_and_endpoint[2].GetComponent<LaserScript>().on  && 
-            reflectors_and_endpoint[3].GetComponent<LaserScript>().on  && 
-            reflectors_and_endpoint[4].GetComponent<LaserScript>().on  && 
-            reflectors_and_endpoint[5].GetComponent<LaserScript>().on  && 
-            reflectors_and_endpoint[6].GetComponent<LaserScript>().on  &&
-            reflectors_and_endpoint[7].GetComponent<LaserScript>().on && 
-            reflectors_and_endpoint[8].GetComponent<LaserScript>().on 
-            );
+        if(endpoint.GetComponent<LaserScript>().on)
+        {
+            if(timer > 2f)
+            {
+                return true;
+            }
+            timer += Time.deltaTime;
+        }
+        else
+        {
+            timer = 0;
+        }
+        return false;
     }
 }

@@ -6,32 +6,29 @@ public class ReflectorRotater : Interactable
 {
     private Animator animation;
     int animationSequence;
-    int i;
+    public bool PuzzleIsCompleted;
+
     // Start is called before the first frame update
     void Start()
     {
         animation = GetComponent<Animator>();
         animationSequence = 0;
-        i = 4;
+        PuzzleIsCompleted = false;
     }
 
-    void Update()
-    {
-        if (i > 0)
-        {
-            changeAnimation();
-            i--;
-        }
-    }
 
     public override string GetDescription()
     {
-        return "Turn Reflector";
+        if (PuzzleIsCompleted)
+            return "";
+        else
+            return "Turn Reflector";
     }
 
     public override void Interact()
     {
-        changeAnimation();
+        if (!PuzzleIsCompleted)
+            changeAnimation();
     }
 
     void changeAnimation()
@@ -63,10 +60,10 @@ public class ReflectorRotater : Interactable
                 animation.SetTrigger("West");
                 break;
         }
-        animationSequence += 1;
-        if(animationSequence == 8)
-        {
-            animationSequence = 0;
-        }
+        animationSequence = (animationSequence + 1) % 8;
+        //if(animationSequence == 8)
+        //{
+        //    animationSequence = 0;
+        //}
     }
 }
