@@ -96,7 +96,7 @@ public class RoamController : MonoBehaviour
     void RoamAroundRoom()
     {
         alien.nextSpeed = alien.tiredSpeed;
-        if (timeRoamingAroundRoom > 0 * currentRoom.timeToRoamAroundFor)//change
+        if (timeRoamingAroundRoom > currentRoom.timeToRoamAroundFor)//change
             ChooseNextRoom();
         else
         {
@@ -247,7 +247,4 @@ public class RoamController : MonoBehaviour
 /*
     set path graph as center points and to points and all others are used in roam
     use navmesh in MoveTowards !check performance!
-
-    TODO: copy roam around room from roaming ai
-    implement rooms and make the random room selection
 */
