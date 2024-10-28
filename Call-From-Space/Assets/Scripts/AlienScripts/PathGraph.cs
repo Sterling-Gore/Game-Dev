@@ -15,6 +15,11 @@ public struct PathGraph
 
     public float YLevel => pathPoints[0].pos.y;
 
+    static readonly int layerMask = ~(
+        Physics.IgnoreRaycastLayer |
+        (1 << LayerMask.NameToLayer("AlienLayer"))
+    );
+
     public PathGraph(List<Transform> pathNodes)
     {
         int numChildren = pathNodes.Count;
@@ -87,7 +92,8 @@ public struct PathGraph
     static bool HasNothingInBetween(Vector3 a, Vector3 b)
     {
         var dist = Vector3.Distance(a, b);
-        return !Physics.Raycast(a, (b - a) / dist, dist, Physics.DefaultRaycastLayers);
+
+        return !Physics.Raycast(a, (b - a) / dist, dist, layerMask);
     }
 }
 

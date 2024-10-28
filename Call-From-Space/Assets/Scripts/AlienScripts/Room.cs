@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
-  string name;
+  new string name;
   public float timeToRoamAroundFor;
   public Transform center;
   public List<PathNode> roamNodes = new();

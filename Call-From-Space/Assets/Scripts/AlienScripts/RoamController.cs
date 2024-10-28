@@ -30,8 +30,6 @@ public class RoamController : MonoBehaviour
     public Vector3 pos;
     public string roomName;
     public string nextRoomName;
-
-
     public void Init(AlienController alien)
     {
         this.alien = alien;
@@ -198,8 +196,7 @@ public class RoamController : MonoBehaviour
 
         alien.pathFinder.CalculatePathNow(nextRoom.center.position);
 
-        Debug.Log("done looking, next point:");
-        Debug.Log(alien.target.pos);
+        Debug.Log($"done looking, next room: {nextRoom.name} at {nextRoom.center.position}");
 
         isRoamingRoom = false;
         isLookingAround = false;
