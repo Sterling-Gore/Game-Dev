@@ -23,15 +23,17 @@ public class AlienController : MonoBehaviour
     public float walkSpeed;
     public float runSpeed;
     public float tiredSpeed;
+    [Header("Calculated Movement")]
+    public float actualSpeed;
+    public float timeStayingStill;
+    public float curSpeed;
+    public float nextSpeed;
+    float timeInSpeed;
 
     [Header("Stamina")]
     public float restingPeriod;
     public float walkingStamina;
     public float runningStamina;
-
-    public float curSpeed;
-    public float nextSpeed;
-    float timeInSpeed;
 
     Rigidbody playerRb;
     public PathGraph pathGraph;
@@ -52,13 +54,12 @@ public class AlienController : MonoBehaviour
 
         playerRb = player.GetComponent<Rigidbody>();
 
-        head = GameObject.Find("spine.005").transform;
-
         curSpeed = nextSpeed = walkSpeed;
 
         SoundSourcesController.GetInstance().SubscribeToSoundSources(this);
 
-        powerLevelManager = GameObject.Find("PowerManager").GetComponent<PowerLevel>();
+        var powerManager = GameObject.Find("PowerManager");
+        powerLevelManager = powerManager.GetComponent<PowerLevel>();
         pathFinder = new(this);
         roamer = GetComponent<RoamController>();
 
@@ -189,10 +190,16 @@ public class AlienController : MonoBehaviour
         var closestPoint = GetClosestPointToLine(prevPos, (curPos - prevPos).normalized, prevPos - target);
 
         transform.position = Clamp(closestPoint, prevPos, curPos);
+
+        CheckNewPosition(prevPos);
+        CheckStayingStill(prevPos);
+
+
         prevPos.y += 1;
         var newPos = transform.position;
         newPos.y += 1;
         Debug.DrawLine(prevPos, newPos);
+
         return Vector3.Distance(transform.position, target) <= dPos;
     }
 
@@ -209,6 +216,33 @@ public class AlienController : MonoBehaviour
         if (end2point == start2end)
             return end;
         return point;
+    }
+
+    void CheckNewPosition(Vector3 prevPos)
+    {
+        var aboveNewPosition = transform.position;
+        aboveNewPosition.y += 1;
+        if (!Physics.Raycast(aboveNewPosition, Vector3.down, 10, ~LayerMask.NameToLayer("whatIsGround")))
+        {
+            Debug.DrawRay(aboveNewPosition, Vector3.down * 10, Color.black);
+            Debug.LogError($"point not above ground {aboveNewPosition} {LayerMask.NameToLayer("whatIsGround")}");
+            transform.position = prevPos;
+        }
+    }
+
+    void CheckStayingStill(Vector3 prevPos)
+    {
+        actualSpeed = Vector3.Distance(prevPos, transform.position) / Time.deltaTime;
+        if (actualSpeed < .5)
+        {
+            timeStayingStill += Time.deltaTime;
+            if (timeStayingStill > 2)
+            {
+                Debug.LogError("alien is stuck!");
+            }
+        }
+        else
+            timeStayingStill = 0;
     }
 
     float CurSpeed()

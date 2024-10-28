@@ -13,7 +13,6 @@ public class TriggerDoor : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("YAAAAAAAAAAAAS");
         if (other.CompareTag("Player") || other.CompareTag("Alien"))
         {
             _doorAnimator.SetTrigger("Open");
