@@ -8,6 +8,7 @@ public class CameraController : MonoBehaviour
     public float mouseSensitivity;
 
     public Transform orientation;
+    public GameObject PlayerModel;
     float xRotation;
     float yRotation;
 
@@ -48,13 +49,7 @@ public class CameraController : MonoBehaviour
 
             transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
             orientation.rotation = Quaternion.Euler(0, yRotation, 0);
+            PlayerModel.transform.rotation = Quaternion.Euler(0, yRotation, 0);
         }
-        
-
-
-    }
-
-   
-
-    
+    }    
 }
