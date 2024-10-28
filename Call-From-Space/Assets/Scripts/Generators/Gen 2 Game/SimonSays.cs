@@ -14,7 +14,6 @@ public class SimonSays : MonoBehaviour
     public Sprite greenButton;
     public GameObject SimonSaysUI;
 
-    public Interactor interactor;
 
     int level;
     int[] ButtonsPerLevel = { 1, 2, 3 };
@@ -31,16 +30,7 @@ public class SimonSays : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    if (Input.GetKeyDown(KeyCode.Escape)) {
-        SimonSaysUI.SetActive(false);
-        interactor.inUI = false;
-      }
-
-        
-    }
+ 
 
     void Awake() {
         level = 0;

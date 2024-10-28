@@ -12,8 +12,6 @@ public class BoxesPuzzle : MonoBehaviour
     public GameObject[] buttonsOn;
     public GameObject BoxesPuzzleUI;
 
-    public Interactor interactor;
-
     int[] answerArray; 
 
     int[] currentAnswerArray;
@@ -21,6 +19,11 @@ public class BoxesPuzzle : MonoBehaviour
     bool won = false;
 
     public GameObject gen;
+
+    public Sprite greenButton;
+
+    public Sprite redButton;
+    public Sprite NOTHING;
     void Start()
     {
         answerArray = new int[] 
@@ -40,23 +43,11 @@ public class BoxesPuzzle : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-    if (Input.GetKeyDown(KeyCode.Escape)) {
-        BoxesPuzzleUI.SetActive(false);
-        interactor.inUI = false;
-      }
-
-    }
 
     void Awake() {
-       
-
     }
 
     void OnEnable() {
-        // makeNewLevel();
-
         if(!won)
         {
             Debug.Log("hey" + currentAnswerArray[0]);
@@ -70,14 +61,9 @@ public class BoxesPuzzle : MonoBehaviour
         for(int i = 0; i < buttonsOn.Length; i++){
             Debug.Log("enable " + i);
             buttonsOn[i].GetComponent<Button>().interactable = enable;
+            buttonsOff[i].GetComponent<Button>().interactable = enable;
         }
     }
-
-    // public void turnOnButtons(bool enable){
-    //     for(int i = 0; i < buttonsOn.Length; i++){
-    //     buttonsOn[i].SetActive(enable);
-    //     }
-    // }
 
     public void ButtonClick(int button){
         Debug.Log(button);
@@ -91,8 +77,61 @@ public class BoxesPuzzle : MonoBehaviour
         
     }
 
+    IEnumerator RedOrder(){
+        TurnInteractableButtons(false);
+        for(int i = 0; i < buttonsOn.Length; i++){
+            buttonsOn[i].GetComponent<UnityEngine.UI.Image>().enabled = false;
+        }
+
+        yield return new WaitForSeconds(0.25F);
+        for(int j = 0; j < 3; j++){
+
+        for(int i = 0; i < buttonsOff.Length; i++){
+            buttonsOff[i].transform.GetComponent<UnityEngine.UI.Image>().sprite = redButton;
+        }
+        yield return new WaitForSeconds(0.5F);
+        for(int i = 0; i < buttonsOff.Length; i++){
+        buttonsOff[i].transform.GetComponent<UnityEngine.UI.Image>().sprite = NOTHING;
+        }
+         yield return new WaitForSeconds(0.25F);
+        }
+
+        for(int i = 0; i < buttonsOn.Length; i++){
+            if(currentAnswerArray[i] == 1){
+            buttonsOn[i].GetComponent<UnityEngine.UI.Image>().enabled = true;
+            }
+        }
+       TurnInteractableButtons(true);
+    }
+
+
+    IEnumerator GreenOrder(){
+        for(int i = 0; i < buttonsOn.Length; i++){
+            buttonsOn[i].GetComponent<UnityEngine.UI.Image>().enabled = false;
+        }
+
+        yield return new WaitForSeconds(0.25F);
+        for(int j = 0; j < 5; j++){
+
+        for(int i = 0; i < buttonsOff.Length; i++){
+            buttonsOff[i].transform.GetComponent<UnityEngine.UI.Image>().sprite = greenButton;
+        }
+        yield return new WaitForSeconds(0.5F);
+        for(int i = 0; i < buttonsOff.Length; i++){
+        buttonsOff[i].transform.GetComponent<UnityEngine.UI.Image>().sprite = NOTHING;
+        }
+         yield return new WaitForSeconds(0.25F);
+        }
+
+        for(int i = 0; i < buttonsOn.Length; i++){
+            buttonsOn[i].GetComponent<UnityEngine.UI.Image>().enabled = true;
+        }
+       
+    }
+
     public void SubmitButton()
 {
+    if(!won){
     Debug.Log("Current Answer Array:");
     for (int i = 0; i < currentAnswerArray.Length; i++)
     {
@@ -107,6 +146,7 @@ public class BoxesPuzzle : MonoBehaviour
         {
             Debug.Log($"Mismatch at index {i}: expected {answerArray[i]}, but got {currentAnswerArray[i]}.");
             isMatch = false;  // Set the flag to false if any element doesn't match
+            StartCoroutine(RedOrder());
         }
     }
     
@@ -118,6 +158,8 @@ public class BoxesPuzzle : MonoBehaviour
         gen.transform.Find("genDoor").GetComponent<Animator>().SetTrigger("Open");
         gen.transform.Find("Fuel-Deposit").GetComponent<Collider>().enabled = true;
         TurnInteractableButtons(false);
+        StartCoroutine(GreenOrder());
+    }
     }
 }
    
