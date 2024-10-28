@@ -1685,7 +1685,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &44489286
 GameObject:
@@ -3798,7 +3798,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &89546260
 GameObject:
@@ -4080,7 +4080,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &92749477
 GameObject:
@@ -4822,7 +4822,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &107661689
 GameObject:
@@ -6361,7 +6361,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!4 &155699270 stripped
 Transform:
@@ -16998,7 +16998,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &290262615
 GameObject:
@@ -20941,7 +20941,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1001 &379341815
 PrefabInstance:
@@ -26852,7 +26852,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &409133729
 GameObject:
@@ -27961,7 +27961,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &437704316
 GameObject:
@@ -38337,7 +38337,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &661672628
 GameObject:
@@ -43623,7 +43623,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &670249321
 GameObject:
@@ -51289,7 +51289,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &737479385
 GameObject:
@@ -51809,7 +51809,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &747826255
 GameObject:
@@ -53502,7 +53502,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &796087483
 GameObject:
@@ -54490,7 +54490,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &818529155
 GameObject:
@@ -55958,7 +55958,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &839279359
 GameObject:
@@ -62590,6 +62590,62 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.165
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.165
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.165
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -23.439999
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.4880009
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 75.58
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e236bc5b78943664ab502350737d5617, type: 3}
+      propertyPath: m_Name
+      value: RoomsAndHallwaysMeshes
+      objectReference: {fileID: 0}
     - target: {fileID: -5538985522780130180, guid: dc7cffb4270b6a3489984548b5de1266, type: 3}
       propertyPath: m_Name
       value: RoomC
@@ -62678,62 +62734,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ab0c5340c3063c546b8fdca26e4e75e1, type: 2}
-    - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.165
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.165
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.165
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -23.439999
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.4880009
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 75.58
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e236bc5b78943664ab502350737d5617, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: e236bc5b78943664ab502350737d5617, type: 3}
-      propertyPath: m_Name
-      value: RoomsAndHallwaysMeshes
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -66969,7 +66969,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &987663720
 GameObject:
@@ -68740,7 +68740,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &1027645954
 GameObject:
@@ -69399,7 +69399,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &1046889289
 GameObject:
@@ -70551,7 +70551,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &1083785902
 GameObject:
@@ -71576,7 +71576,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!4 &1111130474 stripped
 Transform:
@@ -72604,7 +72604,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &1135354701
 GameObject:
@@ -74313,7 +74313,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &1180415091
 GameObject:
@@ -75371,7 +75371,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &1202797644
 GameObject:
@@ -82550,7 +82550,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &1378604329
 GameObject:
@@ -84091,7 +84091,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &1419763230
 GameObject:
@@ -94311,7 +94311,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &1659420087
 GameObject:
@@ -94400,7 +94400,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &1660236483
 GameObject:
@@ -94621,7 +94621,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &1660936442
 GameObject:
@@ -95249,7 +95249,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &1668912050
 GameObject:
@@ -105992,7 +105992,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &1833503490
 GameObject:
@@ -108810,7 +108810,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &1894391282
 GameObject:
@@ -118610,7 +118610,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &1985449545
 GameObject:
@@ -120399,7 +120399,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &2032816330
 GameObject:
@@ -122158,7 +122158,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &2068268280
 GameObject:
@@ -123002,7 +123002,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6, y: 1.5, z: 1.8}
+  m_Size: {x: 1.3, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &2087807360
 GameObject:
