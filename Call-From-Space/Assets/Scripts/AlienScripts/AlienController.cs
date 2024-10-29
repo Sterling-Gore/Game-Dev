@@ -47,9 +47,12 @@ public class AlienController : MonoBehaviour
     PowerLevel powerLevelManager;
     int curPowerLevel = -1;
     public List<Transform> curSections = new();
+    Animator animator;
 
     void Start()
     {
+        animator = GetComponent<Animator>();
+
         endingScreen = GameObject.Find("EndingScreen");
 
         playerRb = player.GetComponent<Rigidbody>();
@@ -75,6 +78,8 @@ public class AlienController : MonoBehaviour
         soundSource.transform.position = target.pos;
 
         KeepUpright();
+        animator.SetBool("isWalking", true);
+        animator.SetBool("isRunning", false);
         if (!heardSomething)
         {
             if (target != new SoundSource())
@@ -164,6 +169,8 @@ public class AlienController : MonoBehaviour
 
     void AttackPlayer()
     {
+        if (curSpeed == runSpeed)
+            animator.SetBool("isRunning", true);
         var gameOver = endingScreen.transform.GetChild(0).gameObject;
         gameOver.SetActive(true);
     }
@@ -239,6 +246,7 @@ public class AlienController : MonoBehaviour
             if (timeStayingStill > 2)
             {
                 Debug.LogError("alien is stuck!");
+                animator.SetBool("isWalking", false);
             }
         }
         else
