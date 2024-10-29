@@ -16,7 +16,7 @@ public class SimonSays : MonoBehaviour
 
 
     int level;
-    int[] ButtonsPerLevel = { 3, 5, 7 };
+    int[] ButtonsPerLevel = { 2, 3, 4 };
 
     int[] lightArray;
     int buttonsClicked = 0;

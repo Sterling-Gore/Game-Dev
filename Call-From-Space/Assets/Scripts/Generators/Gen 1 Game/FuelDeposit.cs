@@ -11,6 +11,12 @@ public class FuelDeposit : Interactable
     public Vector3 rotation;
     public Vector3 position;
     public GameObject particles;
+    AudioSource genPowerAudio;
+
+    void Start()
+    {
+        genPowerAudio = GetComponent<AudioSource>();
+    }
 
 
     void OnTriggerEnter(Collider other)
@@ -23,6 +29,7 @@ public class FuelDeposit : Interactable
             FuelCell.transform.position = position;
             FuelCell.transform.rotation = Quaternion.Euler(rotation.x, rotation.y, rotation.z);
             particles.SetActive(true);
+            genPowerAudio.enabled = true;
             //lights.SetActive(true);
             //PowerLevel powerLevel = FindObjectOfType<PowerLevel>();
             if (powerLevel != null)

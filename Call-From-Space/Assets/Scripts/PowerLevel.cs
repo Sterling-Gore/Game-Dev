@@ -28,6 +28,8 @@ public class PowerLevel : MonoBehaviour
     private Dictionary<GameObject, bool> originalLightStates = new Dictionary<GameObject, bool>();
     private Dictionary<GameObject, bool> originalColliderStates = new Dictionary<GameObject, bool>();
 
+    public GameObject alienSystem;
+
     void Start()
     {
         foreach (PowerZone zone in powerZones)
@@ -70,10 +72,15 @@ public class PowerLevel : MonoBehaviour
 
     public void GeneratorActivated()
     {
+        if(activeGenerators == 0)
+        {
+            alienSystem.SetActive(true);
+        }
         activeGenerators = Mathf.Min(activeGenerators + 1, maxPowerLevel);
         currentPowerLevel = activeGenerators;
         UpdatePowerSystems();
         Debug.Log($"Generator activated. Current power level: {currentPowerLevel}");
+
     }
 
     public void GeneratorDeactivated()

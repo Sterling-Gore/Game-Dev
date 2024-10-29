@@ -16,10 +16,13 @@ public class LazerPuzzleController : MonoBehaviour
     public GameObject NeedsRechargingCollider;
     public Color lightOnColor;
 
+    AudioSource completionSound;
+
     void Start()
     {
         isCompleted = false;
         timer = 0;
+        completionSound = GetComponent<AudioSource>();
     }
     // Update is called once per frame
     void Update()
@@ -35,6 +38,7 @@ public class LazerPuzzleController : MonoBehaviour
                 transform.Find("Light").Find("Point Light").GetComponent<Light>().color = lightOnColor;
                 FuelCell.transform.Find("Point Light").gameObject.SetActive(true);
                 NeedsRechargingCollider.SetActive(false);
+                completionSound.Play();
 
                 //making sure the player cant turn the lasers anymore
                 foreach(GameObject reflector in reflectors)
