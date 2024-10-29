@@ -1,8 +1,10 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Networking;
 using SoundSource = PathNode;
 
 public class AlienController : MonoBehaviour
@@ -48,6 +50,8 @@ public class AlienController : MonoBehaviour
     int curPowerLevel = -1;
     public List<Transform> curSections = new();
     Animator animator;
+    AudioSource walkingAudio, idleAudio, attackAudio;
+    List<AudioClip> walkingClips = new(), idleClips = new(), attackClips = new();
 
     void Start()
     {
@@ -69,6 +73,12 @@ public class AlienController : MonoBehaviour
         UpdatePathGraph();
 
         roamer.Init(this);
+
+        Transform sounds = transform.Find("Sounds");
+        idleAudio = sounds.Find("IdleSounds").gameObject.GetComponent<AudioSource>();
+        attackAudio = sounds.Find("AttackSounds").gameObject.GetComponent<AudioSource>();
+        walkingAudio = sounds.Find("WalkSounds").gameObject.GetComponent<AudioSource>();
+        StartCoroutine(LoadAudioClips());
     }
 
     void Update()
@@ -105,6 +115,7 @@ public class AlienController : MonoBehaviour
 
     void AnnounceHeardSomething()
     {
+        PlayRandomIdleAudio();
         justHeardSomething = true;
         heardSomething = true;
         Debug.Log("I hear you");
@@ -112,6 +123,7 @@ public class AlienController : MonoBehaviour
 
     void HuntPlayer()
     {
+        PlayRandomWalkAudio();
         var directionToPlayer = player.transform.position - transform.position;
         var distanceToPlayer = directionToPlayer.magnitude;
 
@@ -187,6 +199,7 @@ public class AlienController : MonoBehaviour
     /// <returns>true if reached target </returns>
     public bool MoveTowards(Vector3 target)
     {
+        PlayRandomWalkAudio();
         target.y = transform.position.y;
         var targetRotation = Quaternion.LookRotation(target - transform.position);
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * turnSpeed);
@@ -276,8 +289,76 @@ public class AlienController : MonoBehaviour
 
         return curSpeed;
     }
-}
 
+    public void PlayRandomWalkAudio()
+    {
+        if (!walkingAudio.isPlaying && walkingClips.Count != 0)
+        {
+            walkingAudio.clip = walkingClips[Random.Range(0, walkingClips.Count)];
+            walkingAudio.Play();
+        }
+    }
+
+    public void PlayRandomAttackAudio()
+    {
+        if (!attackAudio.isPlaying && attackClips.Count != 0)
+        {
+            attackAudio.clip = attackClips[Random.Range(0, attackClips.Count)];
+            attackAudio.Play();
+        }
+    }
+
+    public void PlayRandomIdleAudio()
+    {
+        if (!idleAudio.isPlaying && idleClips.Count != 0)
+        {
+            idleAudio.clip = idleClips[Random.Range(0, idleClips.Count)];
+            idleAudio.Play();
+        }
+    }
+
+    IEnumerator LoadAudioClips()
+    {
+        List<(string path, List<AudioClip> clips)> audioClips = new(){
+            ("Idle",idleClips),
+            ("Movement",walkingClips),
+            ("Attack",attackClips)
+        };
+        foreach (var (path, clips) in audioClips)
+        {
+            string soundPath = Path.Combine(Application.dataPath, "Sound", "Alien", path);
+            var dir = new DirectoryInfo(soundPath);
+            var info = dir.GetFiles("*.wav");
+
+            if (info.Length == 0)
+            {
+                Debug.LogWarning($"No .wav files found in the {path} folder!");
+                yield break;
+            }
+
+            var fileNames = info.Select(x => x.FullName).ToList();
+            yield return LoadAudio(clips, fileNames);
+        }
+    }
+
+    IEnumerator LoadAudio(List<AudioClip> audioClips, List<string> paths)
+    {
+        foreach (string path in paths)
+        {
+            using var www = UnityWebRequestMultimedia.GetAudioClip("file://" + path, AudioType.WAV);
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
+                if (clip)
+                    audioClips.Add(clip);
+                else
+                    Debug.LogError("Failed to create AudioClip from file: " + path);
+            }
+        }
+    }
+}
 /*
  * Ideas:
  * To save on CPU usage, only run A* every now and then

@@ -66,6 +66,7 @@ public class RoamController : MonoBehaviour
 
     void WalkToNextRoom()
     {
+        alien.PlayRandomWalkAudio();
         alien.nextSpeed = alien.walkSpeed;
         alien.pathFinder.FollowPath();
         nextPos = nextRoom.center.position;
@@ -110,6 +111,7 @@ public class RoamController : MonoBehaviour
                 LookAroundRoom();
             else
             {
+                alien.PlayRandomWalkAudio();
                 if (hasNextRoamSpot)
                     MoveToRoamSpot();
                 else
@@ -168,6 +170,7 @@ public class RoamController : MonoBehaviour
             isLookingAround = false;
             timeLookingAround = 0;
             animator.SetBool("isLookingAround", false);
+            alien.PlayRandomIdleAudio();
         }
         else
         {
