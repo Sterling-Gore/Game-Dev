@@ -9,6 +9,7 @@ public class PowerLevel : MonoBehaviour
         public string zoneName;
         public GameObject[] lights;
         public GameObject[] cameras;
+        public GameObject[] doors;
         public int requiredPowerLevel;
     }
 
@@ -25,6 +26,7 @@ public class PowerLevel : MonoBehaviour
     private int activeGenerators = 0;
     private Dictionary<GameObject, bool> originalCameraStates = new Dictionary<GameObject, bool>();
     private Dictionary<GameObject, bool> originalLightStates = new Dictionary<GameObject, bool>();
+    private Dictionary<GameObject, bool> originalColliderStates = new Dictionary<GameObject, bool>();
 
     void Start()
     {
@@ -45,6 +47,19 @@ public class PowerLevel : MonoBehaviour
                 {
                     originalLightStates[light] = light.activeSelf;
                     light.SetActive(false);
+                }
+            }
+
+            foreach (GameObject door in zone.doors)
+            {
+                if (door != null)
+                {
+                    BoxCollider doorCollider = door.GetComponent<BoxCollider>();
+                    if (doorCollider != null)
+                    {
+                        originalColliderStates[door] = doorCollider.enabled;
+                        doorCollider.enabled = false;
+                    }
                 }
             }
         }
@@ -92,6 +107,19 @@ public class PowerLevel : MonoBehaviour
                 {
                     bool originalState = originalCameraStates[camera];
                     camera.SetActive(shouldBeActive && originalState);
+                }
+            }
+
+            foreach (GameObject door in zone.doors)
+            {
+                if (door != null)
+                {
+                    BoxCollider doorCollider = door.GetComponent<BoxCollider>();
+                    if (doorCollider != null)
+                    {
+                        bool originalState = originalColliderStates[door];
+                        doorCollider.enabled = shouldBeActive && originalState;
+                    }
                 }
             }
         }

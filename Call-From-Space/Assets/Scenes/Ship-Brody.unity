@@ -7385,7 +7385,12 @@ MonoBehaviour:
   - {fileID: 1220052937}
   - {fileID: 1132114186}
   BoxesPuzzleUI: {fileID: 316517620}
-  interactor: {fileID: 362943810}
+  gen: {fileID: 0}
+  greenButton: {fileID: 0}
+  redButton: {fileID: 0}
+  NOTHING: {fileID: 0}
+  enableSound: {fileID: 8300000, guid: 928debe392bdf4e898dce7d0c2ae4ad3, type: 3}
+  disableSound: {fileID: 8300000, guid: 1edaa9664acd34474b9425da44b48cbd, type: 3}
 --- !u!4 &316870806 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7942816438788599155, guid: b8b6b2117bfabf446a4cac0ee06206ad, type: 3}
@@ -8047,13 +8052,24 @@ MonoBehaviour:
   standard_speed: 5
   groundDrag: 5
   orientation: {fileID: 1202797645}
-  InventoryObject: {fileID: 1434148441}
+  Inventory_and_camera_UI: {fileID: 0}
+  Inventory_UI_Object: {fileID: 0}
+  Camera_UI_Object: {fileID: 0}
+  Inspector_UI_Object: {fileID: 0}
   uiInvetory: {fileID: 1434148443}
   maxSlope: 40
   playerHeight: 0
+  pauseMenuUI: {fileID: 0}
+  optionsMenu: {fileID: 0}
   oxygenSystem: {fileID: 0}
   runningOxygenCost: 2
   walkingOxygenCost: 0.5
+  stationaryOxygenCost: 0.25
+  Generator1_UI: {fileID: 0}
+  Generator2_UI: {fileID: 0}
+  Generator3_UI: {fileID: 0}
+  runningSoundRadius: 0
+  walkingSoundRadius: 0
 --- !u!114 &362943809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15901,8 +15917,10 @@ MonoBehaviour:
   - {fileID: 591193234}
   - {fileID: 932991497}
   - {fileID: 1526553322}
+  HeaderButtons: []
+  greenButton: {fileID: 0}
   SimonSaysUI: {fileID: 824259520}
-  interactor: {fileID: 362943810}
+  gen: {fileID: 0}
 --- !u!4 &828094951 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -3274006528333456403, guid: 22d2d8b117f9b5447acfa7a67b75e06b, type: 3}
@@ -18486,6 +18504,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 400
   orientation: {fileID: 1202797645}
+  PlayerModel: {fileID: 0}
   Player_for_interactor: {fileID: 362943805}
 --- !u!1 &971540490
 GameObject:
@@ -27461,12 +27480,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 362943805}
-  speed: 0
   attackRadius: 0
-  awarenessRadius: 1000000
-  isAwareOfPlayer: 0
+  heardSomething: 0
   mentalDelay: 5
-  timeToLookAroundFor: 0
+  soundSourcesMemory: 0
+  turnRadius: 0
+  turnSpeed: 0
+  walkSpeed: 0
+  runSpeed: 0
+  tiredSpeed: 0
+  actualSpeed: 0
+  timeStayingStill: 0
+  curSpeed: 0
+  nextSpeed: 0
+  restingPeriod: 0
+  walkingStamina: 0
+  runningStamina: 0
+  head: {fileID: 0}
+  soundSource: {fileID: 0}
+  curSections: []
 --- !u!65 &1514790464
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -34271,12 +34303,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 362943805}
-  speed: 0
   attackRadius: 2
-  awarenessRadius: 10000000
-  isAwareOfPlayer: 0
+  heardSomething: 0
   mentalDelay: 5
-  timeToLookAroundFor: 0
+  soundSourcesMemory: 0
+  turnRadius: 0
+  turnSpeed: 0
+  walkSpeed: 0
+  runSpeed: 0
+  tiredSpeed: 0
+  actualSpeed: 0
+  timeStayingStill: 0
+  curSpeed: 0
+  nextSpeed: 0
+  restingPeriod: 0
+  walkingStamina: 0
+  runningStamina: 0
+  head: {fileID: 0}
+  soundSource: {fileID: 0}
+  curSections: []
 --- !u!65 &1845224673
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -36543,8 +36588,11 @@ MonoBehaviour:
   interactionType: 0
   FuelCell: {fileID: 1968838071}
   player: {fileID: 362943805}
-  lights: {fileID: 2070371729}
-  alien: {fileID: 1845224669}
+  powerLevel: {fileID: 0}
+  soundRadius: 0
+  rotation: {x: 0, y: 0, z: 0}
+  position: {x: 0, y: 0, z: 0}
+  particles: {fileID: 0}
 --- !u!1 &1949311329
 GameObject:
   m_ObjectHideFlags: 0
