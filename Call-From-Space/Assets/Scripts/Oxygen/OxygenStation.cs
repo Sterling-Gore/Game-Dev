@@ -8,12 +8,17 @@ namespace GameDev.Scripts.Oxygen
         //public Text interactionText; // Reference to the UI Text component
         public OxygenSystem oxygenSystem;
         public GameObject oxygenRadial;
+        public AudioSource refillAudio;
+        public AudioSource refillComplete;
+
 
         void Update()
         {
             if(Input.GetKeyUp(KeyCode.E))
             {
                 oxygenRadial.SetActive(false);
+                refillAudio.enabled = false;
+                refillComplete.Play(0);
             }
         }
         public override string GetDescription()
@@ -28,6 +33,7 @@ namespace GameDev.Scripts.Oxygen
             if (oxygenSystem != null)
             {
                 oxygenRadial.SetActive(true);
+                refillAudio.enabled = true;
                 oxygenSystem.IncreaseOxygen(); // Call the RefillOxygen method
             }
             else
