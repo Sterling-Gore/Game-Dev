@@ -30,6 +30,13 @@ public class RoamController : MonoBehaviour
     public Vector3 pos;
     public string roomName;
     public string nextRoomName;
+
+    Animator animator;
+
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
     public void Init(AlienController alien)
     {
         this.alien = alien;
@@ -50,6 +57,7 @@ public class RoamController : MonoBehaviour
 
     public void RoamAround()
     {
+        animator.SetBool("isWalking", true);
         if (isRoamingRoom)
             RoamAroundRoom();
         else
@@ -127,7 +135,7 @@ public class RoamController : MonoBehaviour
                 var shouldLookAround = Random.value > .90f; // look around every 10th time
                 if (shouldLookAround)
                 {
-                    timeToLookAroundFor = Random.Range(1, 4);
+                    timeToLookAroundFor = Random.Range(3, 4);
                     isLookingAround = true;
                 }
             }
@@ -153,17 +161,22 @@ public class RoamController : MonoBehaviour
 
     void LookAroundRoom()
     {
+        animator.SetBool("isWalking", false);
+        animator.SetBool("isLookingAround", true);
         if (timeLookingAround > timeToLookAroundFor)
         {
             isLookingAround = false;
             timeLookingAround = 0;
+            animator.SetBool("isLookingAround", false);
         }
         else
         {
             int angle = 200;
             if (timeLookingAround < timeToLookAroundFor / 4 || timeLookingAround > timeToLookAroundFor * 3 / 4)
                 angle = -200;
+
             alien.head.Rotate(Vector3.forward, angle * Time.deltaTime / timeToLookAroundFor);
+            animator.SetBoneLocalRotation(HumanBodyBones.Neck, alien.head.rotation);
             timeLookingAround += Time.deltaTime;
         }
     }

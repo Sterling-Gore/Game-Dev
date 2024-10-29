@@ -4,42 +4,63 @@ using UnityEngine;
 
 public class PlayerAudio : MonoBehaviour
 {
+    public OxygenSystem O2System;
     // Start is called before the first frame update
-    AudioSource[]  MovementAudios;
+    AudioSource[]  Audios;
+    AudioSource walking;
+    AudioSource sprinting;
+    AudioSource crouching;
+    AudioSource ambiance;
+    AudioSource breathing;
     void Start()
     {
-      MovementAudios = gameObject.GetComponents<AudioSource>();
-      MovementAudios[3].enabled = true;  
+      Audios = gameObject.GetComponents<AudioSource>();
+      walking = Audios[0];
+      sprinting = Audios[1];
+      crouching = Audios[2];
+      ambiance = Audios[3];
+      breathing = Audios[4];
+      ambiance.enabled = true;  
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+        if(GetComponent<PlayerController>().UI_Value < 0)
+            breathing.enabled = false;
+        else
+            breathing.enabled = true;
+
        if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
        {
         if (Input.GetKey("left shift"))
             {
-                MovementAudios[0].enabled = false;
-                MovementAudios[1].enabled = true;
-                MovementAudios[2].enabled = false;
+                walking.enabled = false;
+                sprinting.enabled = true;
+                crouching.enabled = false;
             }
             else if (Input.GetKey("left ctrl"))
             {
-                MovementAudios[0].enabled = false;
-                MovementAudios[1].enabled = false;
-                MovementAudios[2].enabled = true;
+                walking.enabled = false;
+                sprinting.enabled = false;
+                crouching.enabled = true;
             }
             else{
-                MovementAudios[0].enabled = true;
-                MovementAudios[1].enabled = false;
-                MovementAudios[2].enabled = false;
+                walking.enabled = true;
+                sprinting.enabled = false;
+                crouching.enabled = false;
             }
        } 
        else
         {
-            MovementAudios[0].enabled = false;
-            MovementAudios[1].enabled = false;
-            MovementAudios[2].enabled = false;
+            walking.enabled = false;
+            sprinting.enabled = false;
+            crouching.enabled = false;
         }
+
+        breathing.volume = Mathf.Clamp((1 - O2System.oxygenLevel / 100) - .25f, 0, 1);
+
+
     }
 }
