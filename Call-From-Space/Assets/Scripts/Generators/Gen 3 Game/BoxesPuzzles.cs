@@ -24,6 +24,10 @@ public class BoxesPuzzle : MonoBehaviour
 
     public Sprite redButton;
     public Sprite NOTHING;
+
+     public AudioClip enableSound;
+    public AudioClip disableSound;
+    private AudioSource audioSource;
     void Start()
     {
         answerArray = new int[] 
