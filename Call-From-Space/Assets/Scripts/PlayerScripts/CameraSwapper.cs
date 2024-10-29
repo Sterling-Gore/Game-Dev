@@ -36,6 +36,19 @@ public class CameraSwapper : MonoBehaviour
         SetActiveCamera(0);
     }
 
+    public void RefreshCameraList()
+    {
+        securityCameras = GameObject.FindGameObjectsWithTag("SecurityCamera")
+                                    .Select(go => go.GetComponent<Camera>())
+                                    .Where(cam => cam != null)
+                                    .ToArray();
+        if (securityCameras.Length == 0)
+        {
+            Debug.LogError("CameraSwapper: No security cameras found!");
+            return;
+        }
+    }
+
     public void NextCamera()
     {
         SetActiveCamera((currentCameraIndex + 1) % securityCameras.Length);
