@@ -52,6 +52,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Generator UI")]
     public GameObject Generator1_UI;
+    public GameObject Generator2_UI;
+    public GameObject Generator3_UI;
 
     [Header("Sound System")]
     public float runningSoundRadius;
@@ -226,6 +228,8 @@ public class PlayerController : MonoBehaviour
             Set_UI_Value(0);
             Inventory_and_camera_UI.SetActive(false);
             Generator1_UI.SetActive(false);
+            Generator2_UI.SetActive(false);
+            Generator3_UI.SetActive(false);
             interactor.inUI = false;
 
         }

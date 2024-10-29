@@ -10,6 +10,7 @@ public class FuelDeposit : Interactable
     public float soundRadius;
     public Vector3 rotation;
     public Vector3 position;
+    public GameObject particles;
 
 
     void OnTriggerEnter(Collider other)
@@ -21,6 +22,7 @@ public class FuelDeposit : Interactable
             FuelCell.GetComponent<Holdable>().enabled = false;
             FuelCell.transform.position = position;
             FuelCell.transform.rotation = Quaternion.Euler(rotation.x, rotation.y, rotation.z);
+            particles.SetActive(true);
             //lights.SetActive(true);
             //PowerLevel powerLevel = FindObjectOfType<PowerLevel>();
             if (powerLevel != null)
