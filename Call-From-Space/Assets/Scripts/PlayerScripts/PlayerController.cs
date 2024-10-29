@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
     [Header("Sound System")]
     public float runningSoundRadius;
     public float walkingSoundRadius;
-    //SoundSourcesController soundSources;
+    SoundSourcesController soundSources;
 
     void Start()
     {
@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour
         {
             //Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
         }
-        //soundSources = SoundSourcesController.GetInstance();
+        soundSources = SoundSourcesController.GetInstance();
     }
 
     void FixedUpdate()
@@ -112,13 +112,13 @@ public class PlayerController : MonoBehaviour
                 {
                     // Running
                     oxygenSystem.DecreaseOxygen(runningOxygenCost);
-                    //soundSources.CreateNewSoundSource(transform.position, runningSoundRadius);
+                    soundSources.CreateNewSoundSource(transform.position, runningSoundRadius);
                 }
                 else
                 {
                     // Walking
                     oxygenSystem.DecreaseOxygen(walkingOxygenCost);
-                    //soundSources.CreateNewSoundSource(transform.position, walkingSoundRadius);
+                    soundSources.CreateNewSoundSource(transform.position, walkingSoundRadius);
                 }
             }
             else

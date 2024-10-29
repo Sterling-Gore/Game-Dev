@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class TriggerDoor : MonoBehaviour
 {
-
-    private Animator _doorAnimator; //references to the Animator component on the door
+    int numEntities = 0;
+    private Animator doorAnimator; //references to the Animator component on the door
     void Start()
     {
-        _doorAnimator = GetComponent<Animator>();
+        doorAnimator = GetComponent<Animator>();
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") || other.CompareTag("Alien"))
         {
-            _doorAnimator.SetTrigger("Open");
+            if (numEntities == 0)
+                doorAnimator.SetTrigger("Open");
+            numEntities++;
         }
     }
 
@@ -23,7 +25,9 @@ public class TriggerDoor : MonoBehaviour
     {
         if (other.CompareTag("Player") || other.CompareTag("Alien"))
         {
-            _doorAnimator.SetTrigger("Closed");
+            numEntities--;
+            if (numEntities == 0)
+                doorAnimator.SetTrigger("Closed");
         }
     }
 }

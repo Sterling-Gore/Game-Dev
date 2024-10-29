@@ -7,7 +7,12 @@ public class PathGraphViewer : MonoBehaviour
 
   void OnDrawGizmos()
   {
-    if (!draw) return;
+    if (!draw)
+    {
+      if (nodes.Count != 0)
+        nodes.Clear();
+      return;
+    }
     // nodes.Clear();
     if (nodes.Count == 0)
     {
