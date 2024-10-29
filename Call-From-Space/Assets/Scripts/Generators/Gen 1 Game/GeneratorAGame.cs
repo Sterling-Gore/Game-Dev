@@ -25,6 +25,18 @@ public class GeneratorAGame : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public GeneratorAudio generatorAudio;
 
 
+
+    public AudioClip increase;
+    public AudioClip Decrease;
+
+    public AudioClip valid;
+
+    public AudioClip inValid;
+
+    
+    public AudioSource audioSource;
+
+
     void Awake() {
       interactor = Player_for_interactor.GetComponent<Interactor>();
       if (normalImage == null) {
@@ -55,6 +67,7 @@ public class GeneratorAGame : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     }
     public void IncreaseNumber() {
         int counter = GetCurrentNumber();
+        audioSource.PlayOneShot(increase);
         if (counter < 9) {
             counter++;
             updateCounter(counter);
@@ -65,6 +78,7 @@ public class GeneratorAGame : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     }
 
     public void DecreaseNumber() {
+        audioSource.PlayOneShot(Decrease);
         int counter = GetCurrentNumber();
         if (counter > 0) {
             counter--;
@@ -100,10 +114,12 @@ public class GeneratorAGame : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             if (textMeshValue != secretCodeDigit.ToString()) {
                 Debug.Log("called");
                 updateImage(false);
+                audioSource.PlayOneShot(inValid);
                 return;
             };
         }
         updateImage(true);
+        audioSource.PlayOneShot(valid);
         gen.transform.Find("genDoor").GetComponent<Animator>().SetTrigger("Open");
         gen.transform.Find("Fuel-Deposit").GetComponent<Collider>().enabled = true;
 

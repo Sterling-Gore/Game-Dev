@@ -59,15 +59,14 @@ public class BoxesPuzzle : MonoBehaviour
     }
 
     void OnEnable() {
-        
+        if (enableSound != null)
+        {
+            audioSource.PlayOneShot(enableSound);
+        }
         if(!won)
         {
             TurnInteractableButtons(true);
-            Debug.Log("HEY enable", enableSound);
-            if (enableSound != null)
-            {
-                audioSource.PlayOneShot(enableSound);
-            }
+            
 
         }
     }
