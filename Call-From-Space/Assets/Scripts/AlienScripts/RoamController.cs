@@ -176,7 +176,6 @@ public class RoamController : MonoBehaviour
                 angle = -200;
 
             alien.head.Rotate(Vector3.forward, angle * Time.deltaTime / timeToLookAroundFor);
-            animator.SetBoneLocalRotation(HumanBodyBones.Neck, alien.head.rotation);
             timeLookingAround += Time.deltaTime;
         }
     }

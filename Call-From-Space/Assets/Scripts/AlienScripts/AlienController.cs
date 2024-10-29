@@ -89,6 +89,7 @@ public class AlienController : MonoBehaviour
         }
         else
             HuntPlayer();
+        Debug.DrawRay(transform.position + Vector3.up, player.transform.position - transform.position + Vector3.up);
     }
 
     void OnDestroy()
@@ -115,9 +116,12 @@ public class AlienController : MonoBehaviour
         var distanceToPlayer = directionToPlayer.magnitude;
 
         Physics.Raycast(transform.position + Vector3.up, directionToPlayer, out RaycastHit j, distanceToPlayer - .1f);
-        Debug.DrawRay(transform.position, directionToPlayer);
+        // Debug.Log(j.rigidbody);
+        // Debug.DrawRay(transform.position + Vector3.up, directionToPlayer + Vector3.up);
         if (j.rigidbody == playerRb)
         {
+            // if (curSpeed == runSpeed)
+            animator.SetBool("isRunning", true);
             nextSpeed = runSpeed;
             if (distanceToPlayer < attackRadius)
                 AttackPlayer();
@@ -169,8 +173,6 @@ public class AlienController : MonoBehaviour
 
     void AttackPlayer()
     {
-        if (curSpeed == runSpeed)
-            animator.SetBool("isRunning", true);
         var gameOver = endingScreen.transform.GetChild(0).gameObject;
         gameOver.SetActive(true);
     }
