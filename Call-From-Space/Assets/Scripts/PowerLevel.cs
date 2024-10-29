@@ -98,8 +98,7 @@ public class PowerLevel : MonoBehaviour
 
         if (cameraSwapper != null)
         {
-            cameraSwapper.enabled = false;
-            cameraSwapper.enabled = true;
+            cameraSwapper.RefreshCameraList();
         }
     }
 
