@@ -27,7 +27,16 @@ public class BoxesPuzzle : MonoBehaviour
 
      public AudioClip enableSound;
     public AudioClip disableSound;
-    private AudioSource audioSource;
+
+    public AudioClip selectBox;
+    public AudioClip unSelectBox;
+
+    public AudioClip valid;
+
+    public AudioClip inValid;
+
+    
+    public AudioSource audioSource;
     void Start()
     {
         answerArray = new int[] 
@@ -37,27 +46,39 @@ public class BoxesPuzzle : MonoBehaviour
             1, 1, 0, 1, 
             1, 1, 1, 0
         };
-        currentAnswerArray  = new int[]
+        if (currentAnswerArray == null || currentAnswerArray.Length == 0)
         {
-            0, 0, 0, 0,
-            0, 0, 0, 0,
-            0, 0, 0, 0,
-            0, 0, 0, 0
-        };
+            currentAnswerArray = new int[answerArray.Length];
+        }
     }
 
     // Update is called once per frame
 
     void Awake() {
+
     }
 
     void OnEnable() {
+        
         if(!won)
         {
-            Debug.Log("hey" + currentAnswerArray[0]);
             TurnInteractableButtons(true);
+            Debug.Log("HEY enable", enableSound);
+            if (enableSound != null)
+            {
+                audioSource.PlayOneShot(enableSound);
+            }
         }
+    }
 
+    void OnDisable() {
+        // Play the disable sound if assigned
+        Debug.Log("OnDisable called");
+        if (disableSound != null)
+        {
+            Debug.Log("PLAY DISABLE SOUND");
+            audioSource.PlayOneShot(disableSound);
+        }
     }
 
 
@@ -73,11 +94,13 @@ public class BoxesPuzzle : MonoBehaviour
         Debug.Log(button);
         currentAnswerArray[button] = 1;
         buttonsOn[button].GetComponent<UnityEngine.UI.Image>().enabled = true;
+        audioSource.PlayOneShot(selectBox);
     }
     public void ButtonClickOff(int button){
         Debug.Log(button);
         currentAnswerArray[button] = 0;
         buttonsOn[button].GetComponent<UnityEngine.UI.Image>().enabled = false;
+        audioSource.PlayOneShot(unSelectBox);
         
     }
 
@@ -89,6 +112,7 @@ public class BoxesPuzzle : MonoBehaviour
 
         yield return new WaitForSeconds(0.25F);
         for(int j = 0; j < 3; j++){
+            audioSource.PlayOneShot(inValid);
 
         for(int i = 0; i < buttonsOff.Length; i++){
             buttonsOff[i].transform.GetComponent<UnityEngine.UI.Image>().sprite = redButton;
@@ -115,7 +139,9 @@ public class BoxesPuzzle : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.25F);
+        
         for(int j = 0; j < 5; j++){
+            audioSource.PlayOneShot(valid);
 
         for(int i = 0; i < buttonsOff.Length; i++){
             buttonsOff[i].transform.GetComponent<UnityEngine.UI.Image>().sprite = greenButton;

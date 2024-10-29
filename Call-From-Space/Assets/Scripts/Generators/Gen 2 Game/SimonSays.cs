@@ -16,7 +16,7 @@ public class SimonSays : MonoBehaviour
 
 
     int level;
-    int[] ButtonsPerLevel = { 1, 2, 3 };
+    int[] ButtonsPerLevel = { 3, 5, 7 };
 
     int[] lightArray;
     int buttonsClicked = 0;
@@ -25,6 +25,21 @@ public class SimonSays : MonoBehaviour
 
     bool won = false;
     bool passed = true;
+
+    public AudioClip enableSound;
+
+    public AudioClip pressSound;
+    public AudioClip upSound;
+    public AudioClip downSound;
+    public AudioClip leftSound;
+    public AudioClip rightSound;
+
+    public AudioClip valid;
+
+    public AudioClip inValid;
+
+    
+    public AudioSource audioSource;
     void Start()
     {
         
@@ -40,6 +55,10 @@ public class SimonSays : MonoBehaviour
         enableButtons(false);
         if(!won)
         {
+            if (enableSound != null)
+            {
+                audioSource.PlayOneShot(enableSound);
+            }
             makeNewLevel();
             for(int i = 0; i < lightArray.Length; i++)
             {
@@ -63,6 +82,22 @@ public class SimonSays : MonoBehaviour
         yield return new WaitForSeconds(1F);
 
         for(int i = 0; i < lightArray.Length; i++){
+            if (lightArray[i] == 0)
+    {
+        audioSource.PlayOneShot(upSound);
+    }
+    else if (lightArray[i] == 1)
+    {
+        audioSource.PlayOneShot(rightSound);
+    }
+    else if (lightArray[i] == 2)
+    {
+        audioSource.PlayOneShot(downSound);
+    }
+    else if (lightArray[i] == 3)
+    {
+        audioSource.PlayOneShot(leftSound);
+    }
             buttonsOn[lightArray[i]].SetActive(true);
             yield return new WaitForSeconds(0.5F);
             buttonsOn[lightArray[i]].SetActive(false);
@@ -88,11 +123,13 @@ public class SimonSays : MonoBehaviour
 
     public void ButtonClickOrder(int button)
     {
+        audioSource.PlayOneShot(pressSound);
         buttonsClicked++;
         if(button == lightArray[buttonsClicked-1]){
             Debug.Log("RIGHT COLOR");
             passed = true;
         } else {
+            audioSource.PlayOneShot(inValid);
             Debug.Log("FAILED");
             won = false;
             passed = false;
@@ -106,6 +143,7 @@ public class SimonSays : MonoBehaviour
             //HeaderButtons[level].SetActive(true); 
             HeaderButtons[level].transform.GetComponent<Image>().sprite = greenButton; 
             level += 1;
+            audioSource.PlayOneShot(valid);
             if(level == 3)
             {
                 won = true;
