@@ -78,6 +78,8 @@ public class RoamController : MonoBehaviour
         var dist = Vector3.Distance(pos, nextPos);
         if (dist <= alien.turnRadius + .1)
             SetRoomVisited();
+        if (alien.pathFinder.pathIndex == -1)
+            ChooseNextRoom();
     }
 
     void SetRoomVisited()
