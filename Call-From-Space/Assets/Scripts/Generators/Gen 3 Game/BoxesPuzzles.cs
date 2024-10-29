@@ -68,6 +68,7 @@ public class BoxesPuzzle : MonoBehaviour
             {
                 audioSource.PlayOneShot(enableSound);
             }
+
         }
     }
 
@@ -87,6 +88,7 @@ public class BoxesPuzzle : MonoBehaviour
             Debug.Log("enable " + i);
             buttonsOn[i].GetComponent<Button>().interactable = enable;
             buttonsOff[i].GetComponent<Button>().interactable = enable;
+            buttonsOff[i].transform.GetComponent<UnityEngine.UI.Image>().sprite = NOTHING;
         }
     }
 
