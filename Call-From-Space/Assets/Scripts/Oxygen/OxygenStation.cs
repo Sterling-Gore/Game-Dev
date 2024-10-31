@@ -13,7 +13,12 @@ namespace GameDev.Scripts.Oxygen
         public AudioSource refillAudio;
         public AudioSource refillComplete;
         float previousO2;
-
+        bool RefillAudioIsReadyToPlay;
+ 
+        void Start()
+        {
+            RefillAudioIsReadyToPlay = true;
+        }
 
         void Update()
         {
@@ -21,7 +26,7 @@ namespace GameDev.Scripts.Oxygen
             {
                 oxygenRadial.SetActive(false);
                 refillAudio.enabled = false;
-                refillComplete.enabled = true;
+                RefillAudioIsReadyToPlay = true;
             }
         }
         public override string GetDescription()
@@ -36,11 +41,16 @@ namespace GameDev.Scripts.Oxygen
             if (oxygenSystem != null)
             {
                 oxygenRadial.SetActive(true);
-                refillAudio.enabled = true;
+                if (RefillAudioIsReadyToPlay)
+                {
+                    refillAudio.enabled = true;
+                }
                 oxygenSystem.IncreaseOxygen(); // Call the RefillOxygen method
                 if(oxygenSystem.oxygenLevel == 100f && previousO2 < 100f)
                 {
                     refillComplete.Play(0);
+                    refillAudio.enabled = false;
+                    RefillAudioIsReadyToPlay = false;
 
                 }
                 previousO2 = oxygenSystem.oxygenLevel;
