@@ -96,7 +96,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: c6634846a21f9b74e932606391ee923e, type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 73207c7f3f5784ab786c3768da8ca2c8, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -3026,6 +3026,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
       propertyPath: m_Name
       value: Hallway_Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17125,6 +17129,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hallway_Light (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -17792,12 +17800,12 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -36750,6 +36758,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hallway_Light
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -38189,6 +38201,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hallway_Light
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -38446,6 +38462,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
       propertyPath: m_Name
       value: Hallway_Light (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -39226,6 +39246,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
       propertyPath: m_Name
       value: Hallway_Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -40292,6 +40316,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hallway_Light (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -41299,6 +41327,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
       propertyPath: m_Name
       value: Hallway_Light (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -50469,6 +50501,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hallway_Light (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -55561,6 +55597,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hallway_Light (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -57824,6 +57864,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
       propertyPath: m_Name
       value: Hallway_Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -69223,6 +69267,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hallway_Light (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -70022,6 +70070,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
       propertyPath: m_Name
       value: Hallway_Light (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -71875,6 +71927,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hallway_Light
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -73566,6 +73622,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
       propertyPath: m_Name
       value: Hallway_Light (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -76218,6 +76278,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hallway_Light
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -78866,6 +78930,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
       propertyPath: m_Name
       value: Hallway_Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -83155,12 +83223,12 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -90686,6 +90754,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hallway_Light
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -92119,6 +92191,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
       propertyPath: m_Name
       value: Hallway_Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -94228,6 +94304,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
       propertyPath: m_Name
       value: Hallway_Light (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -97444,6 +97524,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
       propertyPath: m_Name
       value: Hallway_Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -101930,6 +102014,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hallway_Light (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -103905,6 +103993,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hallway_Light
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -104251,6 +104343,26 @@ PrefabInstance:
       propertyPath: door
       value: 
       objectReference: {fileID: 1763413725}
+    - target: {fileID: 2404018265131188809, guid: 5f186cb46686789499123c2203bd6d35, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421770035914656023, guid: 5f186cb46686789499123c2203bd6d35, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 2537677656911660078, guid: 5f186cb46686789499123c2203bd6d35, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 2699426676009341046, guid: 5f186cb46686789499123c2203bd6d35, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3666420960902250698, guid: 5f186cb46686789499123c2203bd6d35, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 3812600714091544932, guid: 5f186cb46686789499123c2203bd6d35, type: 3}
       propertyPath: onMaterial
       value: 
@@ -104303,6 +104415,14 @@ PrefabInstance:
       propertyPath: valveSounds.Array.data[8]
       value: 
       objectReference: {fileID: 8300000, guid: 6a12c619381204c768fa7319579d97ca, type: 3}
+    - target: {fileID: 3971803579494039310, guid: 5f186cb46686789499123c2203bd6d35, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 4647404380013010112, guid: 5f186cb46686789499123c2203bd6d35, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 5312486662379157082, guid: 5f186cb46686789499123c2203bd6d35, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -104342,6 +104462,18 @@ PrefabInstance:
     - target: {fileID: 5312486662379157082, guid: 5f186cb46686789499123c2203bd6d35, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6964532812894702593, guid: 5f186cb46686789499123c2203bd6d35, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993269491594454762, guid: 5f186cb46686789499123c2203bd6d35, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 7209413800591874560, guid: 5f186cb46686789499123c2203bd6d35, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8002456557902487721, guid: 5f186cb46686789499123c2203bd6d35, type: 3}
       propertyPath: m_Name
@@ -106499,6 +106631,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hallway_Light (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -107738,6 +107874,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
       propertyPath: m_Name
       value: Hallway_Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -113513,6 +113653,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hallway_Light (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -114837,6 +114981,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hallway_Light (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -115615,7 +115763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c445d658551049c58293dad6aa5921d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draw: 1
+  draw: 0
 --- !u!1001 &1732146268
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -118000,6 +118148,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
       propertyPath: m_Name
       value: Hallway_Light (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -130006,6 +130158,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hallway_Light (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -134672,6 +134828,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hallway_Light
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -134756,6 +134916,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
       propertyPath: m_Name
       value: Hallway_Light (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -135526,6 +135690,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
       propertyPath: m_Name
       value: Hallway_Light (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -138366,6 +138534,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hallway_Light (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -139073,6 +139245,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hallway_Light (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -139373,6 +139549,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
       propertyPath: m_Name
       value: Hallway_Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -140458,6 +140638,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
       propertyPath: m_Name
       value: Hallway_Light (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8062d63f161a8f442b2127468ee03b10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
