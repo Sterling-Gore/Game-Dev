@@ -24,7 +24,7 @@ public class Interactor : MonoBehaviour
     {
         //bool successfulHit = false;
 
-        if(!isHolding || !inUI)
+        if(!isHolding && !inUI)
         {
             bool successfulHit = false;
             //Ray ray = mainCam.ScreenPointToRay(new Vector3(Screen.width/2f, Screen.height/2f, 0f));
@@ -51,6 +51,10 @@ public class Interactor : MonoBehaviour
                 interactionText.text = "";
             }
             
+        }
+        else
+        {
+            interactionText.text = "";
         }
         
             
