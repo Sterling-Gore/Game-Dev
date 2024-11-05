@@ -5,8 +5,7 @@ using UnityEngine;
 public class FuelCellHoldable : Holdable
 {
 
-    public float WeightOfObject = 5f;
-    public string NameOfObject = "Fuel Cell";
+
 
     void Update()
     {
@@ -21,12 +20,5 @@ public class FuelCellHoldable : Holdable
         }
     }
 
-    public override string OverrideName()
-    {
-        return NameOfObject;
-    }
-    public override float OverrideWeight()
-    {
-        return WeightOfObject;
-    }
+
 }

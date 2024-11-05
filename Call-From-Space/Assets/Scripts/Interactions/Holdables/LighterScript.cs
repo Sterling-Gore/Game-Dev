@@ -5,12 +5,11 @@ using UnityEngine;
 public class LighterScript : Holdable
 {
     // Start is called before the first frame update
-    bool isOpen;
+    public bool isOpen;
     public Animator animation;
     public GameObject Fire;
 
-    public float WeightOfObject = 5f;
-    public string NameOfObject = "Lighter";
+
     void Awake()
     {
         isOpen = false;
@@ -39,12 +38,5 @@ public class LighterScript : Holdable
     }
 
 
-    public override string OverrideName()
-    {
-        return NameOfObject;
-    }
-    public override float OverrideWeight()
-    {
-        return WeightOfObject;
-    }
+
 }

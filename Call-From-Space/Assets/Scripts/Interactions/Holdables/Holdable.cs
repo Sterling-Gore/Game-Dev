@@ -14,8 +14,8 @@ public abstract class Holdable : Interactable
 
     protected bool localHold; //checks if you are holding object locally attached to script
 
-    string objName = "";
-    float weight = 0;
+    public string objName = "";
+    public float weight = 0;
 
 
 
@@ -32,15 +32,7 @@ public abstract class Holdable : Interactable
         interactor = player.GetComponent<Interactor>();
         localHold = false;
 
-
-        objName = OverrideName();
-        weight = OverrideWeight();
     }
-
-    public abstract string OverrideName();
-    public abstract float OverrideWeight();
-
-
 
 
     public override string GetDescription()

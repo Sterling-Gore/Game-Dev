@@ -6,6 +6,8 @@ public class GoopedDoor : Interactable
 {
     // Start is called before the first frame update
     float fadeSpeed = .5f;
+    public GameObject player;
+    public GameObject Lighter;
     ParticleSystem flame;
     //GameObject mesh;
     void Start()
@@ -18,13 +20,25 @@ public class GoopedDoor : Interactable
     // Update is called once per frame
     public override string GetDescription()
     {
+        if(player.GetComponent<Interactor>().holdingName == "Lighter")
+        {
+            if(Lighter.GetComponent<LighterScript>().isOpen)
+            {
+                return "Burn the foreign material";
+            }
+            else
+            {
+                return "Turn on the lighter";
+            }
+        }
         return "Blocked by foreign material";
         
     }
 
     public override void Interact()
     {
-        StartCoroutine(FadeOut());
+        if(player.GetComponent<Interactor>().holdingName == "Lighter" && Lighter.GetComponent<LighterScript>().isOpen)
+            StartCoroutine(FadeOut());
     }
 
 
