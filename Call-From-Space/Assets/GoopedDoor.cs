@@ -24,7 +24,7 @@ public class GoopedDoor : Interactable
         {
             if(Lighter.GetComponent<LighterScript>().isOpen)
             {
-                return "Burn the foreign material";
+                return "<color=red>Burn</color=read> the foreign material";
             }
             else
             {
