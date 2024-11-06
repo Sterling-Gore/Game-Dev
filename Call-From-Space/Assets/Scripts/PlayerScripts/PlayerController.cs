@@ -106,31 +106,30 @@ public class PlayerController : MonoBehaviour
 
         if (oxygenSystem != null)
         {
-            // Adjust oxygen based on movement
-            if (rb.velocity.magnitude > 0.1f) // Check if the player is moving
+            if (oxygenSystem.LosingOxygen)
             {
-                if (Input.GetKey(KeyCode.LeftShift))
+                // Adjust oxygen based on movement
+                if (rb.velocity.magnitude > 0.1f) // Check if the player is moving
                 {
-                    // Running
-                    oxygenSystem.DecreaseOxygen(runningOxygenCost);
-                    soundSources.CreateNewSoundSource(transform.position, runningSoundRadius);
+                    if (Input.GetKey(KeyCode.LeftShift))
+                    {
+                        // Running
+                        oxygenSystem.DecreaseOxygen(runningOxygenCost);
+                        soundSources.CreateNewSoundSource(transform.position, runningSoundRadius);
+                    }
+                    else
+                    {
+                        // Walking
+                        oxygenSystem.DecreaseOxygen(walkingOxygenCost);
+                        soundSources.CreateNewSoundSource(transform.position, walkingSoundRadius);
+                    }
                 }
                 else
                 {
-                    // Walking
+                    // not moving
                     oxygenSystem.DecreaseOxygen(walkingOxygenCost);
-                    soundSources.CreateNewSoundSource(transform.position, walkingSoundRadius);
                 }
             }
-            else
-            {
-                // not moving
-                oxygenSystem.DecreaseOxygen(walkingOxygenCost);
-            }
-        }
-        else
-        {
-            //Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
         }
     }
 

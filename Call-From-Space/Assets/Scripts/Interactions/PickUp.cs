@@ -7,6 +7,8 @@ public class PickUp : Interactable
     Item item;
     public GameObject player;
     PlayerController pc;
+
+
     
     void Awake()
     {
@@ -25,6 +27,17 @@ public class PickUp : Interactable
     public override void Interact()
     {
         //inventory.AddItem(item);
+     
+
+        switch (item.itemName)
+        {
+            case "Sticky Note":
+                player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle1(2);
+                break;
+            default:
+                break;
+        }
+
         gameObject.SetActive(false);
         if(item.isItem)
         {

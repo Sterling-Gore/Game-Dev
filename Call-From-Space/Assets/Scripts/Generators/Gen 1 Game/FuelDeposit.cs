@@ -11,7 +11,10 @@ public class FuelDeposit : Interactable
     public Vector3 rotation;
     public Vector3 position;
     public GameObject particles;
+    public GenScreenInteraction gen;
     AudioSource genPowerAudio;
+
+    
 
     void Start()
     {
@@ -38,6 +41,15 @@ public class FuelDeposit : Interactable
                 powerLevel.GeneratorActivated();
                 SoundSourcesController.GetInstance().CreateNewSoundSource(transform.position, soundRadius);
             }
+            switch (gen.generatorType)
+            {
+                case GenScreenInteraction.Generator.A:
+                    player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle1(5);
+                    break;
+                default:
+                    break;
+            }
+            gameObject.SetActive(false);
         }
     }
 

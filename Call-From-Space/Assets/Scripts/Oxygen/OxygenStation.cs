@@ -14,10 +14,15 @@ namespace GameDev.Scripts.Oxygen
         public AudioSource refillComplete;
         float previousO2;
         bool RefillAudioIsReadyToPlay;
+
+
+        public GameObject player;
+        bool haveAccessedYet;
  
         void Start()
         {
             RefillAudioIsReadyToPlay = true;
+            haveAccessedYet = false;
         }
 
         void Update()
@@ -36,6 +41,11 @@ namespace GameDev.Scripts.Oxygen
 
         public override void Interact()
         {
+
+            if(!haveAccessedYet)
+            {
+                player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().DeleteTask("Find An Oxygen Station");
+            }
             Debug.Log("Starting to refill oxygen...");
             // OxygenSystem oxygenSystem = gameObject.GetComponent<OxygenSystem>(); // Get the OxygenSystem component
             if (oxygenSystem != null)

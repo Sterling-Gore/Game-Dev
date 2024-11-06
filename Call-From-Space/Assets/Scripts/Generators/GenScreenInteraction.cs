@@ -5,8 +5,16 @@ using UnityEngine;
 public class GenScreenInteraction : Interactable
 {
 
+    public enum Generator{
+        A,
+        B,
+        C
+    }
     public GameObject GenUI;
     public GameObject player;
+
+    public Generator generatorType;
+
 
     public override string GetDescription()
     {
@@ -16,6 +24,15 @@ public class GenScreenInteraction : Interactable
 
     public override void Interact()
     {
+        switch (generatorType)
+        {
+            case Generator.A:
+                player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle1(1);
+                break;
+            default:
+                break;
+
+        }
         //GenUI.GetComponent<GeneratorGame>().interactor.inUI = true;
         GenUI.SetActive(true);
         player.GetComponent<Interactor>().inUI = true;

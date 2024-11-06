@@ -5,6 +5,9 @@ using UnityEngine;
 public class TaskList : MonoBehaviour
 {
 
+    int GenPuzzle1State = 0;
+    int GenPuzzle2State = 0;
+
     public struct TaskData
     {
         public string text;
@@ -78,6 +81,100 @@ public class TaskList : MonoBehaviour
                 distance = 60f;
             else
                 distance = 45f;
+        }
+    }
+
+
+
+
+    //THESE ARE THE STATES:
+    public void GenPuzzle1(int state)
+    {
+        if (GenPuzzle1State < state)
+        {
+            switch (state)
+            {
+                case 1: //activate the genA screen
+                    AddTask("Search The Station For a Passcode", true);
+                    DeleteTask("Find a Power Generator");
+                    break;
+                case 2:  //pick up the sticky note
+                    AddTask("Inspect Sticky Note In Inventory", true);
+                    DeleteTask("Find a Power Generator");
+                    break;
+                case 3: //inspect the sticky note
+                    AddTask("Enter The Passcode Into The Generator", true);
+                    DeleteTask("Search The Station For a Passcode");
+                    DeleteTask("Inspect Sticky Note In Inventory");
+                    DeleteTask("Find a Power Generator");
+                    break;
+                case 4: //enter the passcode into the generator
+                    AddTask("Find a Fuel Cell For The Generator", true);
+                    DeleteTask("Search The Station For a Passcode");
+                    DeleteTask("Inspect Sticky Note In Inventory");
+                    DeleteTask("Find a Power Generator");
+                    DeleteTask("Enter The Passcode Into The Generator");
+                    break;
+                case 5: //enter the fuel cell into the generator
+                    DeleteTask("Find a Fuel Cell For The Generator");
+                    DeleteTask("Search The Station For a Passcode");
+                    DeleteTask("Inspect Sticky Note In Inventory");
+                    DeleteTask("Find a Power Generator");
+                    DeleteTask("Enter The Passcode Into The Generator");
+                    AddTask("Find The Next Power Generator", true);
+                    break;
+                default:
+                    break;
+
+            }
+            GenPuzzle1State = state;
+        }
+    }
+
+    public void GenPuzzle2(int state)
+    {
+        if (GenPuzzle2State < state)
+        {
+            switch (state)
+            {
+                case 1: //look at the gooped wall
+                    AddTask("Search The Station For a Passcode", true);
+                    DeleteTask("Find a Power Generator");
+                    break;
+                case 2:  //pick up the keys
+                    AddTask("Inspect Sticky Note In Inventory", true);
+                    DeleteTask("Find a Power Generator");
+                    break;
+                case 3: //use keys on locker
+                    AddTask("Enter The Passcode Into The Generator", true);
+                    DeleteTask("Search The Station For a Passcode");
+                    DeleteTask("Inspect Sticky Note In Inventory");
+                    DeleteTask("Find a Power Generator");
+                    break;
+                case 4: //use lighter to burn the goop
+                    AddTask("Find a Fuel Cell For The Generator", true);
+                    DeleteTask("Search The Station For a Passcode");
+                    DeleteTask("Inspect Sticky Note In Inventory");
+                    DeleteTask("Find a Power Generator");
+                    DeleteTask("Enter The Passcode Into The Generator");
+                    break;
+                case 5: //look into the generator
+                    DeleteTask("Find a Fuel Cell For The Generator");
+                    DeleteTask("Search The Station For a Passcode");
+                    DeleteTask("Inspect Sticky Note In Inventory");
+                    DeleteTask("Find a Power Generator");
+                    DeleteTask("Enter The Passcode Into The Generator");
+                    AddTask("Find The Next Power Generator", true);
+                    break;
+                case 6: //solve the simon says puzzle
+                    break;
+                case 7: //enter the fuel cell into the generator
+                    break;
+                default:
+                    break;
+
+            }
+            GenPuzzle2State = state;
         }
     }
 }
