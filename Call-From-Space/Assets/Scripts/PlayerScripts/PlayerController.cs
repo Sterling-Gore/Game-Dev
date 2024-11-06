@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     public GameObject Inventory_UI_Object;
     public GameObject Camera_UI_Object;
     public GameObject Inspector_UI_Object;
+    public GameObject TaskList_UI_Object;
     public UI_Inventory uiInvetory;
     public Inventory inventory;
     private bool showInventory;
@@ -213,6 +214,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //regular screen
+    public void ToggleNonUIScreen(bool turnOn)
+    {
+        if(turnOn)
+        {
+            TaskList_UI_Object.transform.Find("TaskContainer").gameObject.SetActive(true);
+            TaskList_UI_Object.GetComponent<TaskList>().refresh();
+        }
+        else{
+            TaskList_UI_Object.transform.Find("TaskContainer").gameObject.SetActive(false);
+        }
+        
+    }
+
     public void ESCAPE()
     {
         //if you are in inspector
@@ -221,6 +236,7 @@ public class PlayerController : MonoBehaviour
             //go to the inventory screen
             Inspector_UI_Object.GetComponent<Inspector>().unloadInspector();
             toggle_INV_and_CAM(true);
+
         }
         //if you are in inventory or generator screen
         else if (UI_Value == 1)
@@ -254,12 +270,17 @@ public class PlayerController : MonoBehaviour
         {
             Set_UI_Value(-1);
             optionsMenu.SetActive(false);
+            TaskList_UI_Object.transform.Find("TaskContainer").gameObject.SetActive(false);
         }
     }
 
     public void Set_UI_Value(int val)
     {
         UI_Value = val;
+        if(UI_Value == 0)
+            ToggleNonUIScreen(true);
+        else
+            ToggleNonUIScreen(false);
         Debug.Log(UI_Value);
     }
 
