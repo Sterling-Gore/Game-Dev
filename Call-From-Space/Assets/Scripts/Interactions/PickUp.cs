@@ -7,6 +7,7 @@ public class PickUp : Interactable
     Item item;
     public GameObject player;
     PlayerController pc;
+    public GameObject JournalPlayer;
 
 
     
@@ -36,6 +37,11 @@ public class PickUp : Interactable
                 break;
             default:
                 break;
+        }
+
+        if(!item.isItem)
+        {
+            JournalPlayer.GetComponent<PlayJournal>().PlayAudioOnPickUp(item);
         }
 
         gameObject.SetActive(false);
