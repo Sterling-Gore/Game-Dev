@@ -138,37 +138,49 @@ public class TaskList : MonoBehaviour
             switch (state)
             {
                 case 1: //look at the gooped wall
-                    AddTask("Search The Station For a Passcode", true);
-                    DeleteTask("Find a Power Generator");
+                    AddTask("Find a Way To Destroy The Foreign Material", true);
                     break;
                 case 2:  //pick up the keys
-                    AddTask("Inspect Sticky Note In Inventory", true);
-                    DeleteTask("Find a Power Generator");
+                    DeleteTask("Find a Way To Destroy The Foreign Material");
+                    AddTask("Find a Way To Destroy The Foreign Material", true);
+                    AddTask("Find The Locker For The Keys", true);
                     break;
                 case 3: //use keys on locker
-                    AddTask("Enter The Passcode Into The Generator", true);
-                    DeleteTask("Search The Station For a Passcode");
-                    DeleteTask("Inspect Sticky Note In Inventory");
-                    DeleteTask("Find a Power Generator");
+                    DeleteTask("Find The Locker For The Keys");
+                    DeleteTask("Find a Way To Destroy The Foreign Material");
+                    AddTask("Use The Lighter To Burn The Foreign Material", true);
                     break;
                 case 4: //use lighter to burn the goop
-                    AddTask("Find a Fuel Cell For The Generator", true);
-                    DeleteTask("Search The Station For a Passcode");
-                    DeleteTask("Inspect Sticky Note In Inventory");
-                    DeleteTask("Find a Power Generator");
-                    DeleteTask("Enter The Passcode Into The Generator");
+                    DeleteTask("Find The Locker For The Keys");
+                    DeleteTask("Find a Way To Destroy The Foreign Material");
+                    DeleteTask("Use The Lighter To Burn The Foreign Material");
                     break;
                 case 5: //look into the generator
-                    DeleteTask("Find a Fuel Cell For The Generator");
-                    DeleteTask("Search The Station For a Passcode");
-                    DeleteTask("Inspect Sticky Note In Inventory");
-                    DeleteTask("Find a Power Generator");
-                    DeleteTask("Enter The Passcode Into The Generator");
-                    AddTask("Find The Next Power Generator", true);
+                    DeleteTask("Find The Locker For The Keys");
+                    DeleteTask("Find a Way To Destroy The Foreign Material");
+                    DeleteTask("Use The Lighter To Burn The Foreign Material");
+
+                    DeleteTask("Find The Next Power Generator");
+                    AddTask("Solve The Puzzle For The Generator", true);
                     break;
                 case 6: //solve the simon says puzzle
+                    DeleteTask("Find The Locker For The Keys");
+                    DeleteTask("Find a Way To Destroy The Foreign Material");
+                    DeleteTask("Use The Lighter To Burn The Foreign Material");
+
+                    DeleteTask("Find The Next Power Generator");
+                    DeleteTask("Solve The Puzzle For The Generator");
+                    AddTask("Find a Fuel Cell For The Generator", true);
                     break;
                 case 7: //enter the fuel cell into the generator
+                    DeleteTask("Find The Locker For The Keys");
+                    DeleteTask("Find a Way To Destroy The Foreign Material");
+                    DeleteTask("Use The Lighter To Burn The Foreign Material");
+
+                    DeleteTask("Find The Next Power Generator");
+                    DeleteTask("Solve The Puzzle For The Generator");
+                    DeleteTask("Find a Fuel Cell For The Generator");
+                    AddTask("Find The Last Power Generator", true);
                     break;
                 default:
                     break;

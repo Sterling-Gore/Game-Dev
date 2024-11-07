@@ -46,6 +46,9 @@ public class FuelDeposit : Interactable
                 case GenScreenInteraction.Generator.A:
                     player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle1(5);
                     break;
+                case GenScreenInteraction.Generator.B:
+                    player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(7);
+                    break;
                 default:
                     break;
             }

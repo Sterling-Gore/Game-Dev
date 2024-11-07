@@ -35,6 +35,9 @@ public class PickUp : Interactable
             case "Sticky Note":
                 player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle1(2);
                 break;
+            case "Locker Key":
+                player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(2);
+                break;
             default:
                 break;
         }

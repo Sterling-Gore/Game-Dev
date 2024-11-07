@@ -20,6 +20,9 @@ public class GoopedDoor : Interactable
     // Update is called once per frame
     public override string GetDescription()
     {
+        //adds the task to find a way to destroy the goop
+        player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(1);
+
         if(player.GetComponent<Interactor>().holdingName == "Lighter")
         {
             if(Lighter.GetComponent<LighterScript>().isOpen)
@@ -38,7 +41,10 @@ public class GoopedDoor : Interactable
     public override void Interact()
     {
         if(player.GetComponent<Interactor>().holdingName == "Lighter" && Lighter.GetComponent<LighterScript>().isOpen)
+        {
             StartCoroutine(FadeOut());
+            player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(4);
+        }
     }
 
 

@@ -36,8 +36,13 @@ public class DrawerInteraction : Interactable
 
     public override void Interact()
     {
-        unlocked = true;
-        animation.SetTrigger("Open");
-        Player.GetComponent<PlayerController>().inventory.DeleteItem(Key.GetComponent<Item>());
+        if (Player.GetComponent<PlayerController>().inventory.IsItemInList(Key.GetComponent<Item>()))
+        {
+            unlocked = true;
+            animation.SetTrigger("Open");
+            Player.GetComponent<PlayerController>().inventory.DeleteItem(Key.GetComponent<Item>());
+            Player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(3);
+        }
+        
     }
 }
