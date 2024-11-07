@@ -9,8 +9,10 @@ public class LaserReflectorDeposit : Interactable
     public GameObject Reflector2;
     public GameObject PlugedInReflector;
     public GameObject Player;
+
     public override string GetDescription()
     {
+        Player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().LaserPuzzle(2);
         if (Player.GetComponent<PlayerController>().inventory.IsItemInList(Reflector1.GetComponent<Item>()) || Player.GetComponent<PlayerController>().inventory.IsItemInList(Reflector2.GetComponent<Item>()))
         {
             return "Plug In Reflector";
@@ -37,5 +39,8 @@ public class LaserReflectorDeposit : Interactable
             PlugedInReflector.SetActive(true);
             gameObject.SetActive(false);
         }
+
+        if(!Player.GetComponent<PlayerController>().inventory.IsItemInList(Reflector1.GetComponent<Item>()) && !Player.GetComponent<PlayerController>().inventory.IsItemInList(Reflector2.GetComponent<Item>()) && !Reflector1.activeSelf && !Reflector2.activeSelf)
+            Player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().LaserPuzzle(3);
     }
 }

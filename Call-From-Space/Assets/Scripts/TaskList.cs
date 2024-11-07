@@ -7,6 +7,8 @@ public class TaskList : MonoBehaviour
 
     int GenPuzzle1State = 0;
     int GenPuzzle2State = 0;
+    int GenPuzzle3State = 0;
+    int LaserPuzzleState = 0;
 
     public struct TaskData
     {
@@ -189,4 +191,74 @@ public class TaskList : MonoBehaviour
             GenPuzzle2State = state;
         }
     }
+
+
+
+    public void GenPuzzle3(int state)
+    {
+        if (GenPuzzle3State < state)
+        {
+            switch (state)
+            {
+                case 1: //activate the genC screen
+                    AddTask("Solve The Puzzle For The Generator", true);
+                    DeleteTask("Find The Last Power Generator");
+                    break;
+                case 2:  //solve the genC puzzle
+                    DeleteTask("Find The Last Power Generator");
+                    DeleteTask("Solve The Puzzle For The Generator");
+                    AddTask("Find a Fuel Cell For The Generator", true);
+                    break;
+                case 3: //enter the fuel cell into the generator
+                    DeleteTask("Find The Last Power Generator");
+                    DeleteTask("Solve The Puzzle For The Generator");
+                    DeleteTask("Find a Fuel Cell For The Generator");
+
+                    DeleteTask("Grab The Charged Fuel Cell");
+                    AddTask("Find Room X...", false);
+                    break;
+                default:
+                    break;
+
+            }
+            GenPuzzle3State = state;
+        }
+    }
+
+    public void LaserPuzzle(int state)
+    {
+        if (LaserPuzzleState < state)
+        {
+            switch (state)
+            {
+                case 1: //walk into collider
+                    AddTask("Recharge The Fuel Cell", false);
+                    break;
+                case 2:  //look at the missing reflectors
+                    DeleteTask("Recharge The Fuel Cell");
+                    AddTask("Recharge The Fuel Cell", false);
+                    AddTask("Find Missing Reflectors And Plug Them In", true);
+                    break;
+                case 3: //plug in both reflectors
+                    DeleteTask("Find Missing Reflectors And Plug Them In");
+                    AddTask("Solve The Laser Pathing", false);
+                    break;
+                case 4://solve the puzzle
+                    DeleteTask("Find Missing Reflectors And Plug Them In");
+                    DeleteTask("Solve The Laser Pathing");
+                    DeleteTask("Recharge The Fuel Cell");
+                    AddTask("Grab The Charged Fuel Cell", false);
+
+                    
+                    break;
+                default:
+                    break;
+
+            }
+            LaserPuzzleState = state;
+        }
+    }
+
+
+    
 }

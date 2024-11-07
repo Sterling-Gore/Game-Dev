@@ -34,6 +34,8 @@ public class BoxesPuzzle : MonoBehaviour
 
     public AudioClip inValid;
 
+    public GameObject player;
+
     
     public AudioSource audioSource;
     void Start()
@@ -185,6 +187,7 @@ public class BoxesPuzzle : MonoBehaviour
     {
         Debug.Log("All elements match.");
         won = true;
+        player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle3(2);
         gen.transform.Find("genDoor").GetComponent<Animator>().SetTrigger("Open");
         gen.transform.Find("Fuel-Deposit").GetComponent<Collider>().enabled = true;
         TurnInteractableButtons(false);

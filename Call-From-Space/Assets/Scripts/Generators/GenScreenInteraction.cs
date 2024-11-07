@@ -32,6 +32,9 @@ public class GenScreenInteraction : Interactable
             case Generator.B:
                 player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(5);
                 break;
+            case Generator.C:
+                player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle3(1);
+                break;
             default:
                 break;
 
