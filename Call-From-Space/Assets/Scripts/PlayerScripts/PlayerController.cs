@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
     public Inventory inventory;
     private bool showInventory;
 
+    public GameObject standardScreen;
+
     [Header("Slope handler")]
     public float maxSlope;
     public float playerHeight = 5;
@@ -218,10 +220,12 @@ public class PlayerController : MonoBehaviour
     {
         if(turnOn)
         {
+            standardScreen.SetActive(true);
             TaskList_UI_Object.transform.Find("TaskContainer").gameObject.SetActive(true);
             TaskList_UI_Object.GetComponent<TaskList>().refresh();
         }
         else{
+            standardScreen.SetActive(false);
             TaskList_UI_Object.transform.Find("TaskContainer").gameObject.SetActive(false);
         }
         
