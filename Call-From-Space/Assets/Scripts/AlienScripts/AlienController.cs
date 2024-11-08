@@ -9,7 +9,8 @@ using SoundSource = PathNode;
 
 public class AlienController : MonoBehaviour
 {
-    public SoundSource target;
+    public SoundSource curTarget;
+    public SoundSource nextTarget;
     public GameObject player;
     GameObject endingScreen;
 
@@ -36,6 +37,8 @@ public class AlienController : MonoBehaviour
     public float restingPeriod;
     public float walkingStamina;
     public float runningStamina;
+
+    Vector3 prevPos = new();
 
     Rigidbody playerRb;
     public PathGraph pathGraph;
@@ -85,15 +88,19 @@ public class AlienController : MonoBehaviour
     {
         UpdatePathGraph();
         //Debug
-        soundSource.transform.position = target.pos;
+        soundSource.transform.position = curTarget.pos;
 
         KeepUpright();
         animator.SetBool("isWalking", true);
         animator.SetBool("isRunning", false);
         if (!heardSomething)
         {
-            if (target != new SoundSource())
+            if (nextTarget != SoundSource.None)
+            {
+                curTarget = nextTarget;
+                nextTarget = SoundSource.None;
                 AnnounceHeardSomething();
+            }
             nextSpeed = walkSpeed;
             roamer.RoamAround();
         }
@@ -142,10 +149,10 @@ public class AlienController : MonoBehaviour
         }
         else if (!justHeardSomething && pathFinder.HasArrived())
         {
-            blackListedSoundSources.Add(target);
+            blackListedSoundSources.Add(curTarget);
             if (blackListedSoundSources.Count > soundSourcesMemory)
                 blackListedSoundSources.RemoveAt(0);
-            target = new SoundSource();
+
             heardSomething = false;
         }
         else
@@ -206,21 +213,16 @@ public class AlienController : MonoBehaviour
 
         var dPos = CurSpeed() * Time.deltaTime;
 
-        var prevPos = transform.position;
+        CheckStayingStill();
+
+        prevPos = transform.position;
         transform.Translate(Vector3.forward * dPos);
         var curPos = transform.position;
         var closestPoint = GetClosestPointToLine(prevPos, (curPos - prevPos).normalized, prevPos - target);
 
         transform.position = Clamp(closestPoint, prevPos, curPos);
 
-        CheckNewPosition(prevPos);
-        CheckStayingStill(prevPos);
-
-
-        prevPos.y += 1;
-        var newPos = transform.position;
-        newPos.y += 1;
-        Debug.DrawLine(prevPos, newPos);
+        CheckNewPosition();
 
         return Vector3.Distance(transform.position, target) <= dPos;
     }
@@ -240,7 +242,7 @@ public class AlienController : MonoBehaviour
         return point;
     }
 
-    void CheckNewPosition(Vector3 prevPos)
+    void CheckNewPosition()
     {
         var aboveNewPosition = transform.position;
         aboveNewPosition.y += 1;
@@ -252,7 +254,7 @@ public class AlienController : MonoBehaviour
         }
     }
 
-    void CheckStayingStill(Vector3 prevPos)
+    void CheckStayingStill()
     {
         actualSpeed = Vector3.Distance(prevPos, transform.position) / Time.deltaTime;
         if (actualSpeed < .5)

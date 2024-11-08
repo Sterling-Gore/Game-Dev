@@ -6,7 +6,7 @@ using Unity.Collections;
 public class PathFindingController
 {
     AlienController alien;
-    List<PathNode> pathToTarget = new();
+    public List<PathNode> pathToTarget = new();
     public int pathIndex = -1;
 
     const int maxPathLength = 30000;
@@ -53,7 +53,7 @@ public class PathFindingController
             if (hasStartedThinking)
                 CopyPathToTarget();
 
-            StartCalculatingPath(alien.target.pos);
+            thoughtHandle = StartCalculatingPath(alien.curTarget.pos).Schedule();
 
             timeSinceLastThought = 0;
             hasStartedThinking = true;
@@ -62,23 +62,23 @@ public class PathFindingController
 
     public void CalculatePathNow(Vector3 target)
     {
-        StartCalculatingPath(target);
+        StartCalculatingPath(target).Run();
         CopyPathToTarget();
         timeSinceLastThought = 0;
         hasStartedThinking = true;
     }
 
-    void StartCalculatingPath(Vector3 target)
+    AlienThought StartCalculatingPath(Vector3 target)
     {
-        thoughtHandle = new AlienThought
+        return new()
         {
             maxPathLength = maxPathLength,
             alienPosition = alien.transform.position,
             targetPosition = target,
             pathToTarget = memoryBuffer,
-            graph = alien.pathGraph.WithPosition(alien.transform.position),
+            graph = alien.pathGraph.WithPositions(alien.transform.position, target),
             lengthOfPath = memoryBufferLengthUsed
-        }.Schedule();
+        };
     }
 
     bool ShouldRecalculatePath() => (

@@ -30,6 +30,7 @@ public class RoamController : MonoBehaviour
     public Vector3 pos;
     public string roomName;
     public string nextRoomName;
+    public int nodeIdx = 0;
 
     Animator animator;
 
@@ -130,7 +131,7 @@ public class RoamController : MonoBehaviour
             Rotate();
         else
         {
-            alien.MoveTowards(nextRoamSpot);
+            alien.pathFinder.FollowPath();
             var target = nextRoamSpot;
             target.y = transform.position.y;
             if (Vector3.Distance(transform.position, target) <= alien.turnRadius)
@@ -225,7 +226,6 @@ public class RoamController : MonoBehaviour
     void ChooseNextRoamSpot()
     {
         var nodes = currentRoom.roamNodes;
-        int nodeIdx = 0;
 
         if (Random.value > 0.9998f) //change direction ~2 times every 10 seconds
             ClockWise = !ClockWise;
@@ -236,19 +236,27 @@ public class RoamController : MonoBehaviour
             nodeIdx = (nodeIdx - Random.Range(1, nodes.Count / 2)) % nodes.Count;
 
         var node = nodes[nodeIdx];
-        float radius = node.radius * Mathf.Sqrt(Random.value);
-        float theta = Random.value * 2 * Mathf.PI;
-        float x = node.pos.x + radius * Mathf.Cos(theta);
-        float z = node.pos.z + radius * Mathf.Sin(theta);
-        nextRoamSpot = new Vector3(x, node.pos.y, z);
+        var spot2d = new Vector2(node.pos.x, node.pos.z) + (Random.insideUnitCircle * node.radius);
+        nextRoamSpot = new Vector3(spot2d.x, node.pos.y, spot2d.y);
         Debug.DrawLine(nextRoamSpot, Vector3.up * 100, Color.green, 100);
         var pos = transform.position;
         pos.y = node.pos.y;
+
         //check to make sure nothing in way
-        if (!Physics.Raycast(nextRoamSpot, pos, Vector3.Distance(nextRoamSpot, pos)))
+        var dist = Vector3.Distance(nextRoamSpot, pos);
+        if (!Physics.Raycast(pos, (nextRoamSpot - pos) / dist, dist, PathGraph.layerMask))
         {
+            Debug.DrawLine(nextRoamSpot, pos, Color.magenta, 100);
             hasNextRoamSpot = true;
             isRoamingRoom = true;
+            alien.pathFinder.CalculatePathNow(nextRoamSpot);
+            // Debug.Log("points");
+            // alien.pathFinder.pathToTarget.ForEach(point => Debug.Log(point.pos));
+        }
+        else
+        {
+            // Debug.DrawLine(nextRoamSpot, pos, Color.blue, 100);
+            Debug.Log("not possible");
         }
     }
     public void UpdateRooms(Transform newSection)

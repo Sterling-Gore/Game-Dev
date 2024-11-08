@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Collections;
-using System.Linq;
 using System;
 public struct PathGraph
 {
@@ -15,7 +14,7 @@ public struct PathGraph
 
     public float YLevel => pathPoints[0].pos.y;
 
-    static readonly int layerMask = ~(
+    public static readonly int layerMask = ~(
         Physics.IgnoreRaycastLayer |
         (1 << LayerMask.NameToLayer("AlienLayer"))
     );
@@ -24,45 +23,60 @@ public struct PathGraph
     {
         int numChildren = pathNodes.Count;
 
-        pathPoints = new(numChildren + 1, Allocator.Persistent);
+        pathPoints = new(numChildren + 2, Allocator.Persistent);
         List<Neighbors> pairs = new();
-
-        int idx = 0;
-        foreach (Transform pathNode in pathNodes)
-            pathPoints[idx++] = new(pathNode);
 
         for (int i = 0; i < numChildren; i++)
         {
-            var point1 = pathPoints[i];
+            var point1 = pathPoints[i] = new(pathNodes[i]);
             for (int j = i - 1; j >= 0; j--)
             {
                 var point2 = pathPoints[j];
                 if (HasNothingInBetween(point1.pos, point2.pos))
                 {
+                    Debug.DrawLine(point1.pos, point2.pos, Color.red, 100);
                     pairs.Add(new() { a = point1, b = point2 });
-                    Debug.DrawRay(point1.pos, point2.pos - point1.pos, Color.red, 100);
                 }
             }
         }
 
-        neighbors = new(pairs.Count + numChildren, Allocator.Persistent);
+        neighbors = new(pairs.Count + numChildren + 2, Allocator.Persistent);
         for (int i = 0; i < pairs.Count; i++)
             neighbors[i] = pairs[i];
     }
 
-    public PathGraph WithPosition(Vector3 alienPosition)
+    public PathGraph WithPositions(Vector3 alienPosition, Vector3 targetPosition)
     {
-        alienPosition.y = YLevel;
-        PathNode alienPositionNode = new() { pos = alienPosition, radius = 0 };
-        int idx = neighbors.Length - pathPoints.Length - 1;
-        for (int i = 0; i < pathPoints.Length - 1; i++)
-            if (HasNothingInBetween(pathPoints[i].pos, alienPosition))
-                neighbors[idx++] = new() { a = pathPoints[i], b = alienPositionNode };
+        int idx = neighbors.Length - pathPoints.Length;
+
+        alienPosition.y = targetPosition.y = YLevel;
+        pathPoints[^1] = addPosition(alienPosition, this);
+        pathPoints[^2] = addPosition(targetPosition, this);
+
+        if (idx < neighbors.Length && HasNothingInBetween(alienPosition, targetPosition))
+            neighbors[idx++] = new() { a = pathPoints[^1], b = pathPoints[^2] };
+
         while (idx < neighbors.Length)
             neighbors[idx++] = new();
 
-        pathPoints[^1] = alienPositionNode;
         return this;
+
+        PathNode addPosition(Vector3 position, PathGraph graph)
+        {
+            PathNode positionNode = new() { pos = position, radius = 0 };
+            int added = 0;
+            for (int i = 0; i < graph.pathPoints.Length - 2; i++)
+            {
+                if (added >= graph.pathPoints.Length / 2 || idx > graph.neighbors.Length)
+                    break;
+                if (HasNothingInBetween(graph.pathPoints[i].pos, position))
+                {
+                    graph.neighbors[idx++] = new() { a = graph.pathPoints[i], b = positionNode };
+                    added++;
+                }
+            }
+            return positionNode;
+        }
     }
 
     public Dictionary<PathNode, HashSet<PathNode>> ToDictionary()
@@ -76,8 +90,8 @@ public struct PathGraph
             var pair = neighbors[i];
             if (pair.a != pair.b)
             {
-                neighborPoints[pair.a].Add(pair.b);
                 neighborPoints[pair.b].Add(pair.a);
+                neighborPoints[pair.a].Add(pair.b);
             }
         }
         return neighborPoints;
@@ -99,6 +113,7 @@ public struct PathGraph
 
 public struct PathNode
 {
+    public static PathNode None => new();
     public Vector3 pos;
     public float radius;
 

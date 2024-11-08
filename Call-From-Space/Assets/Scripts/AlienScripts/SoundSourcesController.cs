@@ -30,7 +30,7 @@ public class SoundSourcesController : MonoBehaviour
           Vector3.Distance(alien.transform.position, source.pos) < source.radius &&
           !alien.blackListedSoundSources.Contains(source)
         )
-          alien.target = source;
+          alien.nextTarget = source;
       });
     });
     soundSources.Clear();
