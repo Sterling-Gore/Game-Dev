@@ -57,6 +57,19 @@ public abstract class Holdable : Interactable
 
     protected void pickUpObject()
     {
+        GameObject screen = player.GetComponent<PlayerController>().standardScreen;
+        screen.transform.Find("Controls").gameObject.SetActive(false);
+        screen.transform.Find("ControlsHolding").gameObject.SetActive(true);
+
+        switch (objName)
+        {
+            case "Lighter":
+                screen.transform.Find("ControlsHolding").Find("SPECIAL_EFFECTS").Find("Lighter").gameObject.SetActive(true);
+                break;
+            default:
+                break;
+        }
+
         HoldObject.transform.rotation = Quaternion.Euler(0, 0, 0);
         HoldObject.transform.rotation = holdPos.transform.rotation;
         interactor.isHolding = true;
@@ -74,6 +87,12 @@ public abstract class Holdable : Interactable
 
     protected void DropObject()
     {
+
+        GameObject screen = player.GetComponent<PlayerController>().standardScreen;
+        screen.transform.Find("Controls").gameObject.SetActive(true);
+        screen.transform.Find("ControlsHolding").gameObject.SetActive(false);
+        screen.transform.Find("ControlsHolding").Find("SPECIAL_EFFECTS").Find("Lighter").gameObject.SetActive(false);
+
         ObjRb.isKinematic = false;
         HoldObject.transform.parent = null;
         interactor.isHolding = false;
