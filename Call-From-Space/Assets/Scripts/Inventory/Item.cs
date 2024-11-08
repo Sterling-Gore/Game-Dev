@@ -6,9 +6,12 @@ public class Item : MonoBehaviour
 {
     public int itemTag;
     public bool isItem;
+    public int AudioLog = 0;
     public string itemName;
     public Sprite itemImage;
     public GameObject obj;
+
+
 
 
 

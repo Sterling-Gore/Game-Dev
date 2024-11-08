@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +12,18 @@ namespace GameDev.Scripts.Oxygen
         public GameObject oxygenRadial;
         public AudioSource refillAudio;
         public AudioSource refillComplete;
+        float previousO2;
+        bool RefillAudioIsReadyToPlay;
 
+
+        public GameObject player;
+        bool haveAccessedYet;
+ 
+        void Start()
+        {
+            RefillAudioIsReadyToPlay = true;
+            haveAccessedYet = false;
+        }
 
         void Update()
         {
@@ -18,7 +31,7 @@ namespace GameDev.Scripts.Oxygen
             {
                 oxygenRadial.SetActive(false);
                 refillAudio.enabled = false;
-                refillComplete.Play(0);
+                RefillAudioIsReadyToPlay = true;
             }
         }
         public override string GetDescription()
@@ -28,19 +41,36 @@ namespace GameDev.Scripts.Oxygen
 
         public override void Interact()
         {
+
+            if(!haveAccessedYet)
+            {
+                player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().DeleteTask("Find An Oxygen Station");
+            }
             Debug.Log("Starting to refill oxygen...");
             // OxygenSystem oxygenSystem = gameObject.GetComponent<OxygenSystem>(); // Get the OxygenSystem component
             if (oxygenSystem != null)
             {
                 oxygenRadial.SetActive(true);
-                refillAudio.enabled = true;
+                if (RefillAudioIsReadyToPlay)
+                {
+                    refillAudio.enabled = true;
+                }
                 oxygenSystem.IncreaseOxygen(); // Call the RefillOxygen method
+                if(oxygenSystem.oxygenLevel == 100f && previousO2 < 100f)
+                {
+                    refillComplete.Play(0);
+                    refillAudio.enabled = false;
+                    RefillAudioIsReadyToPlay = false;
+
+                }
+                previousO2 = oxygenSystem.oxygenLevel;
             }
             else
             {
                 Debug.Log("No OxygenSystem component found.");
             }
         }
+
 
     }
 }

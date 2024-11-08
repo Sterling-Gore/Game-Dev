@@ -10,6 +10,13 @@ public class OxygenSystem : MonoBehaviour
     public float refillSpeed = 10f;
     public ParticleSystem breathEffect; // Reference to the particle system
 
+    public bool LosingOxygen;
+
+    void Start()
+    {
+        LosingOxygen = false;
+    }
+
     private void Update()
     {
         // Update the UI text with the current oxygen level

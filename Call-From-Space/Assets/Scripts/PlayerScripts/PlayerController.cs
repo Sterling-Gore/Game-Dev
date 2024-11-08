@@ -28,9 +28,12 @@ public class PlayerController : MonoBehaviour
     public GameObject Inventory_UI_Object;
     public GameObject Camera_UI_Object;
     public GameObject Inspector_UI_Object;
+    public GameObject TaskList_UI_Object;
     public UI_Inventory uiInvetory;
     public Inventory inventory;
     private bool showInventory;
+
+    public GameObject standardScreen;
 
     [Header("Slope handler")]
     public float maxSlope;
@@ -105,31 +108,30 @@ public class PlayerController : MonoBehaviour
 
         if (oxygenSystem != null)
         {
-            // Adjust oxygen based on movement
-            if (rb.velocity.magnitude > 0.1f) // Check if the player is moving
+            if (oxygenSystem.LosingOxygen)
             {
-                if (Input.GetKey(KeyCode.LeftShift))
+                // Adjust oxygen based on movement
+                if (rb.velocity.magnitude > 0.1f) // Check if the player is moving
                 {
-                    // Running
-                    oxygenSystem.DecreaseOxygen(runningOxygenCost);
-                    soundSources.CreateNewSoundSource(transform.position, runningSoundRadius);
+                    if (Input.GetKey(KeyCode.LeftShift))
+                    {
+                        // Running
+                        oxygenSystem.DecreaseOxygen(runningOxygenCost);
+                        soundSources.CreateNewSoundSource(transform.position, runningSoundRadius);
+                    }
+                    else
+                    {
+                        // Walking
+                        oxygenSystem.DecreaseOxygen(walkingOxygenCost);
+                        soundSources.CreateNewSoundSource(transform.position, walkingSoundRadius);
+                    }
                 }
                 else
                 {
-                    // Walking
+                    // not moving
                     oxygenSystem.DecreaseOxygen(walkingOxygenCost);
-                    soundSources.CreateNewSoundSource(transform.position, walkingSoundRadius);
                 }
             }
-            else
-            {
-                // not moving
-                oxygenSystem.DecreaseOxygen(walkingOxygenCost);
-            }
-        }
-        else
-        {
-            //Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
         }
     }
 
@@ -213,6 +215,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //regular screen
+    public void ToggleNonUIScreen(bool turnOn)
+    {
+        if(turnOn)
+        {
+            standardScreen.SetActive(true);
+            TaskList_UI_Object.transform.Find("TaskContainer").gameObject.SetActive(true);
+            TaskList_UI_Object.GetComponent<TaskList>().refresh();
+        }
+        else{
+            standardScreen.SetActive(false);
+            TaskList_UI_Object.transform.Find("TaskContainer").gameObject.SetActive(false);
+        }
+        
+    }
+
     public void ESCAPE()
     {
         //if you are in inspector
@@ -221,6 +239,7 @@ public class PlayerController : MonoBehaviour
             //go to the inventory screen
             Inspector_UI_Object.GetComponent<Inspector>().unloadInspector();
             toggle_INV_and_CAM(true);
+
         }
         //if you are in inventory or generator screen
         else if (UI_Value == 1)
@@ -254,12 +273,17 @@ public class PlayerController : MonoBehaviour
         {
             Set_UI_Value(-1);
             optionsMenu.SetActive(false);
+            TaskList_UI_Object.transform.Find("TaskContainer").gameObject.SetActive(false);
         }
     }
 
     public void Set_UI_Value(int val)
     {
         UI_Value = val;
+        if(UI_Value == 0)
+            ToggleNonUIScreen(true);
+        else
+            ToggleNonUIScreen(false);
         Debug.Log(UI_Value);
     }
 

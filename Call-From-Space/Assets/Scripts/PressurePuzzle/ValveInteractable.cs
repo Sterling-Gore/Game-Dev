@@ -20,6 +20,8 @@ public class ValveInteractable : Interactable
     
     public AudioSource audioSource;
     private Collider valveCollider;
+    public AudioClip[] valveSounds;
+
 
     void Start()
     {
@@ -55,52 +57,15 @@ public class ValveInteractable : Interactable
 
     private void PlaySound()
     {
-        string soundPath = Path.Combine(Application.dataPath, "Sound", "Valves");
-        DirectoryInfo dir = new DirectoryInfo(soundPath);
-        FileInfo[] info = dir.GetFiles("*.mp3");
-        
-        if (info.Length == 0)
+        if (audioSource && valveSounds != null && valveSounds.Length > 0)
         {
-            Debug.LogWarning("No .mp3 files found in the Sound/Valves folder!");
-            return;
-        }
-
-        string randomFile = info[Random.Range(0, info.Length)].FullName;
-        StartCoroutine(LoadAndPlayAudio(randomFile));
-    }
-
-    private System.Collections.IEnumerator LoadAndPlayAudio(string path)
-    {
-        using UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip("file://" + path, AudioType.MPEG);
-        yield return www.SendWebRequest();
-
-        if (www.result == UnityWebRequest.Result.Success)
-        {
-            AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
-            if (clip)
-            {
-                if (audioSource)
-                {
-                    audioSource.clip = clip;
-                    audioSource.Play();
-                }
-                else
-                {
-                    Debug.LogWarning("Audio source not found on the valve object!");
-                }
-            }
-            else
-            {
-                Debug.LogError("Failed to create AudioClip from file: " + path);
-            }
-        }
-        else
-        {
-            Debug.LogError("Error loading audio file: " + www.error);
+            AudioClip randomClip = valveSounds[Random.Range(0, valveSounds.Length)];
+            audioSource.clip = randomClip;
+            audioSource.Play();
         }
     }
 
-    private System.Collections.IEnumerator AdjustPressureAfterDelay()
+    private IEnumerator AdjustPressureAfterDelay()
     {
         yield return new WaitForSeconds(0.2f);
         if (isOn)

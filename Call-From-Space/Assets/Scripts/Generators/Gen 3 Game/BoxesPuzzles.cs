@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Microsoft.Unity.VisualStudio.Editor;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,6 +33,8 @@ public class BoxesPuzzle : MonoBehaviour
     public AudioClip valid;
 
     public AudioClip inValid;
+
+    public GameObject player;
 
     
     public AudioSource audioSource;
@@ -186,6 +187,7 @@ public class BoxesPuzzle : MonoBehaviour
     {
         Debug.Log("All elements match.");
         won = true;
+        player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle3(2);
         gen.transform.Find("genDoor").GetComponent<Animator>().SetTrigger("Open");
         gen.transform.Find("Fuel-Deposit").GetComponent<Collider>().enabled = true;
         TurnInteractableButtons(false);

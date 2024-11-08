@@ -122,6 +122,7 @@ public class GeneratorAGame : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         audioSource.PlayOneShot(valid);
         gen.transform.Find("genDoor").GetComponent<Animator>().SetTrigger("Open");
         gen.transform.Find("Fuel-Deposit").GetComponent<Collider>().enabled = true;
+        Player_for_interactor.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle1(4);
 
         //generatorUI.SetActive(false);
         //interactor.inUI = false;

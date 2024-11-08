@@ -28,8 +28,19 @@ public class PowerLevel : MonoBehaviour
     private Dictionary<GameObject, bool> originalLightStates = new Dictionary<GameObject, bool>();
     private Dictionary<GameObject, bool> originalColliderStates = new Dictionary<GameObject, bool>();
 
+    public GameObject alienSystem;
+
+    private LightmapData[] level0, level1, level2, level3;
+
+    public Texture2D[] level0color, level1color, level2color, level3color;
+
     void Start()
     {
+        level0 = CreateLightmap(level0color);
+        level1 = CreateLightmap(level1color);
+        level2 = CreateLightmap(level2color);
+        level3 = CreateLightmap(level3color);
+
         foreach (PowerZone zone in powerZones)
         {
             foreach (GameObject camera in zone.cameras)
@@ -68,12 +79,30 @@ public class PowerLevel : MonoBehaviour
         UpdatePowerSystems();
     }
 
+
+    private LightmapData[] CreateLightmap(Texture2D[] colorTextures)
+    {
+        List<LightmapData> lightmapList = new List<LightmapData>();
+        for (int i = 0; i < colorTextures.Length; i++)
+        {
+            LightmapData lightmapData = new LightmapData();
+            lightmapData.lightmapColor = colorTextures[i];
+            lightmapList.Add(lightmapData);
+        }
+        return lightmapList.ToArray();
+    }
+
     public void GeneratorActivated()
     {
+        if(activeGenerators == 0)
+        {
+            alienSystem.SetActive(true);
+        }
         activeGenerators = Mathf.Min(activeGenerators + 1, maxPowerLevel);
         currentPowerLevel = activeGenerators;
         UpdatePowerSystems();
         Debug.Log($"Generator activated. Current power level: {currentPowerLevel}");
+
     }
 
     public void GeneratorDeactivated()
@@ -87,6 +116,25 @@ public class PowerLevel : MonoBehaviour
     private void UpdatePowerSystems()
     {
         Debug.Log($"Updating power systems. Current level: {currentPowerLevel}");
+
+        switch (currentPowerLevel)
+        {
+            case 0:
+                LightmapSettings.lightmaps = level0;
+                break;
+            case 1:
+                LightmapSettings.lightmaps = level1;
+                break;
+            case 2:
+                LightmapSettings.lightmaps = level2;
+                break;
+            case 3:
+                LightmapSettings.lightmaps = level3;
+                break;
+            default:
+                LightmapSettings.lightmaps = level0;
+                break;
+        }
 
         foreach (PowerZone zone in powerZones)
         {

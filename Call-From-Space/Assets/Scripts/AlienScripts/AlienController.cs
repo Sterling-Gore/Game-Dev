@@ -192,8 +192,9 @@ public class AlienController : MonoBehaviour
 
     void AttackPlayer()
     {
-        var gameOver = endingScreen.transform.GetChild(0).gameObject;
-        gameOver.SetActive(true);
+        //var gameOver = endingScreen.transform.GetChild(0).gameObject;
+        PlayRandomAttackAudio();
+        //gameOver.SetActive(true);
     }
 
     void GoStraightToPlayer()
@@ -303,20 +304,24 @@ public class AlienController : MonoBehaviour
 
     public void PlayRandomAttackAudio()
     {
-        if (!attackAudio.isPlaying && attackClips.Count != 0)
-        {
-            attackAudio.clip = attackClips[Random.Range(0, attackClips.Count)];
-            attackAudio.Play();
-        }
+        attackAudio.Play();
+        //if (!attackAudio.isPlaying && attackClips.Count != 0)
+        //{
+        //    attackAudio.clip = attackClips[Random.Range(0, attackClips.Count)];
+        //    attackAudio.Play();
+        //}
     }
 
     public void PlayRandomIdleAudio()
     {
+        idleAudio.Play();
+        /*
         if (!idleAudio.isPlaying && idleClips.Count != 0)
         {
             idleAudio.clip = idleClips[Random.Range(0, idleClips.Count)];
             idleAudio.Play();
         }
+        */
     }
 
     IEnumerator LoadAudioClips()

@@ -10,25 +10,32 @@ public class Inspector : MonoBehaviour, IDragHandler
     float xRot = 0f;
     float yRot = 0f;
     
-    //void Update()
-    //{
-    //    if (Input.GetKey(KeyCode.Escape))
-    //    {
-    //        unloadInspector();
-    //        player.GetComponent<PlayerController>().toggle_INV_and_CAM(true);
-    //    }
-    //}
+
 
     public void loadInspector(GameObject temp)
     {
-        gameObject.SetActive(true);
         item = temp.GetComponent<Item_interaction>().item;
-        item.obj.SetActive(true);
-        item.obj.GetComponent<Rigidbody>().useGravity = false;
-        item.obj.GetComponent<Rigidbody>().isKinematic = true;
-        item.obj.transform.position = new Vector3(1000,1000,1001);
-        item.obj.transform.rotation = Quaternion.Euler(0, 180, 0);
-        //gameObject.SetActive(true);
+
+        if(item.isItem)
+        {
+            player.GetComponent<PlayerController>().Set_UI_Value(2);
+            
+            switch(item.itemName)
+            {
+                case "Sticky Note":
+                    player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle1(3);
+                    break;
+                default:
+                    break;
+            }
+            gameObject.SetActive(true);
+            item.obj.SetActive(true);
+            item.obj.GetComponent<Rigidbody>().useGravity = false;
+            item.obj.GetComponent<Rigidbody>().isKinematic = true;
+            item.obj.transform.position = new Vector3(1000,1000,1001);
+            item.obj.transform.rotation = Quaternion.Euler(0, 180, 0);
+            //gameObject.SetActive(true);
+        }
 
     }
 
