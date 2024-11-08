@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour
     public float walkingOxygenCost = .75f;
     public float stationaryOxygenCost = 0.25f;
 
+    private HealthSystem healthSystem;
 
     [Header("Generator UI")]
     public GameObject Generator1_UI;
@@ -64,7 +65,11 @@ public class PlayerController : MonoBehaviour
     {
         //start the game with no screens on
         UI_Value = 0;
-
+        healthSystem = GetComponent<HealthSystem>();
+        if (healthSystem == null)
+        {
+            Debug.LogError("HealthSystem component not found on player.");
+        }
 
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
