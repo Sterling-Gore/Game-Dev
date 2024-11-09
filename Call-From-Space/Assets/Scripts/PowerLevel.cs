@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class PowerLevel : MonoBehaviour
 {
+    public Material DoorLightOn; // for when the door is powered on
+    public Material DoorLightOff; //for when the door is powered off
     [System.Serializable]
     public class PowerZone
     {
@@ -167,6 +169,8 @@ public class PowerLevel : MonoBehaviour
                     {
                         bool originalState = originalColliderStates[door];
                         doorCollider.enabled = shouldBeActive && originalState;
+                        if(shouldBeActive && originalState)
+                            door.transform.Find("Doors").Find("right").Find("Light").gameObject.GetComponent<Renderer>().material = DoorLightOn;
                     }
                 }
             }
