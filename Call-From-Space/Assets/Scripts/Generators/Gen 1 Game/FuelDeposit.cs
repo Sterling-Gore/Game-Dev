@@ -55,7 +55,7 @@ public class FuelDeposit : Interactable
                 default:
                     break;
             }
-            gameObject.SetActive(false);
+            gameObject.GetComponent<Collider>().enabled = false;
         }
     }
 
