@@ -19,6 +19,8 @@ public class LighterScript : Holdable
     // Update is called once per frame
     void Update()
     {
+        if(gameObject.activeSelf && ItemGlow.activeSelf)
+            ItemGlow.transform.position = new Vector3(transform.position.x, transform.position.y + 0.25f, transform.position.z);
         if(localHold) 
         {
             MoveObject();

@@ -17,6 +17,8 @@ public abstract class Holdable : Interactable
     public string objName = "";
     public float weight = 0;
 
+    public GameObject ItemGlow;
+
 
 
     Interactor interactor;
@@ -33,6 +35,8 @@ public abstract class Holdable : Interactable
         localHold = false;
 
     }
+
+
 
 
     public override string GetDescription()
@@ -57,6 +61,7 @@ public abstract class Holdable : Interactable
 
     protected void pickUpObject()
     {
+        ItemGlow.SetActive(false);
         GameObject screen = player.GetComponent<PlayerController>().standardScreen;
         screen.transform.Find("Controls").gameObject.SetActive(false);
         screen.transform.Find("ControlsHolding").gameObject.SetActive(true);
@@ -87,7 +92,7 @@ public abstract class Holdable : Interactable
 
     protected void DropObject()
     {
-
+        ItemGlow.SetActive(true);
         GameObject screen = player.GetComponent<PlayerController>().standardScreen;
         screen.transform.Find("Controls").gameObject.SetActive(true);
         screen.transform.Find("ControlsHolding").gameObject.SetActive(false);
