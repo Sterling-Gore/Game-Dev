@@ -31,6 +31,7 @@ public class FuelDeposit : Interactable
             FuelCell.GetComponent<Holdable>().enabled = false;
             FuelCell.transform.position = position;
             FuelCell.transform.rotation = Quaternion.Euler(rotation.x, rotation.y, rotation.z);
+            FuelCell.GetComponent<FuelCellHoldable>().StopGlowEffect();
             //particles.SetActive(true);
             genPowerAudio.enabled = true;
             //lights.SetActive(true);

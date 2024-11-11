@@ -44,6 +44,7 @@ public class GoopedDoor : Interactable
         {
             StartCoroutine(FadeOut());
             player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(4);
+            Lighter.GetComponent<LighterScript>().StopGlowEffect();
         }
     }
 
