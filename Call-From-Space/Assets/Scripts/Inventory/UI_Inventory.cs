@@ -58,6 +58,11 @@ public class UI_Inventory : MonoBehaviour
             if (child == itemSlotTemplate) continue;
             Destroy(child.gameObject);
         }
+        foreach( Transform child in journalSlotContainer)
+        {
+            if (child == journalSlotTemplate) continue;
+            Destroy(child.gameObject);
+        }
         int xpos = 0;
         int ypos = 0;
         float itemSlotCellSize = 150f;
@@ -91,6 +96,11 @@ public class UI_Inventory : MonoBehaviour
         foreach( Transform child in journalSlotContainer)
         {
             if (child == journalSlotTemplate) continue;
+            Destroy(child.gameObject);
+        }
+        foreach( Transform child in itemSlotContainer)
+        {
+            if (child == itemSlotTemplate) continue;
             Destroy(child.gameObject);
         }
         int xpos = 0;
