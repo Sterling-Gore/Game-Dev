@@ -9,6 +9,7 @@ public class LaserReflectorDeposit : Interactable
     public GameObject Reflector2;
     public GameObject PlugedInReflector;
     public GameObject Player;
+    public GameObject Sparkle;
 
     public override string GetDescription()
     {
@@ -27,6 +28,7 @@ public class LaserReflectorDeposit : Interactable
     {
         if (Player.GetComponent<PlayerController>().inventory.IsItemInList(Reflector1.GetComponent<Item>()))
         {
+            Sparkle.SetActive(false);
             Player.GetComponent<PlayerController>().inventory.DeleteItem(Reflector1.GetComponent<Item>());
             Reflector1.SetActive(false);
             PlugedInReflector.SetActive(true);
@@ -34,6 +36,7 @@ public class LaserReflectorDeposit : Interactable
         }
         else if (Player.GetComponent<PlayerController>().inventory.IsItemInList(Reflector2.GetComponent<Item>()))
         {
+            Sparkle.SetActive(false);
             Player.GetComponent<PlayerController>().inventory.DeleteItem(Reflector2.GetComponent<Item>());
             Reflector2.SetActive(false);
             PlugedInReflector.SetActive(true);

@@ -13,6 +13,7 @@ public class FuelDeposit : Interactable
     public GameObject particles;
     public GenScreenInteraction gen;
     AudioSource genPowerAudio;
+    public GameObject Sparkle;
 
     
 
@@ -57,6 +58,8 @@ public class FuelDeposit : Interactable
                     break;
             }
             gameObject.GetComponent<Collider>().enabled = false;
+
+            Sparkle.SetActive(false);
         }
     }
 

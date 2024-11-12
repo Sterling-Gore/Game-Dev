@@ -24,6 +24,9 @@ public class GeneratorAGame : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public GameObject gen;
     public GeneratorAudio generatorAudio;
 
+    public GameObject ScreenSparkle;
+    public GameObject FuelDepositSparkle;
+
 
 
     public AudioClip increase;
@@ -120,6 +123,10 @@ public class GeneratorAGame : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         }
         updateImage(true);
         audioSource.PlayOneShot(valid);
+        //updates the sparkle effect
+        ScreenSparkle.SetActive(false);
+        FuelDepositSparkle.SetActive(true);
+        
         gen.transform.Find("genDoor").GetComponent<Animator>().SetTrigger("Open");
         gen.transform.Find("Fuel-Deposit").GetComponent<Collider>().enabled = true;
         Player_for_interactor.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle1(4);

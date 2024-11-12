@@ -10,6 +10,7 @@ public class DrawerInteraction : Interactable
     public GameObject Key;
     bool unlocked = false;
     
+    public GameObject Sparkle;
     void Start()
     {
         animation = GetComponent<Animator>();
@@ -38,6 +39,7 @@ public class DrawerInteraction : Interactable
     {
         if (Player.GetComponent<PlayerController>().inventory.IsItemInList(Key.GetComponent<Item>()))
         {
+            Sparkle.SetActive(false);
             unlocked = true;
             animation.SetTrigger("Open");
             Player.GetComponent<PlayerController>().inventory.DeleteItem(Key.GetComponent<Item>());
