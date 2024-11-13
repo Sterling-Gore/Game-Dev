@@ -18,10 +18,17 @@ public class AudioTriggerImage : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider other) {
-        if (isFirstTime && other.CompareTag("Player")) {
-            isFirstTime = false; 
-            int randomIndex = Random.Range(0, scareImages.Length);
-            StartCoroutine(ShowScareImage(randomIndex));
+        if (other.CompareTag("Player")) {
+            if (isFirstTime) {
+                isFirstTime = false; 
+                int randomIndex = Random.Range(0, scareImages.Length);
+                StartCoroutine(ShowScareImage(randomIndex));
+            } else {
+                if (Random.value <= 0.05f) { 
+                    int randomIndex = Random.Range(0, scareImages.Length);
+                    StartCoroutine(ShowScareImage(randomIndex));
+                }
+            }
         }
     }
 
