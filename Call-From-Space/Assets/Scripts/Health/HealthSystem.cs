@@ -40,6 +40,12 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
+    public void TakeDamage(float damageAmount)
+    {
+        healthLevel -= damageAmount;
+        healthLevel = Mathf.Clamp(healthLevel, 0, 100f); // Ensure health level stays within bounds
+    }
+
     private void Update()
     {
         // Update the UI text with the current health level

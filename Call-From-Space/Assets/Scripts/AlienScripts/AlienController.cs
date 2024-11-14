@@ -52,6 +52,10 @@ public class AlienController : MonoBehaviour
     Animator animator;
     AudioSource walkingAudio, idleAudio, attackAudio;
     List<AudioClip> walkingClips = new(), idleClips = new(), attackClips = new();
+    public HealthSystem playerHealthSystem; // Assign this in the Inspector
+    public float damageAmount = 0.1f; // Amount of damage to deal to the player
+    public float attackCooldown = 1f; // Cooldown time between attacks
+    private float lastAttackTime;
 
     void Start()
     {
@@ -79,6 +83,8 @@ public class AlienController : MonoBehaviour
         attackAudio = sounds.Find("AttackSounds").gameObject.GetComponent<AudioSource>();
         walkingAudio = sounds.Find("WalkSounds").gameObject.GetComponent<AudioSource>();
         StartCoroutine(LoadAudioClips());
+        playerHealthSystem = player.GetComponent<HealthSystem>();
+        lastAttackTime = -attackCooldown; // Initialize to allow immediate attack
     }
 
     void Update()
@@ -185,8 +191,13 @@ public class AlienController : MonoBehaviour
 
     void AttackPlayer()
     {
+        if (Time.time - lastAttackTime >= attackCooldown)
+        {
+            PlayRandomAttackAudio();
+            playerHealthSystem.TakeDamage(damageAmount);
+            lastAttackTime = Time.time;
+        }
         //var gameOver = endingScreen.transform.GetChild(0).gameObject;
-        PlayRandomAttackAudio();
         //gameOver.SetActive(true);
     }
 
