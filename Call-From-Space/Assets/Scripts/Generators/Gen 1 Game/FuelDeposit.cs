@@ -11,7 +11,11 @@ public class FuelDeposit : Interactable
     public Vector3 rotation;
     public Vector3 position;
     public GameObject particles;
+    public GenScreenInteraction gen;
     AudioSource genPowerAudio;
+    public GameObject Sparkle;
+
+    
 
     void Start()
     {
@@ -28,6 +32,7 @@ public class FuelDeposit : Interactable
             FuelCell.GetComponent<Holdable>().enabled = false;
             FuelCell.transform.position = position;
             FuelCell.transform.rotation = Quaternion.Euler(rotation.x, rotation.y, rotation.z);
+            FuelCell.GetComponent<FuelCellHoldable>().StopGlowEffect();
             //particles.SetActive(true);
             genPowerAudio.enabled = true;
             //lights.SetActive(true);
@@ -38,6 +43,23 @@ public class FuelDeposit : Interactable
                 powerLevel.GeneratorActivated();
                 SoundSourcesController.GetInstance().CreateNewSoundSource(transform.position, soundRadius);
             }
+            switch (gen.generatorType)
+            {
+                case GenScreenInteraction.Generator.A:
+                    player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle1(5);
+                    break;
+                case GenScreenInteraction.Generator.B:
+                    player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(7);
+                    break;
+                case GenScreenInteraction.Generator.C:
+                    player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle3(3);
+                    break;
+                default:
+                    break;
+            }
+            gameObject.GetComponent<Collider>().enabled = false;
+
+            Sparkle.SetActive(false);
         }
     }
 

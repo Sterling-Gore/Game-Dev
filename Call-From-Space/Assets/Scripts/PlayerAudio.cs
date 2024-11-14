@@ -59,7 +59,8 @@ public class PlayerAudio : MonoBehaviour
             crouching.enabled = false;
         }
 
-        breathing.volume = Mathf.Clamp((1 - O2System.oxygenLevel / 100) - .25f, 0, 1);
+        breathing.volume = Mathf.Clamp(((1 - O2System.oxygenLevel / 100) - .50f) / 1.5f, 0, 1);
+        //starts at 50% oxygen, and the volume is divided by 1.5
 
 
     }

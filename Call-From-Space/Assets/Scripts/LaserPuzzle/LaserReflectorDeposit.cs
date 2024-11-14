@@ -4,25 +4,16 @@ using UnityEngine;
 
 public class LaserReflectorDeposit : Interactable
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
 
     public GameObject Reflector1;
     public GameObject Reflector2;
     public GameObject PlugedInReflector;
     public GameObject Player;
+    public GameObject Sparkle;
+
     public override string GetDescription()
     {
+        Player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().LaserPuzzle(2);
         if (Player.GetComponent<PlayerController>().inventory.IsItemInList(Reflector1.GetComponent<Item>()) || Player.GetComponent<PlayerController>().inventory.IsItemInList(Reflector2.GetComponent<Item>()))
         {
             return "Plug In Reflector";
@@ -37,6 +28,7 @@ public class LaserReflectorDeposit : Interactable
     {
         if (Player.GetComponent<PlayerController>().inventory.IsItemInList(Reflector1.GetComponent<Item>()))
         {
+            Sparkle.SetActive(false);
             Player.GetComponent<PlayerController>().inventory.DeleteItem(Reflector1.GetComponent<Item>());
             Reflector1.SetActive(false);
             PlugedInReflector.SetActive(true);
@@ -44,10 +36,14 @@ public class LaserReflectorDeposit : Interactable
         }
         else if (Player.GetComponent<PlayerController>().inventory.IsItemInList(Reflector2.GetComponent<Item>()))
         {
+            Sparkle.SetActive(false);
             Player.GetComponent<PlayerController>().inventory.DeleteItem(Reflector2.GetComponent<Item>());
             Reflector2.SetActive(false);
             PlugedInReflector.SetActive(true);
             gameObject.SetActive(false);
         }
+
+        if(!Player.GetComponent<PlayerController>().inventory.IsItemInList(Reflector1.GetComponent<Item>()) && !Player.GetComponent<PlayerController>().inventory.IsItemInList(Reflector2.GetComponent<Item>()) && !Reflector1.activeSelf && !Reflector2.activeSelf)
+            Player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().LaserPuzzle(3);
     }
 }

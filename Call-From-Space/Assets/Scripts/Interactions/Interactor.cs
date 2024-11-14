@@ -10,11 +10,13 @@ public class Interactor : MonoBehaviour
 
     public bool isHolding;
     public bool inUI;
+    public string holdingName; //this is the name of the current object the player is holding
 
     
 
     void Start()
     {
+        holdingName = "";
         isHolding = false;
         inUI = false;
     }
@@ -23,8 +25,10 @@ public class Interactor : MonoBehaviour
     void Update()
     {
         //bool successfulHit = false;
+        if(!isHolding)
+            holdingName = "";
 
-        if(!isHolding || !inUI)
+        if(!inUI)
         {
             bool successfulHit = false;
             //Ray ray = mainCam.ScreenPointToRay(new Vector3(Screen.width/2f, Screen.height/2f, 0f));
@@ -36,11 +40,14 @@ public class Interactor : MonoBehaviour
             if (Physics.Raycast(ray, out hit, interactionDistance))
             {
                 Interactable interactable = hit.collider.GetComponent<Interactable>();
+                Holdable holdable = hit.collider.GetComponent<Holdable>();
                 
-                if ( interactable != null){
+                if ( interactable != null  && (!isHolding || interactable.special) ){
                     HandleInteraction(interactable);
                     interactionText.text = interactable.GetDescription();
                     successfulHit = true;
+                    if(holdable != null)
+                        holdingName = holdable.objName;
                 }
                 
 
@@ -51,6 +58,10 @@ public class Interactor : MonoBehaviour
                 interactionText.text = "";
             }
             
+        }
+        else
+        {
+            interactionText.text = "";
         }
         
             

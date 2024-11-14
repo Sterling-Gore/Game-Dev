@@ -8,6 +8,8 @@ public class UI_Inventory : MonoBehaviour
     private Inventory inventory;
     private Transform itemSlotContainer;
     private Transform itemSlotTemplate;
+    private Transform journalSlotContainer;
+    private Transform journalSlotTemplate;
     bool onItemScreen;
 
     
@@ -16,6 +18,8 @@ public class UI_Inventory : MonoBehaviour
     {
         itemSlotContainer = transform.Find("itemSlotContainer");
         itemSlotTemplate = itemSlotContainer.Find("itemSlotTemplate");
+        journalSlotContainer = transform.Find("journalSlotContainer");
+        journalSlotTemplate = journalSlotContainer.Find("journalSlotTemplate");
         onItemScreen = true;
 
     }
@@ -54,6 +58,11 @@ public class UI_Inventory : MonoBehaviour
             if (child == itemSlotTemplate) continue;
             Destroy(child.gameObject);
         }
+        foreach( Transform child in journalSlotContainer)
+        {
+            if (child == journalSlotTemplate) continue;
+            Destroy(child.gameObject);
+        }
         int xpos = 0;
         int ypos = 0;
         float itemSlotCellSize = 150f;
@@ -84,6 +93,11 @@ public class UI_Inventory : MonoBehaviour
 
     public void RefreshInventoryJournals()
     {
+        foreach( Transform child in journalSlotContainer)
+        {
+            if (child == journalSlotTemplate) continue;
+            Destroy(child.gameObject);
+        }
         foreach( Transform child in itemSlotContainer)
         {
             if (child == itemSlotTemplate) continue;
@@ -97,7 +111,7 @@ public class UI_Inventory : MonoBehaviour
         {
             
 
-            RectTransform itemSlotRectTransform = Instantiate(itemSlotTemplate, itemSlotContainer).GetComponent<RectTransform>();
+            RectTransform itemSlotRectTransform = Instantiate(journalSlotTemplate, journalSlotContainer).GetComponent<RectTransform>();
             itemSlotRectTransform.gameObject.SetActive(true);
             Vector2 additionalPosition = new Vector2(xpos*itemSlotCellSize, ypos*itemSlotCellSize);
             itemSlotRectTransform.anchoredPosition = additionalPosition;
