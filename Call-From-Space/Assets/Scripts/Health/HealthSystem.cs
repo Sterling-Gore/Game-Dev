@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,33 @@ public class HealthSystem : MonoBehaviour
     public Image healthBar;
     public Image healthRadial;
     public float healSpeed = 5f; // Speed at which health regenerates
+    private Coroutine healCoroutine;
+
+    private void OnEnable()
+    {
+        healCoroutine = StartCoroutine(HealOverTime());
+    }
+
+    private void OnDisable()
+    {
+        if (healCoroutine != null)
+        {
+            StopCoroutine(healCoroutine);
+        }
+    }
+
+    private IEnumerator HealOverTime()
+    {
+        while (true)
+        {
+            if (healthLevel < 100f)
+            {
+                healthLevel += healSpeed * Time.deltaTime;
+                healthLevel = Mathf.Clamp(healthLevel, 0, 100f); // Ensure health level stays within bounds
+            }
+            yield return null;
+        }
+    }
 
     private void Update()
     {
@@ -18,12 +46,5 @@ public class HealthSystem : MonoBehaviour
         }
         healthBar.fillAmount = healthLevel / 100;
         healthRadial.fillAmount = healthLevel / 100;
-
-        // Heal over time if health is below the maximum level
-        if (healthLevel < 100f)
-        {
-            healthLevel += healSpeed * Time.deltaTime;
-            healthLevel = Mathf.Clamp(healthLevel, 0, 100f); // Ensure health level stays within bounds
-        }
     }
 }
