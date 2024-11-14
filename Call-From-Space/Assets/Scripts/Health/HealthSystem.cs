@@ -10,10 +10,12 @@ public class HealthSystem : MonoBehaviour
     public Image healthRadial;
     public float healSpeed = 5f; // Speed at which health regenerates
     private Coroutine healCoroutine;
+    GameObject endingScreen;
 
     private void OnEnable()
     {
         healCoroutine = StartCoroutine(HealOverTime());
+        endingScreen = GameObject.Find("EndingScreen");
     }
 
     private void OnDisable()
@@ -28,7 +30,7 @@ public class HealthSystem : MonoBehaviour
     {
         while (true)
         {
-            if (healthLevel < 100f)
+            if (healthLevel > 0 && healthLevel < 100f)
             {
                 healthLevel += healSpeed * Time.deltaTime;
                 healthLevel = Mathf.Clamp(healthLevel, 0, 100f); // Ensure health level stays within bounds
@@ -40,11 +42,18 @@ public class HealthSystem : MonoBehaviour
     private void Update()
     {
         // Update the UI text with the current health level
-        if (healthLevelText != null)
+        if (healthLevelText != null && healthLevel > 0)
         {
             healthLevelText.text = "Health Level: " + Mathf.RoundToInt(healthLevel).ToString();
+            healthBar.fillAmount = healthLevel / 100;
+            healthRadial.fillAmount = healthLevel / 100;
         }
-        healthBar.fillAmount = healthLevel / 100;
-        healthRadial.fillAmount = healthLevel / 100;
+
+        // Check if health level is zero
+        if (healthLevel <= 0)
+        {
+            var gameOver = endingScreen.transform.GetChild(0).gameObject;
+            gameOver.SetActive(true);
+        }
     }
 }
