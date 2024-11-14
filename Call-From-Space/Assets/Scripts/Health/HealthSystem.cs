@@ -11,6 +11,7 @@ public class HealthSystem : MonoBehaviour
     public float healSpeed = 5f; // Speed at which health regenerates
     private Coroutine healCoroutine;
     GameObject endingScreen;
+    public RectTransform healthBarRectTransform; // Assign this in the Inspector
 
     private void OnEnable()
     {
@@ -47,6 +48,12 @@ public class HealthSystem : MonoBehaviour
             healthLevelText.text = "Health Level: " + Mathf.RoundToInt(healthLevel).ToString();
             healthBar.fillAmount = healthLevel / 100;
             healthRadial.fillAmount = healthLevel / 100;
+        }
+
+        // Adjust the width of the health bar
+        if (healthBarRectTransform != null)
+        {
+            healthBarRectTransform.sizeDelta = new Vector2(healthLevel, healthBarRectTransform.sizeDelta.y);
         }
 
         // Check if health level is zero
