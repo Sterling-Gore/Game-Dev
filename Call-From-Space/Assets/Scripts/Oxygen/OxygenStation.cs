@@ -18,6 +18,8 @@ namespace GameDev.Scripts.Oxygen
 
         public GameObject player;
         bool haveAccessedYet;
+
+        public GameObject Sparkle;
  
         void Start()
         {
@@ -45,6 +47,7 @@ namespace GameDev.Scripts.Oxygen
             if(!haveAccessedYet)
             {
                 player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().DeleteTask("Find An Oxygen Station");
+                Sparkle.SetActive(false);
             }
             Debug.Log("Starting to refill oxygen...");
             // OxygenSystem oxygenSystem = gameObject.GetComponent<OxygenSystem>(); // Get the OxygenSystem component

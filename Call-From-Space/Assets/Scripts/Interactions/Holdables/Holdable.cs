@@ -17,6 +17,9 @@ public abstract class Holdable : Interactable
     public string objName = "";
     public float weight = 0;
 
+    public GameObject ItemGlow;
+    bool DoneGlowing;
+
 
 
     Interactor interactor;
@@ -24,6 +27,7 @@ public abstract class Holdable : Interactable
     // Start is called before the first frame update
     void Start()
     {
+        DoneGlowing = false;
         Physics.IgnoreCollision(HoldObject.GetComponent<Collider>(), player.transform.Find("Player Model").GetComponent<Collider>(), true);
         //currentlyHolding = false;
         ObjRb = HoldObject.GetComponent<Rigidbody>();
@@ -33,6 +37,8 @@ public abstract class Holdable : Interactable
         localHold = false;
 
     }
+
+
 
 
     public override string GetDescription()
@@ -57,6 +63,8 @@ public abstract class Holdable : Interactable
 
     protected void pickUpObject()
     {
+        if(!DoneGlowing)
+            ItemGlow.SetActive(false);
         GameObject screen = player.GetComponent<PlayerController>().standardScreen;
         screen.transform.Find("Controls").gameObject.SetActive(false);
         screen.transform.Find("ControlsHolding").gameObject.SetActive(true);
@@ -87,7 +95,8 @@ public abstract class Holdable : Interactable
 
     protected void DropObject()
     {
-
+        if(!DoneGlowing)
+            ItemGlow.SetActive(true);
         GameObject screen = player.GetComponent<PlayerController>().standardScreen;
         screen.transform.Find("Controls").gameObject.SetActive(true);
         screen.transform.Find("ControlsHolding").gameObject.SetActive(false);
@@ -113,6 +122,12 @@ public abstract class Holdable : Interactable
             HoldObject.transform.position = cam.transform.position + new Vector3(0f, -0.5f, 0f); //offset slightly downward to stop object dropping above player 
             //if your player is small, change the -0.5f to a smaller number (in magnitude) ie: -0.1f
         }
+    }
+
+    public void StopGlowEffect()
+    {
+        DoneGlowing = true;
+        ItemGlow.SetActive(false);
     }
 }
 

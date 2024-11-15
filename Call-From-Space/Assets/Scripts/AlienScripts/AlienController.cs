@@ -55,6 +55,12 @@ public class AlienController : MonoBehaviour
     public List<AudioClip> walkingClips = new();
     public List<AudioClip> idleClips = new(), attackClips = new();
 
+    [Header("Attack")]
+    public HealthSystem playerHealthSystem;
+    public float damageAmount = 0.1f;
+    public float attackCooldown = 1f;
+    private float lastAttackTime;
+
     public static List<AlienController> aliens = new();
 
     static int ignoreAlienLayer, groundLayer;
@@ -88,6 +94,9 @@ public class AlienController : MonoBehaviour
             1 << LayerMask.NameToLayer("AlienLayer")
         );
         groundLayer = 1 << LayerMask.NameToLayer("whatIsGround");
+
+        playerHealthSystem = player.GetComponent<HealthSystem>();
+        lastAttackTime = -attackCooldown;
     }
 
     void Update()
@@ -216,6 +225,12 @@ public class AlienController : MonoBehaviour
 
     void AttackPlayer()
     {
+        if (Time.time - lastAttackTime >= attackCooldown)
+        {
+            PlayRandomAttackAudio();
+            playerHealthSystem.TakeDamage(damageAmount);
+            lastAttackTime = Time.time;
+        }
         //var gameOver = endingScreen.transform.GetChild(0).gameObject;
         PlayRandomAttackAudio();
         // player.SendMessage("Attacked");

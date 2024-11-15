@@ -13,6 +13,7 @@ public class FuelDeposit : Interactable
     public GameObject particles;
     public GenScreenInteraction gen;
     AudioSource genPowerAudio;
+    public GameObject Sparkle;
 
     
 
@@ -31,6 +32,7 @@ public class FuelDeposit : Interactable
             FuelCell.GetComponent<Holdable>().enabled = false;
             FuelCell.transform.position = position;
             FuelCell.transform.rotation = Quaternion.Euler(rotation.x, rotation.y, rotation.z);
+            FuelCell.GetComponent<FuelCellHoldable>().StopGlowEffect();
             //particles.SetActive(true);
             genPowerAudio.enabled = true;
             //lights.SetActive(true);
@@ -55,7 +57,9 @@ public class FuelDeposit : Interactable
                 default:
                     break;
             }
-            gameObject.SetActive(false);
+            gameObject.GetComponent<Collider>().enabled = false;
+
+            Sparkle.SetActive(false);
         }
     }
 

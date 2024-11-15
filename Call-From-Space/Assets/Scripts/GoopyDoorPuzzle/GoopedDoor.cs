@@ -8,6 +8,7 @@ public class GoopedDoor : Interactable
     float fadeSpeed = .5f;
     public GameObject player;
     public GameObject Lighter;
+    public GameObject Sparkle;
     ParticleSystem flame;
     //GameObject mesh;
     void Start()
@@ -42,8 +43,10 @@ public class GoopedDoor : Interactable
     {
         if (player.GetComponent<Interactor>().holdingName == "Lighter" && Lighter.GetComponent<LighterScript>().isOpen)
         {
+            Sparkle.SetActive(false);
             StartCoroutine(FadeOut());
             player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(4);
+            Lighter.GetComponent<LighterScript>().StopGlowEffect();
         }
     }
 

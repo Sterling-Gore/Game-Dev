@@ -9,6 +9,8 @@ public class LighterScript : Holdable
     public Animator animation;
     public GameObject Fire;
 
+    public Transform lightBase;
+
 
     void Awake()
     {
@@ -19,6 +21,8 @@ public class LighterScript : Holdable
     // Update is called once per frame
     void Update()
     {
+        if(gameObject.activeSelf && ItemGlow.activeSelf)
+            ItemGlow.transform.position = new Vector3(lightBase.position.x, lightBase.position.y + 0.25f, lightBase.position.z);
         if(localHold) 
         {
             MoveObject();

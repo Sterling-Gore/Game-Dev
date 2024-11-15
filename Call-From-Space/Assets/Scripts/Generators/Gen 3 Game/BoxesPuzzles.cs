@@ -24,6 +24,9 @@ public class BoxesPuzzle : MonoBehaviour
     public Sprite redButton;
     public Sprite NOTHING;
 
+    public GameObject ScreenSparkle;
+    public GameObject FuelDepositSparkle;
+
      public AudioClip enableSound;
     public AudioClip disableSound;
 
@@ -187,6 +190,10 @@ public class BoxesPuzzle : MonoBehaviour
     {
         Debug.Log("All elements match.");
         won = true;
+
+        //sparkle controller
+        FuelDepositSparkle.SetActive(true);
+        ScreenSparkle.SetActive(false);
         player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle3(2);
         gen.transform.Find("genDoor").GetComponent<Animator>().SetTrigger("Open");
         gen.transform.Find("Fuel-Deposit").GetComponent<Collider>().enabled = true;

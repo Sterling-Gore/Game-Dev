@@ -26,6 +26,9 @@ public class SimonSays : MonoBehaviour
     bool won = false;
     bool passed = true;
 
+    public GameObject ScreenSparkle;
+    public GameObject FuelDepositSparkle;
+
     public AudioClip enableSound;
 
     public AudioClip pressSound;
@@ -150,6 +153,9 @@ public class SimonSays : MonoBehaviour
             {
                 won = true;
                 enableButtons(false);
+                //sparkle controller
+                FuelDepositSparkle.SetActive(true);
+                ScreenSparkle.SetActive(false);
                 gen.transform.Find("genDoor").GetComponent<Animator>().SetTrigger("Open");
                 gen.transform.Find("Fuel-Deposit").GetComponent<Collider>().enabled = true;
                 player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(6);

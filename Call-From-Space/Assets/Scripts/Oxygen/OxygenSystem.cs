@@ -31,7 +31,7 @@ public class OxygenSystem : MonoBehaviour
         if (breathEffect != null)
         {
             var emission = breathEffect.emission;
-            float threshold = 50f; // Start the particle effect when oxygen level is below this threshold
+            float threshold = 30f; // Start the particle effect when oxygen level is below this threshold
             if (oxygenLevel < threshold)
             {
                 emission.rateOverTime = Mathf.Lerp(0, 50, 1 - (oxygenLevel / threshold)); // Increase emission rate as oxygen level decreases below the threshold
