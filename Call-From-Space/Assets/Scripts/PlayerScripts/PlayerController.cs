@@ -218,17 +218,17 @@ public class PlayerController : MonoBehaviour
     //regular screen
     public void ToggleNonUIScreen(bool turnOn)
     {
-        if(turnOn)
+        if (turnOn)
         {
             standardScreen.SetActive(true);
             TaskList_UI_Object.transform.Find("TaskContainer").gameObject.SetActive(true);
             TaskList_UI_Object.GetComponent<TaskList>().refresh();
         }
-        else{
+        else
+        {
             standardScreen.SetActive(false);
             TaskList_UI_Object.transform.Find("TaskContainer").gameObject.SetActive(false);
         }
-        
     }
 
     public void ESCAPE()
@@ -280,7 +280,7 @@ public class PlayerController : MonoBehaviour
     public void Set_UI_Value(int val)
     {
         UI_Value = val;
-        if(UI_Value == 0)
+        if (UI_Value == 0)
             ToggleNonUIScreen(true);
         else
             ToggleNonUIScreen(false);

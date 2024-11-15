@@ -6,25 +6,20 @@ using SoundSource = PathNode;
 public class SoundSourcesController : MonoBehaviour
 {
   float yLevel;
-  List<AlienController> aliens = new();
   List<SoundSource> soundSources = new();
 
   void Start()
   {
     yLevel = transform.position.y;
-    aliens = GameObject
-      .FindGameObjectsWithTag("Alien")
-      .Select(obj => obj.GetComponent<AlienController>())
-      .ToList();
   }
 
   void Update()
   {
-    // Debug.Log(soundSources.Count + " | " + aliens.Count);
+    // Debug.Log(soundSources.Count + " | " + AlienController.aliens.Count);
     soundSources.ForEach(source =>
     {
-      Debug.DrawRay(source.pos, Vector3.up * source.radius * 100, Color.white, 4);
-      aliens.ForEach(alien =>
+      Debug.DrawRay(source.pos, Vector3.up * source.radius * 100, Color.white, 10);
+      AlienController.aliens.ForEach(alien =>
       {
         if (
           Vector3.Distance(alien.transform.position, source.pos) < source.radius &&
@@ -35,9 +30,6 @@ public class SoundSourcesController : MonoBehaviour
     });
     soundSources.Clear();
   }
-
-  public void SubscribeToSoundSources(AlienController alien) =>
-    aliens.Append(alien);
 
   public void CreateNewSoundSource(Vector3 position, float radius)
   {

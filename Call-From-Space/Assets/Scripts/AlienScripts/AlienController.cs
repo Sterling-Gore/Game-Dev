@@ -1,10 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Networking;
 using SoundSource = PathNode;
 
 public class AlienController : MonoBehaviour
@@ -53,8 +48,16 @@ public class AlienController : MonoBehaviour
     int curPowerLevel = -1;
     public List<Transform> curSections = new();
     Animator animator;
+
     AudioSource walkingAudio, idleAudio, attackAudio;
-    List<AudioClip> walkingClips = new(), idleClips = new(), attackClips = new();
+
+    [Header("Audio")]
+    public List<AudioClip> walkingClips = new();
+    public List<AudioClip> idleClips = new(), attackClips = new();
+
+    public static List<AlienController> aliens = new();
+
+    static int ignoreAlienLayer, groundLayer;
 
     void Start()
     {
@@ -65,8 +68,6 @@ public class AlienController : MonoBehaviour
         playerRb = player.GetComponent<Rigidbody>();
 
         curSpeed = nextSpeed = walkSpeed;
-
-        SoundSourcesController.GetInstance().SubscribeToSoundSources(this);
 
         var powerManager = GameObject.Find("PowerManager");
         powerLevelManager = powerManager.GetComponent<PowerLevel>();
@@ -79,9 +80,14 @@ public class AlienController : MonoBehaviour
 
         Transform sounds = transform.Find("Sounds");
         idleAudio = sounds.Find("IdleSounds").gameObject.GetComponent<AudioSource>();
-        attackAudio = sounds.Find("AttackSounds").gameObject.GetComponent<AudioSource>();
         walkingAudio = sounds.Find("WalkSounds").gameObject.GetComponent<AudioSource>();
-        StartCoroutine(LoadAudioClips());
+        attackAudio = sounds.Find("AttackSounds").gameObject.GetComponent<AudioSource>();
+
+        aliens.Add(this);
+        ignoreAlienLayer = ~(
+            1 << LayerMask.NameToLayer("AlienLayer")
+        );
+        groundLayer = 1 << LayerMask.NameToLayer("whatIsGround");
     }
 
     void Update()
@@ -131,12 +137,15 @@ public class AlienController : MonoBehaviour
     void HuntPlayer()
     {
         PlayRandomWalkAudio();
-        var directionToPlayer = player.transform.position - transform.position;
+        var pos = transform.position;
+        var playerPos = player.transform.position;
+        playerPos.y = pos.y = 1 + (playerPos.y + pos.y) / 2;
+        var directionToPlayer = playerPos - pos;
         var distanceToPlayer = directionToPlayer.magnitude;
 
-        Physics.Raycast(transform.position + Vector3.up, directionToPlayer, out RaycastHit j, distanceToPlayer - .1f);
+        Physics.Raycast(pos, directionToPlayer.normalized, out RaycastHit j, distanceToPlayer, ignoreAlienLayer);
         // Debug.Log(j.rigidbody);
-        // Debug.DrawRay(transform.position + Vector3.up, directionToPlayer + Vector3.up);
+        // Debug.DrawRay(pos, directionToPlayer, Color.green);
         if (j.rigidbody == playerRb)
         {
             // if (curSpeed == runSpeed)
@@ -153,12 +162,14 @@ public class AlienController : MonoBehaviour
             if (blackListedSoundSources.Count > soundSourcesMemory)
                 blackListedSoundSources.RemoveAt(0);
 
+            roamer.FindCurrentRoom();
             heardSomething = false;
+            Debug.Log("no longer heard anything");
         }
         else
         {
             nextSpeed = walkSpeed;
-            pathFinder.CalculatePathPeriodically();
+            pathFinder.CalculatePathPeriodically(curTarget.pos);
             pathFinder.FollowPath();
         }
         justHeardSomething = false;
@@ -169,16 +180,29 @@ public class AlienController : MonoBehaviour
         int powerLevel = powerLevelManager.GetCurrentPowerLevel();
         if (powerLevel != curPowerLevel)
         {
-            if (powerLevel == 0)
-                curSections.Add(GameObject.Find("SectionA").transform);
-            else if (powerLevel == 1)
-                curSections.Add(GameObject.Find("SectionB").transform);
-            else if (powerLevel == 2)
-                curSections.Add(GameObject.Find("SectionC").transform);
-            pathGraph = new PathGraph(NodesInSections(curSections));
+            curSections = new(3);
+            switch (powerLevel)
+            {
+                case 2:
+                    curSections.Add(GameObject.Find("SectionC").transform);
+                    goto case 1;
+                case 1:
+                    curSections.Add(GameObject.Find("SectionB").transform);
+                    goto case 0;
+                case 0:
+                    curSections.Add(GameObject.Find("SectionA").transform);
+                    break;
+            }
+
+            ReloadPathGraph();
             curPowerLevel = powerLevel;
-            roamer.UpdateRooms(curSections[^1]);
+            roamer.UpdateRooms(curSections);
         }
+    }
+
+    public void ReloadPathGraph()
+    {
+        pathGraph = new PathGraph(NodesInSections(curSections));
     }
     List<Transform> NodesInSections(List<Transform> pathNodeSections)
     {
@@ -194,6 +218,7 @@ public class AlienController : MonoBehaviour
     {
         //var gameOver = endingScreen.transform.GetChild(0).gameObject;
         PlayRandomAttackAudio();
+        // player.SendMessage("Attacked");
         //gameOver.SetActive(true);
     }
 
@@ -201,20 +226,19 @@ public class AlienController : MonoBehaviour
     {
         MoveTowards(player.transform.position);
         //don't go back to path just recalculate path
-        pathFinder.Recalculate();
+        pathFinder.WillRecalculate();
     }
 
     /// <returns>true if reached target </returns>
     public bool MoveTowards(Vector3 target)
     {
+        CheckStayingStill();
         PlayRandomWalkAudio();
         target.y = transform.position.y;
         var targetRotation = Quaternion.LookRotation(target - transform.position);
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * turnSpeed);
 
         var dPos = CurSpeed() * Time.deltaTime;
-
-        CheckStayingStill();
 
         prevPos = transform.position;
         transform.Translate(Vector3.forward * dPos);
@@ -247,10 +271,10 @@ public class AlienController : MonoBehaviour
     {
         var aboveNewPosition = transform.position;
         aboveNewPosition.y += 1;
-        if (!Physics.Raycast(aboveNewPosition, Vector3.down, 10, ~LayerMask.NameToLayer("whatIsGround")))
+        if (!Physics.Raycast(aboveNewPosition, Vector3.down, 10, groundLayer))
         {
-            Debug.DrawRay(aboveNewPosition, Vector3.down * 10, Color.black);
-            Debug.LogError($"point not above ground {aboveNewPosition} {LayerMask.NameToLayer("whatIsGround")}");
+            Debug.DrawRay(aboveNewPosition, Vector3.down * 10, Color.black, 20);
+            Debug.LogError($"point not above ground {aboveNewPosition}");
             transform.position = prevPos;
         }
     }
@@ -263,8 +287,14 @@ public class AlienController : MonoBehaviour
             timeStayingStill += Time.deltaTime;
             if (timeStayingStill > 2)
             {
-                Debug.LogError("alien is stuck!");
+                Debug.LogError($"alien is stuck! was hunting: {heardSomething}, current state: {roamer.state}");
                 animator.SetBool("isWalking", false);
+                if (!heardSomething)
+                    roamer.curState.OnStuck();
+                else
+                    heardSomething = false;
+                roamer.FindCurrentRoom();
+                timeStayingStill = 0;
             }
         }
         else
@@ -293,76 +323,18 @@ public class AlienController : MonoBehaviour
         return curSpeed;
     }
 
-    public void PlayRandomWalkAudio()
+    public void PlayRandomWalkAudio() => PlayRandomAudio(walkingAudio, walkingClips);
+
+    public void PlayRandomAttackAudio() => PlayRandomAudio(attackAudio, attackClips);
+
+    public void PlayRandomIdleAudio() => PlayRandomAudio(idleAudio, idleClips);
+
+    void PlayRandomAudio(AudioSource audioSource, List<AudioClip> audioClips)
     {
-        if (!walkingAudio.isPlaying && walkingClips.Count != 0)
+        if (!audioSource.isPlaying && audioClips.Count != 0)
         {
-            walkingAudio.clip = walkingClips[Random.Range(0, walkingClips.Count)];
-            walkingAudio.Play();
-        }
-    }
-
-    public void PlayRandomAttackAudio()
-    {
-        attackAudio.Play();
-        //if (!attackAudio.isPlaying && attackClips.Count != 0)
-        //{
-        //    attackAudio.clip = attackClips[Random.Range(0, attackClips.Count)];
-        //    attackAudio.Play();
-        //}
-    }
-
-    public void PlayRandomIdleAudio()
-    {
-        idleAudio.Play();
-        /*
-        if (!idleAudio.isPlaying && idleClips.Count != 0)
-        {
-            idleAudio.clip = idleClips[Random.Range(0, idleClips.Count)];
-            idleAudio.Play();
-        }
-        */
-    }
-
-    IEnumerator LoadAudioClips()
-    {
-        List<(string path, List<AudioClip> clips)> audioClips = new(){
-            ("Idle",idleClips),
-            ("Movement",walkingClips),
-            ("Attack",attackClips)
-        };
-        foreach (var (path, clips) in audioClips)
-        {
-            string soundPath = Path.Combine(Application.dataPath, "Sound", "Alien", path);
-            var dir = new DirectoryInfo(soundPath);
-            var info = dir.GetFiles("*.wav");
-
-            if (info.Length == 0)
-            {
-                Debug.LogWarning($"No .wav files found in the {path} folder!");
-                yield break;
-            }
-
-            var fileNames = info.Select(x => x.FullName).ToList();
-            yield return LoadAudio(clips, fileNames);
-        }
-    }
-
-    IEnumerator LoadAudio(List<AudioClip> audioClips, List<string> paths)
-    {
-        foreach (string path in paths)
-        {
-            using var www = UnityWebRequestMultimedia.GetAudioClip("file://" + path, AudioType.WAV);
-            yield return www.SendWebRequest();
-
-            if (www.result == UnityWebRequest.Result.Success)
-            {
-                AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
-                if (clip)
-                    audioClips.Add(clip);
-                else
-                    Debug.LogError("Failed to create AudioClip from file: " + path);
-            }
+            audioSource.clip = audioClips[Random.Range(0, audioClips.Count)];
+            audioSource.Play();
         }
     }
 }
@@ -376,4 +348,10 @@ public class AlienController : MonoBehaviour
  * 
  * 
  * TODO: make attack, make path finding for noise/specific events
+ cases:
+ pathing to room -> pathing to player
+ pathing in room -> pathing to player
+ didn't reach room 
+ pathing to player-> pathing to room
+ 
  */

@@ -34,7 +34,7 @@ public struct PathGraph
                 var point2 = pathPoints[j];
                 if (HasNothingInBetween(point1.pos, point2.pos))
                 {
-                    Debug.DrawLine(point1.pos, point2.pos, Color.red, 100);
+                    Debug.DrawLine(point1.pos, point2.pos, Color.red, 200);
                     pairs.Add(new() { a = point1, b = point2 });
                 }
             }
@@ -48,6 +48,7 @@ public struct PathGraph
     public PathGraph WithPositions(Vector3 alienPosition, Vector3 targetPosition)
     {
         int idx = neighbors.Length - pathPoints.Length;
+        int totalAdded = 0;
 
         alienPosition.y = targetPosition.y = YLevel;
         pathPoints[^1] = addPosition(alienPosition, this);
@@ -58,6 +59,9 @@ public struct PathGraph
 
         while (idx < neighbors.Length)
             neighbors[idx++] = new();
+
+        if (totalAdded == 0)
+            Debug.LogError("no path to target!!!");
 
         return this;
 
@@ -75,6 +79,7 @@ public struct PathGraph
                     added++;
                 }
             }
+            totalAdded += added;
             return positionNode;
         }
     }
@@ -103,7 +108,7 @@ public struct PathGraph
         neighbors.Dispose();
     }
 
-    static bool HasNothingInBetween(Vector3 a, Vector3 b)
+    public static bool HasNothingInBetween(Vector3 a, Vector3 b)
     {
         var dist = Vector3.Distance(a, b);
 

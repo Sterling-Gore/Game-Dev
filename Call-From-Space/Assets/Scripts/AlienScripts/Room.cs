@@ -8,24 +8,28 @@ public class Room : MonoBehaviour
   public float timeToRoamAroundFor;
   public Transform center;
   public List<PathNode> roamNodes = new();
-  HashSet<string> neightborNames = new();
+  Dictionary<string, PathNode> neightbors = new();
 
   public void Awake()
   {
     name = transform.name[4..];
     if (center == null)
-      center = transform.Find("Center");
-    if (center == null)
-      center = transform.GetChild(0);
+      center = transform.Find("Center") ?? transform.GetChild(0);
     foreach (Transform node in transform)
     {
       if (node.name.StartsWith("to"))
-        neightborNames.Add(node.name[2..]);
+        neightbors.Add(node.name[2..], new(node));
       else
         roamNodes.Add(new(node));
     }
   }
 
   public List<Room> NeighboringRooms(List<Room> rooms) =>
-      rooms.Where(room => neightborNames.Contains(room.name)).ToList();
+      rooms.Where(room =>
+      {
+        if (!neightbors.TryGetValue(room.name, out PathNode neighborToRoom) || !room.neightbors.TryGetValue(name, out PathNode roomToNeighbor))
+          return false;
+
+        return PathGraph.HasNothingInBetween(neighborToRoom.pos, roomToNeighbor.pos);
+      }).ToList();
 }

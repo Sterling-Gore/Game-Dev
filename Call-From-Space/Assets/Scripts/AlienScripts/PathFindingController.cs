@@ -31,6 +31,8 @@ public class PathFindingController
     {
         if (pathIndex < 0 || pathToTarget.Count == 0)
             return;
+
+        pathToTarget.ForEach(point => Debug.DrawRay(point.pos, Vector3.up * 100, Color.blue));
         var nextPathPoint = pathToTarget[pathIndex];
         var directionToPath = nextPathPoint.pos - alien.transform.position;
         directionToPath.y = 0;
@@ -44,7 +46,7 @@ public class PathFindingController
         alien.MoveTowards(nextPathPoint.pos);
     }
 
-    public void CalculatePathPeriodically()
+    public void CalculatePathPeriodically(Vector3 target)
     {
         timeSinceLastThought += Time.deltaTime;
 
@@ -53,7 +55,7 @@ public class PathFindingController
             if (hasStartedThinking)
                 CopyPathToTarget();
 
-            thoughtHandle = StartCalculatingPath(alien.curTarget.pos).Schedule();
+            thoughtHandle = StartCalculatingPath(target).Schedule();
 
             timeSinceLastThought = 0;
             hasStartedThinking = true;
@@ -62,24 +64,22 @@ public class PathFindingController
 
     public void CalculatePathNow(Vector3 target)
     {
+        thoughtHandle.Complete();
         StartCalculatingPath(target).Run();
         CopyPathToTarget();
         timeSinceLastThought = 0;
         hasStartedThinking = true;
     }
 
-    AlienThought StartCalculatingPath(Vector3 target)
+    AlienThought StartCalculatingPath(Vector3 target) => new()
     {
-        return new()
-        {
-            maxPathLength = maxPathLength,
-            alienPosition = alien.transform.position,
-            targetPosition = target,
-            pathToTarget = memoryBuffer,
-            graph = alien.pathGraph.WithPositions(alien.transform.position, target),
-            lengthOfPath = memoryBufferLengthUsed
-        };
-    }
+        maxPathLength = maxPathLength,
+        alienPosition = alien.transform.position,
+        targetPosition = target,
+        pathToTarget = memoryBuffer,
+        graph = alien.pathGraph.WithPositions(alien.transform.position, target),
+        lengthOfPath = memoryBufferLengthUsed
+    };
 
     bool ShouldRecalculatePath() => (
         pathIndex < 0 ||
@@ -88,19 +88,36 @@ public class PathFindingController
 
     void CopyPathToTarget()
     {
-        pathToTarget.ForEach(point => Debug.DrawRay(point.pos, Vector3.up * 100, Color.blue, alien.mentalDelay));
-
         thoughtHandle.Complete();
-
-        pathToTarget.Clear();
-        pathToTarget.Capacity = memoryBufferLengthUsed[0];
+        List<PathNode> newPathToTarget = new(memoryBufferLengthUsed[0]);
         for (int i = 0; i < memoryBufferLengthUsed[0]; ++i)
-            pathToTarget.Add(memoryBuffer[i]);
+            newPathToTarget.Add(memoryBuffer[i]);
 
-        pathIndex = pathToTarget.Count - 1;
+        var hasReachedFirstPoint = pathIndex < pathToTarget.Count - 1;
+        if (hasReachedFirstPoint && pathIndex >= 0)
+        {
+            var prevPoint = pathToTarget[pathIndex + 1];
+            var nextPoint = pathToTarget[pathIndex];
+
+            for (int i = 0; i < newPathToTarget.Count - 1; i++)
+            {
+                var newNextPoint = newPathToTarget[^(i + 1)];
+                var newNextNextPoint = newPathToTarget[^(i + 2)];
+
+                if (prevPoint == newNextPoint && nextPoint == newNextNextPoint)
+                {
+                    memoryBufferLengthUsed[0] -= i + 1;
+                    Debug.Log("skipping previously visited point");
+                    break;
+                }
+            }
+        }
+
+        pathIndex = memoryBufferLengthUsed[0] - 1;
+        pathToTarget = newPathToTarget;
     }
 
-    public void Recalculate() => pathIndex = 0;
+    public void WillRecalculate() => pathIndex = 0;
 
     public bool HasArrived() => pathIndex < 0 || pathToTarget.Count == 0 || (
         pathIndex == 0 &&
