@@ -6,6 +6,7 @@ public class TriggerDoor : MonoBehaviour
 {
     int numEntities = 0;
     private Animator doorAnimator; //references to the Animator component on the door
+    public AudioSource doorOpenSound;
     void Start()
     {
         doorAnimator = GetComponent<Animator>();
@@ -17,6 +18,7 @@ public class TriggerDoor : MonoBehaviour
         {
             if (numEntities == 0)
                 doorAnimator.SetTrigger("Open");
+                doorOpenSound.Play();
             numEntities++;
         }
     }
