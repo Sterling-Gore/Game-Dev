@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
     Interactor interactor;
     public GameObject pauseMenuUI;
     public GameObject optionsMenu;
+    public GameObject controlsMenu;
     public int UI_Value;
 
     [Header("Oxygen System")]
@@ -273,7 +274,14 @@ public class PlayerController : MonoBehaviour
             pauseMenuUI.SetActive(false);
             Time.timeScale = 1f;
         }
-        //leaving the options menu     if UI_Value == -2
+        // leaving controls menu -> pause menu
+        else if (UI_Value == -2) {
+            Set_UI_Value(0);
+            interactor.inUI = true;
+            controlsMenu.SetActive(false);
+            Time.timeScale = 0f;
+        }
+        //leaving the options menu     if UI_Value == -3
         else
         {
             Set_UI_Value(-1);
