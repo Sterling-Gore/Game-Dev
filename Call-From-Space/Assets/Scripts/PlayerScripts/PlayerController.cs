@@ -65,6 +65,14 @@ public class PlayerController : MonoBehaviour
     public float walkingSoundRadius;
     SoundSourcesController soundSources;
 
+    [Header("Heartbeat Analyzer")]
+    public GameObject heartbeatAudioSource; // Drag the GameObject with AudioSource here in the Inspector
+    public Transform alienTransform;
+    public float maxHeartbeatDistance = 50f;
+    public float minHeartbeatDistance = 5f;
+    public float maxHeartbeatPitch = 2f;
+    public float minHeartbeatPitch = 0.5f;
+
     void Start()
     {
         //start the game with no screens on
@@ -98,6 +106,12 @@ public class PlayerController : MonoBehaviour
             //Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
         }
         soundSources = SoundSourcesController.GetInstance();
+
+        if (heartbeatAudioSource != null)
+        {
+            heartbeatAudioSource.GetComponent<AudioSource>().loop = true;
+            heartbeatAudioSource.GetComponent<AudioSource>().Play();
+        }
     }
 
     void FixedUpdate()
@@ -139,6 +153,8 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+
+        UpdateHeartbeatAudio();
     }
 
     void MyInput()
@@ -350,5 +366,26 @@ public class PlayerController : MonoBehaviour
     private Vector3 GetSlopeMoveDirection()
     {
         return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
+    }
+
+    void UpdateHeartbeatAudio()
+    {
+        if (alienTransform != null && heartbeatAudioSource != null)
+        {
+            float distance = Vector3.Distance(transform.position, alienTransform.position);
+            AudioSource audioSource = heartbeatAudioSource.GetComponent<AudioSource>();
+
+            if (distance > maxHeartbeatDistance)
+            {
+                audioSource.volume = 0;
+            }
+            else
+            {
+                float volume = Mathf.Lerp(1, 0, (distance - minHeartbeatDistance) / (maxHeartbeatDistance - minHeartbeatDistance));
+                float pitch = Mathf.Lerp(maxHeartbeatPitch, minHeartbeatPitch, (distance - minHeartbeatDistance) / (maxHeartbeatDistance - minHeartbeatDistance));
+                audioSource.volume = volume;
+                audioSource.pitch = pitch;
+            }
+        }
     }
 }
