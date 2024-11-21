@@ -8,7 +8,6 @@ public class AlienController : Loadable
     public SoundSource curTarget;
     public SoundSource nextTarget;
     public GameObject player;
-    GameObject endingScreen;
 
     [Header("Decision Making")]
     public float attackRadius;
@@ -69,8 +68,6 @@ public class AlienController : Loadable
     void Start()
     {
         animator = GetComponent<Animator>();
-
-        endingScreen = GameObject.Find("EndingScreen");
 
         playerRb = player.GetComponent<Rigidbody>();
 

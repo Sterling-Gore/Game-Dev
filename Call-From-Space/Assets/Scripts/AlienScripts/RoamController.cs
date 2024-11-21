@@ -123,6 +123,11 @@ public abstract class State
     public States state;
     public RoamController roamer;
     public AlienController alien;
+    /// <summary>
+    /// don't call roamer.GoToNextState in constructor
+    /// </summary>
+    /// <param name="roamer"></param>
+    /// <param name="alien"></param>
     public State(RoamController roamer, AlienController alien)
     {
         this.roamer = roamer;
@@ -283,6 +288,7 @@ class MovingToNextRoom : State
     public Vector3 nextPos;
     public Vector3 pos;
     int timesLookedForRoom = 0;
+    bool foundNextRoom = false;
     public MovingToNextRoom(RoamController roamer, AlienController alien) : base(roamer, alien)
     {
         ChooseNextRoom();
@@ -290,6 +296,11 @@ class MovingToNextRoom : State
     }
     override public void Update()
     {
+        if (!foundNextRoom)
+        {
+            OnStuck();
+            return;
+        }
         alien.PlayRandomWalkAudio();
         alien.nextSpeed = alien.walkSpeed;
         alien.pathFinder.FollowPath();
@@ -337,6 +348,14 @@ class MovingToNextRoom : State
             roomsToChooseFrom = preferedNextRooms;
         else
             roomsToChooseFrom = roamer.recentRooms;
+
+        if (roomsToChooseFrom.Count == 0)
+        {
+            Debug.Log("couldn't find room to go to");
+            roamer.GoToNextState(States.RoamingRoom);
+            return;
+        }
+        foundNextRoom = true;
 
         // give closer points to player a higher probability 
         var roomsAndDistances = roomsToChooseFrom
