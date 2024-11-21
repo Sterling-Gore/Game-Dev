@@ -46,6 +46,7 @@ public class PlayerController : Loadable
     Interactor interactor;
     public GameObject pauseMenuUI;
     public GameObject optionsMenu;
+    public GameObject controlsMenu;
     public int UI_Value;
 
     [Header("Oxygen System")]
@@ -64,6 +65,15 @@ public class PlayerController : Loadable
     [Header("Sound System")]
     public float runningSoundRadius;
     public float walkingSoundRadius;
+    SoundSourcesController soundSources;
+
+    [Header("Heartbeat Analyzer")]
+    public GameObject heartbeatAudioSource; // Drag the GameObject with AudioSource here in the Inspector
+    public Transform alienTransform;
+    public float maxHeartbeatDistance = 50f;
+    public float minHeartbeatDistance = 5f;
+    public float maxHeartbeatPitch = 2f;
+    public float minHeartbeatPitch = 0.5f;
 
     void Start()
     {
@@ -96,6 +106,13 @@ public class PlayerController : Loadable
         else
         {
             //Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
+        }
+        soundSources = SoundSourcesController.GetInstance();
+
+        if (heartbeatAudioSource != null)
+        {
+            heartbeatAudioSource.GetComponent<AudioSource>().loop = true;
+            heartbeatAudioSource.GetComponent<AudioSource>().Play();
         }
     }
 
@@ -138,6 +155,8 @@ public class PlayerController : Loadable
                 }
             }
         }
+
+        UpdateHeartbeatAudio();
     }
 
     void MyInput()
@@ -273,7 +292,15 @@ public class PlayerController : Loadable
             pauseMenuUI.SetActive(false);
             Time.timeScale = 1f;
         }
-        //leaving the options menu     if UI_Value == -2
+        // leaving controls menu -> pause menu
+        else if (UI_Value == -2)
+        {
+            Set_UI_Value(0);
+            interactor.inUI = true;
+            controlsMenu.SetActive(false);
+            Time.timeScale = 0f;
+        }
+        //leaving the options menu     if UI_Value == -3
         else
         {
             Set_UI_Value(-1);
@@ -374,4 +401,25 @@ public class PlayerController : Loadable
         );
     }
 
+
+    void UpdateHeartbeatAudio()
+    {
+        if (alienTransform != null && heartbeatAudioSource != null)
+        {
+            float distance = Vector3.Distance(transform.position, alienTransform.position);
+            AudioSource audioSource = heartbeatAudioSource.GetComponent<AudioSource>();
+
+            if (distance > maxHeartbeatDistance)
+            {
+                audioSource.volume = 0;
+            }
+            else
+            {
+                float volume = Mathf.Lerp(1, 0, (distance - minHeartbeatDistance) / (maxHeartbeatDistance - minHeartbeatDistance));
+                float pitch = Mathf.Lerp(maxHeartbeatPitch, minHeartbeatPitch, (distance - minHeartbeatDistance) / (maxHeartbeatDistance - minHeartbeatDistance));
+                audioSource.volume = volume;
+                audioSource.pitch = pitch;
+            }
+        }
+    }
 }

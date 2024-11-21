@@ -47,6 +47,7 @@ public class CameraSwapper : MonoBehaviour
             Debug.LogError("CameraSwapper: No security cameras found!");
             return;
         }
+        disableCameras();
     }
 
     public void NextCamera()
@@ -62,11 +63,7 @@ public class CameraSwapper : MonoBehaviour
     private void SetActiveCamera(int index)
     {
         // Disable all cameras
-        foreach (Camera cam in securityCameras)
-        {
-            cam.enabled = false;
-            cam.targetTexture = null;
-        }
+        disableCameras();
 
         // Enable and set up the selected camera
         currentCameraIndex = index;
@@ -76,5 +73,14 @@ public class CameraSwapper : MonoBehaviour
 
         // Update the display image
         displayImage.texture = sharedRenderTexture;
+    }
+
+    public void disableCameras()
+    {
+       foreach (Camera cam in securityCameras)
+        {
+            cam.enabled = false;
+            cam.targetTexture = null;
+        } 
     }
 }
