@@ -8,8 +8,11 @@ public class SoundSourcesController : MonoBehaviour
   float yLevel;
   List<SoundSource> soundSources = new();
 
+  public static SoundSourcesController instance { get; private set; }
+
   void Start()
   {
+    instance = this;
     yLevel = transform.position.y;
   }
 

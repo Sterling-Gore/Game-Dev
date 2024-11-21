@@ -12,8 +12,9 @@ public class LighterScript : Holdable
     public Transform lightBase;
 
 
-    void Awake()
+    override protected void Awake()
     {
+        base.Awake();
         isOpen = false;
         Fire.SetActive(false);
     }
@@ -21,24 +22,24 @@ public class LighterScript : Holdable
     // Update is called once per frame
     void Update()
     {
-        if(gameObject.activeSelf && ItemGlow.activeSelf)
+        if (gameObject.activeSelf && ItemGlow.activeSelf)
             ItemGlow.transform.position = new Vector3(lightBase.position.x, lightBase.position.y + 0.25f, lightBase.position.z);
-        if(localHold) 
+        if (localHold)
         {
             MoveObject();
-            if (Input.GetKeyDown(KeyCode.Mouse1) ) 
+            if (Input.GetKeyDown(KeyCode.Mouse1))
             {
                 StopClipping();
                 DropObject();
             }
-            if (Input.GetKeyDown(KeyCode.Mouse0) ) 
+            if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 animation.SetTrigger(isOpen ? "Closed" : "Open");
                 isOpen = !isOpen;
                 Fire.SetActive(isOpen);
             }
         }
-      
+
     }
 
 

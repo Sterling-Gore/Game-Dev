@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class Interactable : MonoBehaviour
+public abstract class Interactable : Loadable
 {
 
-    public enum InteractionType{
+    public enum InteractionType
+    {
         Click,
         Hold,
         Minigame
@@ -48,7 +50,10 @@ public abstract class Interactable : MonoBehaviour
     //    outline.enabled = true;
     //}
     */
-    
 
-    
+    public override void Load(JObject state) =>
+        LoadTransform(state);
+
+    public override void Save(ref JObject state) =>
+        SaveTransform(ref state);
 }

@@ -15,8 +15,6 @@ public class RoamController : MonoBehaviour
     public Room currentRoom;
     public Room nextRoom;
 
-    public string roomName;
-    public string nextRoomName;
     public int nodeIdx = 0;
 
     public Animator animator;
@@ -258,7 +256,7 @@ class Rotating : State
     public float rotatingTime = 0;
     public Rotating(RoamController roamer, AlienController alien) : base(roamer, alien)
     {
-        Debug.Log("looking around");
+        Debug.Log("rotating around");
     }
 
     override public void Update()
@@ -284,10 +282,11 @@ class MovingToNextRoom : State
     public const States state = States.MovingToNextRoom;
     public Vector3 nextPos;
     public Vector3 pos;
+    int timesLookedForRoom = 0;
     public MovingToNextRoom(RoamController roamer, AlienController alien) : base(roamer, alien)
     {
-        Debug.Log("looking around");
         ChooseNextRoom();
+        Debug.Log($"moving to next room: {roamer.nextRoom}");
     }
     override public void Update()
     {
@@ -297,8 +296,6 @@ class MovingToNextRoom : State
         nextPos = roamer.nextRoom.center.position;
         pos = alien.transform.position;
         pos.y = nextPos.y;
-        roamer.nextRoomName = roamer.nextRoom.name;
-        roamer.roomName = roamer.currentRoom.name;
 
         var dist = Vector3.Distance(pos, nextPos);
         if (dist <= alien.turnRadius + .1)
@@ -306,8 +303,18 @@ class MovingToNextRoom : State
             roamer.SetRoomVisited();
             roamer.GoToNextState(States.RoamingRoom);
         }
-        if (alien.pathFinder.pathIndex == -1)
+        else if (alien.pathFinder.pathIndex == -1)
+        {
+            if (timesLookedForRoom == 2)
+                roamer.FindCurrentRoom();
+            else if (timesLookedForRoom > 2)
+            {
+                OnStuck();
+                return;
+            }
             ChooseNextRoom();
+            timesLookedForRoom++;
+        }
     }
     public override void OnStuck()
     {

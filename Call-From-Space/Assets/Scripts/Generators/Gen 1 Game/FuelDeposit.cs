@@ -15,7 +15,7 @@ public class FuelDeposit : Interactable
     AudioSource genPowerAudio;
     public GameObject Sparkle;
 
-    
+
 
     void Start()
     {
@@ -41,7 +41,7 @@ public class FuelDeposit : Interactable
             {
                 Debug.Log("Fuel cell deposited");
                 powerLevel.GeneratorActivated();
-                SoundSourcesController.GetInstance().CreateNewSoundSource(transform.position, soundRadius);
+                SoundSourcesController.instance.CreateNewSoundSource(transform.position, soundRadius);
             }
             switch (gen.generatorType)
             {

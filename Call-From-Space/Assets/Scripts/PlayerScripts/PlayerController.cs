@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GameDev.Scripts.Oxygen; // Replace 'GameDev' with your actual project root namespace
+using GameDev.Scripts.Oxygen;
+using Newtonsoft.Json.Linq;
+using System.Linq; // Replace 'GameDev' with your actual project root namespace
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Loadable
 {
     [Header("Movement")]
     public float standard_speed = 2f;
@@ -29,7 +31,7 @@ public class PlayerController : MonoBehaviour
     public GameObject Camera_UI_Object;
     public GameObject Inspector_UI_Object;
     public GameObject TaskList_UI_Object;
-    public UI_Inventory uiInvetory;
+    public UI_Inventory uiInventory;
     public Inventory inventory;
     private bool showInventory;
 
@@ -52,7 +54,7 @@ public class PlayerController : MonoBehaviour
     public float walkingOxygenCost = .75f;
     public float stationaryOxygenCost = 0.25f;
 
-    private HealthSystem healthSystem;
+    public HealthSystem healthSystem;
 
     [Header("Generator UI")]
     public GameObject Generator1_UI;
@@ -62,7 +64,6 @@ public class PlayerController : MonoBehaviour
     [Header("Sound System")]
     public float runningSoundRadius;
     public float walkingSoundRadius;
-    SoundSourcesController soundSources;
 
     void Start()
     {
@@ -81,10 +82,10 @@ public class PlayerController : MonoBehaviour
         yscale = transform.localScale.y;
 
         inventory = new Inventory();
-        uiInvetory = Inventory_UI_Object.GetComponent<UI_Inventory>();
+        uiInventory = Inventory_UI_Object.GetComponent<UI_Inventory>();
         showInventory = false;
         //im putting this into the input function
-        uiInvetory.setInventory(inventory);
+        uiInventory.setInventory(inventory);
 
         interactor = gameObject.GetComponent<Interactor>();
 
@@ -96,7 +97,6 @@ public class PlayerController : MonoBehaviour
         {
             //Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
         }
-        soundSources = SoundSourcesController.GetInstance();
     }
 
     void FixedUpdate()
@@ -122,13 +122,13 @@ public class PlayerController : MonoBehaviour
                     {
                         // Running
                         oxygenSystem.DecreaseOxygen(runningOxygenCost);
-                        soundSources.CreateNewSoundSource(transform.position, runningSoundRadius);
+                        SoundSourcesController.instance.CreateNewSoundSource(transform.position, runningSoundRadius);
                     }
                     else
                     {
                         // Walking
                         oxygenSystem.DecreaseOxygen(walkingOxygenCost);
-                        soundSources.CreateNewSoundSource(transform.position, walkingSoundRadius);
+                        SoundSourcesController.instance.CreateNewSoundSource(transform.position, walkingSoundRadius);
                     }
                 }
                 else
@@ -208,7 +208,7 @@ public class PlayerController : MonoBehaviour
         if (isInventory)
         {
             Inventory_UI_Object.SetActive(true);
-            uiInvetory.refresh();
+            uiInventory.refresh();
             Camera_UI_Object.SetActive(false);
             Inspector_UI_Object.SetActive(false);
         }
@@ -343,4 +343,35 @@ public class PlayerController : MonoBehaviour
     {
         return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
     }
+
+    void OnDestroy()
+    {
+        Debug.Log("aaaah");
+    }
+    public override void Load(JObject state)
+    {
+        LoadTransform(state);
+        state[name]["items"]
+            .Select(name => GameObject.Find((string)name).GetComponent<Item>())
+            .ToList()
+            .ForEach(item =>
+            {
+                if (item.isItem)
+                    inventory.AddItem(item);
+                else
+                    inventory.AddJournal(item);
+            });
+    }
+
+    public override void Save(ref JObject state)
+    {
+        SaveTransform(ref state);
+        state[name]["items"] = new JArray(
+            inventory.GetItemList()
+                .Concat(inventory.GetJournalList())
+                .Select(item => item.gameObject.name)
+                .ToList()
+        );
+    }
+
 }

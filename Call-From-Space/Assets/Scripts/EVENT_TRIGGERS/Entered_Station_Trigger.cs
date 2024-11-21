@@ -11,9 +11,9 @@ public class Entered_Station_Trigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") )
+        if (other.CompareTag("Player"))
         {
-
+            GameStateManager.instance.SaveGame(GameStateManager.checkPointFilePath);
             StationDoor.GetComponent<Animator>().SetTrigger("Closed");
             player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().AddTask("Find a Power Generator", false);
             player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().AddTask("Find An Oxygen Station", false);
