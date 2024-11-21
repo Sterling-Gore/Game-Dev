@@ -1,13 +1,13 @@
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 using SoundSource = PathNode;
 
-public class AlienController : MonoBehaviour
+public class AlienController : Loadable
 {
     public SoundSource curTarget;
     public SoundSource nextTarget;
     public GameObject player;
-    GameObject endingScreen;
 
     [Header("Decision Making")]
     public float attackRadius;
@@ -59,7 +59,7 @@ public class AlienController : MonoBehaviour
     public HealthSystem playerHealthSystem;
     public float damageAmount = 0.1f;
     public float attackCooldown = 1f;
-    private float lastAttackTime;
+    private float lastAttackTime = 0;
 
     public static List<AlienController> aliens = new();
 
@@ -68,8 +68,6 @@ public class AlienController : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-
-        endingScreen = GameObject.Find("EndingScreen");
 
         playerRb = player.GetComponent<Rigidbody>();
 
@@ -231,10 +229,7 @@ public class AlienController : MonoBehaviour
             playerHealthSystem.TakeDamage(damageAmount);
             lastAttackTime = Time.time;
         }
-        //var gameOver = endingScreen.transform.GetChild(0).gameObject;
         PlayRandomAttackAudio();
-        // player.SendMessage("Attacked");
-        //gameOver.SetActive(true);
     }
 
     void GoStraightToPlayer()
@@ -304,11 +299,11 @@ public class AlienController : MonoBehaviour
             {
                 Debug.LogError($"alien is stuck! was hunting: {heardSomething}, current state: {roamer.state}");
                 animator.SetBool("isWalking", false);
+                roamer.FindCurrentRoom();
                 if (!heardSomething)
                     roamer.curState.OnStuck();
                 else
                     heardSomething = false;
-                roamer.FindCurrentRoom();
                 timeStayingStill = 0;
             }
         }
@@ -352,6 +347,12 @@ public class AlienController : MonoBehaviour
             audioSource.Play();
         }
     }
+
+    public override void Load(JObject state) =>
+        LoadTransform(state);
+
+    public override void Save(ref JObject state) =>
+        SaveTransform(ref state);
 }
 /*
  * Ideas:

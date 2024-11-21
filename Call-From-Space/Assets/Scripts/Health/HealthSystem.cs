@@ -10,13 +10,12 @@ public class HealthSystem : MonoBehaviour
     public Image healthRadial;
     public float healSpeed = 5f; // Speed at which health regenerates
     private Coroutine healCoroutine;
-    GameObject endingScreen;
+    public GameObject gameOverScreen;
     public RectTransform healthBarRectTransform; // Assign this in the Inspector
 
     private void OnEnable()
     {
         healCoroutine = StartCoroutine(HealOverTime());
-        endingScreen = GameObject.Find("EndingScreen");
     }
 
     private void OnDisable()
@@ -65,8 +64,8 @@ public class HealthSystem : MonoBehaviour
         // Check if health level is zero
         if (healthLevel <= 0)
         {
-            var gameOver = endingScreen.transform.GetChild(0).gameObject;
-            gameOver.SetActive(true);
+            gameOverScreen.SetActive(true);
+            healthLevel = 100;
         }
     }
 }

@@ -11,9 +11,10 @@ public class PickUp : Interactable
     public GameObject ItemGlow;
 
 
-    
-    void Awake()
+
+    override protected void Awake()
     {
+        base.Awake();
         item = GetComponent<Item>();
         pc = player.GetComponent<PlayerController>();
 
@@ -22,20 +23,20 @@ public class PickUp : Interactable
 
     void Update()
     {
-        if(gameObject.activeSelf && ItemGlow.activeSelf)
+        if (gameObject.activeSelf && ItemGlow.activeSelf)
             ItemGlow.transform.position = new Vector3(transform.position.x, transform.position.y + 0.25f, transform.position.z);
     }
 
     public override string GetDescription()
     {
-        
+
         return (item.itemName);
     }
 
     public override void Interact()
     {
         //inventory.AddItem(item);
-     
+
         ItemGlow.SetActive(false);
         switch (item.itemName)
         {
@@ -49,13 +50,13 @@ public class PickUp : Interactable
                 break;
         }
 
-        if(!item.isItem)
+        if (!item.isItem)
         {
             JournalPlayer.GetComponent<PlayJournal>().PlayAudioOnPickUp(item);
         }
 
         gameObject.SetActive(false);
-        if(item.isItem)
+        if (item.isItem)
         {
             pc.inventory.AddItem(item);
         }
@@ -63,8 +64,8 @@ public class PickUp : Interactable
         {
             pc.inventory.AddJournal(item);
         }
-        
+
         //pc.uiInvetory.RefreshInventoryItems();
-        
+
     }
 }

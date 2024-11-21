@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
-public class PowerLevel : MonoBehaviour
+public class PowerLevel : Loadable
 {
     public Material DoorLightOn; // for when the door is powered on
     public Material DoorLightOff; //for when the door is powered off
@@ -17,7 +18,7 @@ public class PowerLevel : MonoBehaviour
 
     [Header("Power Settings")]
     public int currentPowerLevel = 0;
-    public int maxPowerLevel = 1; 
+    public int maxPowerLevel = 1;
 
     [Header("Power Zones")]
     public PowerZone[] powerZones;
@@ -96,7 +97,7 @@ public class PowerLevel : MonoBehaviour
 
     public void GeneratorActivated()
     {
-        if(activeGenerators == 0)
+        if (activeGenerators == 0)
         {
             alienSystem.SetActive(true);
         }
@@ -105,6 +106,9 @@ public class PowerLevel : MonoBehaviour
         UpdatePowerSystems();
         Debug.Log($"Generator activated. Current power level: {currentPowerLevel}");
 
+        GameStateManager.instance.state["saveAtCheckpoint"] = true;
+        GameStateManager.instance.SaveGame(GameStateManager.checkPointFilePath);
+        GameStateManager.instance.UnSaveGame(GameStateManager.saveFilePath);
     }
 
     public void GeneratorDeactivated()
@@ -169,7 +173,7 @@ public class PowerLevel : MonoBehaviour
                     {
                         bool originalState = originalColliderStates[door];
                         doorCollider.enabled = shouldBeActive && originalState;
-                        if(shouldBeActive && originalState)
+                        if (shouldBeActive && originalState)
                             door.transform.Find("Doors").Find("right").Find("Light").gameObject.GetComponent<Renderer>().material = DoorLightOn;
                     }
                 }
@@ -197,5 +201,15 @@ public class PowerLevel : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public override void Load(JObject state)
+    {
+        currentPowerLevel = (int)state["powerLevel"];
+    }
+
+    public override void Save(ref JObject state)
+    {
+        state["powerLevel"] = currentPowerLevel;
     }
 }
