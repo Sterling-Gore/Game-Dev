@@ -43,14 +43,12 @@ public class SimonSays : MonoBehaviour
     
     public GameObject player;
 
-    
     public AudioSource audioSource;
+
     void Start()
     {
         
     }
-
- 
 
     void Awake() {
         level = 0;
@@ -153,9 +151,9 @@ public class SimonSays : MonoBehaviour
             {
                 won = true;
                 enableButtons(false);
-                //sparkle controller
                 FuelDepositSparkle.SetActive(true);
                 ScreenSparkle.SetActive(false);
+                audioSource.PlayOneShot(valid);
                 gen.transform.Find("genDoor").GetComponent<Animator>().SetTrigger("Open");
                 gen.transform.Find("Fuel-Deposit").GetComponent<Collider>().enabled = true;
                 player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(6);
