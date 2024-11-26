@@ -13,4 +13,12 @@ public class CutSceneStartGame : MonoBehaviour
         //Only specify the sceneName or sceneBuildIntex will load the scene with the single mode
         SceneManager.LoadScene("Ship", LoadSceneMode.Single);
     }
+
+    public void LoadShipScene()
+    {
+        SceneManager.LoadScene("Ship", LoadSceneMode.Single);
+    }
+
+    
+
 }
