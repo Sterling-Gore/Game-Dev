@@ -1,7 +1,8 @@
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OxygenSystem : MonoBehaviour
+public class OxygenSystem : Loadable
 {
     public float oxygenLevel = 100f;
     public Text oxygenLevelText;
@@ -55,5 +56,15 @@ public class OxygenSystem : MonoBehaviour
         oxygenLevel = Mathf.Clamp(oxygenLevel + (refillSpeed * Time.deltaTime), 0, 100);
         oxygenBar.fillAmount = oxygenLevel / 100;
         oxygenRadial.fillAmount = oxygenLevel / 100;
+    }
+
+    public override void Load(JObject state)
+    {
+        oxygenLevel = 100;
+    }
+
+    public override void Save(ref JObject state)
+    {
+        state["oxygenLevel"] = oxygenLevel;
     }
 }

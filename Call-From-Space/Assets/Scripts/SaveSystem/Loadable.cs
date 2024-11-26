@@ -6,12 +6,14 @@ using UnityEngine;
 public abstract class Loadable : MonoBehaviour
 {
     public static List<Loadable> loadables = new();
+    public string fullName;
 
     /// <summary>
     /// when overriding make sure to call base.Awake();
     /// </summary>
     protected virtual void Awake()
     {
+        fullName = GetFullName(transform);
         loadables.Add(this);
     }
 
@@ -23,6 +25,7 @@ public abstract class Loadable : MonoBehaviour
     {
         loadables.Remove(this);
     }
+
     public abstract void Save(ref JObject state);
     public abstract void Load(JObject state);
 
@@ -35,7 +38,7 @@ public abstract class Loadable : MonoBehaviour
 
     public void LoadTransform(JObject state)
     {
-        var player = state[name];
+        var player = state[fullName];
         var pos = player["pos"];
         var rot = player["rot"];
         transform.SetPositionAndRotation(
@@ -46,9 +49,15 @@ public abstract class Loadable : MonoBehaviour
 
     public void SaveTransform(ref JObject state)
     {
-        if (state[name] == null)
-            state[name] = new JObject();
-        state[name]["pos"] = VectorToJson(transform.position);
-        state[name]["rot"] = VectorToJson(transform.rotation.eulerAngles);
+        if (state[fullName] == null)
+            state[fullName] = new JObject();
+        state[fullName]["pos"] = VectorToJson(transform.position);
+        state[fullName]["rot"] = VectorToJson(transform.rotation.eulerAngles);
+    }
+
+    public string GetFullName(Transform transform)
+    {
+        if (transform == null) return "";
+        return GetFullName(transform.parent) + "/" + transform.name;
     }
 }

@@ -1,8 +1,9 @@
 using System.Collections;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthSystem : MonoBehaviour
+public class HealthSystem : Loadable
 {
     public float healthLevel = 100f;
     public Text healthLevelText;
@@ -67,5 +68,15 @@ public class HealthSystem : MonoBehaviour
             gameOverScreen.SetActive(true);
             healthLevel = 100;
         }
+    }
+
+    public override void Load(JObject state)
+    {
+        healthLevel = 100;
+    }
+
+    public override void Save(ref JObject state)
+    {
+        state["health"] = healthLevel;
     }
 }

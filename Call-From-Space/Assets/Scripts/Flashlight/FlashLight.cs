@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Flashlight : MonoBehaviour
+public class Flashlight : Loadable
 {
     public GameObject LightBar;
     Light light;
@@ -17,14 +18,14 @@ public class Flashlight : MonoBehaviour
 
 
     void Start()
-    { 
+    {
         light = GetComponent<Light>();
         light.enabled = false;
         flashlightTimer = 45f;
-        isOn =  false;
+        isOn = false;
     }
 
-    
+
     void Update()
     {
         if (Input.GetKeyUp(KeyCode.F))
@@ -32,17 +33,17 @@ public class Flashlight : MonoBehaviour
             toggleLight();
         }
 
-        if(isOn)
+        if (isOn)
             flashlightTimer = Mathf.Clamp(flashlightTimer - Time.deltaTime, 0, 45);
         else
-            flashlightTimer = Mathf.Clamp(flashlightTimer+ (3* Time.deltaTime), 0, 45);
+            flashlightTimer = Mathf.Clamp(flashlightTimer + (3 * Time.deltaTime), 0, 45);
 
-        if(flashlightTimer == 0)
+        if (flashlightTimer == 0)
             toggleLight();
-        
-        if(playSound) // playsound is only on one flashlight, that way this only gets called on one light
+
+        if (playSound) // playsound is only on one flashlight, that way this only gets called on one light
         {
-            if(flashlightTimer < 45)
+            if (flashlightTimer < 45)
             {
                 LightBar.SetActive(true);
                 LightBar.transform.Find("Flashlight_filled").gameObject.GetComponent<Image>().fillAmount = flashlightTimer / 45;
@@ -51,10 +52,10 @@ public class Flashlight : MonoBehaviour
             {
                 LightBar.SetActive(false);
             }
-            
+
         }
 
-    } 
+    }
 
     void toggleLight()
     {
@@ -63,13 +64,20 @@ public class Flashlight : MonoBehaviour
             audioSource.clip = light.enabled ? flashlightSoundOff : flashlightSoundOn;
             audioSource.PlayOneShot(clip: audioSource.clip);
         }
-        if(isOn)
+        if (isOn)
             light.enabled = false;
         else
             light.enabled = true;
         isOn = !isOn;
     }
-      
-    
 
+    public override void Load(JObject state)
+    {
+        flashlightTimer = 45;
+    }
+
+    public override void Save(ref JObject state)
+    {
+        state["flashLightTime"] = flashlightTimer;
+    }
 }

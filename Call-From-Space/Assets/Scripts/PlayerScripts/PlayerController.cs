@@ -65,10 +65,10 @@ public class PlayerController : Loadable
     [Header("Sound System")]
     public float runningSoundRadius;
     public float walkingSoundRadius;
-    SoundSourcesController soundSources;
 
     [Header("Heartbeat Analyzer")]
-    public GameObject heartbeatAudioSource; // Drag the GameObject with AudioSource here in the Inspector
+    public GameObject heartbeat;
+    AudioSource heartbeatAudioSource;
     public Transform alienTransform;
     public float maxHeartbeatDistance = 50f;
     public float minHeartbeatDistance = 5f;
@@ -99,21 +99,9 @@ public class PlayerController : Loadable
 
         interactor = gameObject.GetComponent<Interactor>();
 
-        if (oxygenSystem != null)
-        {
-            //Debug.Log("OxygenSystem is assigned in PlayerController.");
-        }
-        else
-        {
-            //Debug.LogWarning("OxygenSystem is not assigned in PlayerController.");
-        }
-        soundSources = SoundSourcesController.GetInstance();
 
-        if (heartbeatAudioSource != null)
-        {
-            heartbeatAudioSource.GetComponent<AudioSource>().loop = true;
-            heartbeatAudioSource.GetComponent<AudioSource>().Play();
-        }
+        if (heartbeat != null)
+            heartbeatAudioSource = heartbeat.GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -156,7 +144,7 @@ public class PlayerController : Loadable
             }
         }
 
-        UpdateHeartbeatAudio();
+        PlayHeartbeatAudio();
     }
 
     void MyInput()
@@ -196,14 +184,14 @@ public class PlayerController : Loadable
         //toggle inventory
         if (Input.GetKeyDown(KeyCode.I))
         {
-            if (!gameObject.GetComponent<Interactor>().isHolding)
+            if (!interactor.isHolding)
             {
                 toggle_INV_and_CAM(true);
             }
         }
         else if (Input.GetKeyDown(KeyCode.C))
         {
-            if (!gameObject.GetComponent<Interactor>().isHolding)
+            if (!interactor.isHolding)
             {
                 toggle_INV_and_CAM(false);
             }
@@ -371,14 +359,13 @@ public class PlayerController : Loadable
         return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
     }
 
-    void OnDestroy()
-    {
-        Debug.Log("aaaah");
-    }
     public override void Load(JObject state)
     {
         LoadTransform(state);
-        state[name]["items"]
+        rb.position = transform.position;
+        rb.angularVelocity = rb.velocity = Vector3.zero;
+
+        state[fullName]["items"]
             .Select(name => GameObject.Find((string)name).GetComponent<Item>())
             .ToList()
             .ForEach(item =>
@@ -393,33 +380,29 @@ public class PlayerController : Loadable
     public override void Save(ref JObject state)
     {
         SaveTransform(ref state);
-        state[name]["items"] = new JArray(
+        state[fullName]["items"] = new JArray(
             inventory.GetItemList()
                 .Concat(inventory.GetJournalList())
-                .Select(item => item.gameObject.name)
+                .Select(item => GetFullName(item.transform))
                 .ToList()
         );
     }
 
 
-    void UpdateHeartbeatAudio()
+    void PlayHeartbeatAudio()
     {
-        if (alienTransform != null && heartbeatAudioSource != null)
-        {
-            float distance = Vector3.Distance(transform.position, alienTransform.position);
-            AudioSource audioSource = heartbeatAudioSource.GetComponent<AudioSource>();
+        if (Time.timeScale > 0 && !heartbeatAudioSource.isPlaying)
+            heartbeatAudioSource.Play();
 
-            if (distance > maxHeartbeatDistance)
-            {
-                audioSource.volume = 0;
-            }
-            else
-            {
-                float volume = Mathf.Lerp(1, 0, (distance - minHeartbeatDistance) / (maxHeartbeatDistance - minHeartbeatDistance));
-                float pitch = Mathf.Lerp(maxHeartbeatPitch, minHeartbeatPitch, (distance - minHeartbeatDistance) / (maxHeartbeatDistance - minHeartbeatDistance));
-                audioSource.volume = volume;
-                audioSource.pitch = pitch;
-            }
+        float distance = Vector3.Distance(transform.position, alienTransform.position);
+        if (distance > maxHeartbeatDistance)
+            heartbeatAudioSource.volume = 0;
+        else
+        {
+            float volume = Mathf.Lerp(1, 0, (distance - minHeartbeatDistance) / (maxHeartbeatDistance - minHeartbeatDistance));
+            float pitch = Mathf.Lerp(maxHeartbeatPitch, minHeartbeatPitch, (distance - minHeartbeatDistance) / (maxHeartbeatDistance - minHeartbeatDistance));
+            heartbeatAudioSource.volume = volume;
+            heartbeatAudioSource.pitch = pitch;
         }
     }
 }

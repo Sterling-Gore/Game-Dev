@@ -89,8 +89,9 @@ public class PathFindingController
     void CopyPathToTarget()
     {
         thoughtHandle.Complete();
-        List<PathNode> newPathToTarget = new(memoryBufferLengthUsed[0]);
-        for (int i = 0; i < memoryBufferLengthUsed[0]; ++i)
+        int pathLength = memoryBufferLengthUsed[0];
+        List<PathNode> newPathToTarget = new(pathLength);
+        for (int i = 0; i < pathLength; ++i)
             newPathToTarget.Add(memoryBuffer[i]);
 
         var hasReachedFirstPoint = pathIndex < pathToTarget.Count - 1;
@@ -106,14 +107,14 @@ public class PathFindingController
 
                 if (prevPoint == newNextPoint && nextPoint == newNextNextPoint)
                 {
-                    memoryBufferLengthUsed[0] -= i + 1;
+                    pathLength -= i + 1;
                     Debug.Log("skipping previously visited point");
                     break;
                 }
             }
         }
 
-        pathIndex = memoryBufferLengthUsed[0] - 1;
+        pathIndex = pathLength - 1;
         pathToTarget = newPathToTarget;
     }
 

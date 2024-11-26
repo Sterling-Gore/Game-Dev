@@ -1,5 +1,5 @@
 {
-  "valve4": {
+  "/Physical_Puzzles/PressurePuzzle/valve4": {
     "pos": {
       "x": -25.857,
       "y": 4.416,
@@ -11,7 +11,7 @@
       "z": 0.0
     }
   },
-  "valve3": {
+  "/Physical_Puzzles/PressurePuzzle/valve3": {
     "pos": {
       "x": -25.19,
       "y": 4.416,
@@ -23,7 +23,7 @@
       "z": 0.0
     }
   },
-  "valve2": {
+  "/Physical_Puzzles/PressurePuzzle/valve2": {
     "pos": {
       "x": -24.537,
       "y": 4.416,
@@ -35,7 +35,7 @@
       "z": 0.0
     }
   },
-  "valve1": {
+  "/Physical_Puzzles/PressurePuzzle/valve1": {
     "pos": {
       "x": -23.857,
       "y": 4.416,
@@ -47,47 +47,47 @@
       "z": 0.0
     }
   },
-  "Lighter": {
+  "/FileCabinetDrawer/Lighter": {
     "pos": {
       "x": -51.07965,
       "y": 3.64666843,
-      "z": 3.84476829
+      "z": 3.84476852
     },
     "rot": {
-      "x": -5.122642E-06,
+      "x": 0.0,
       "y": 270.49588,
       "z": 270.0
     }
   },
-  "SitckyNote": {
+  "/Physical_Puzzles/SitckyNote": {
     "pos": {
-      "x": 1000.0,
-      "y": 1000.0,
-      "z": 1001.0
+      "x": -56.408,
+      "y": 3.412,
+      "z": 21.252
     },
     "rot": {
-      "x": 34.9999962,
-      "y": 21.0,
-      "z": 5.21132563E-07
+      "x": 297.882355,
+      "y": 176.731812,
+      "z": 354.833466
     }
   },
-  "GeneratorScreen": {
+  "/Generators_and_fuelCells/GeneratorC/GeneratorScreen": {
     "pos": {
-      "x": -60.10004,
+      "x": -69.18748,
       "y": 3.52919769,
-      "z": 4.144806
+      "z": 53.4506
     },
     "rot": {
-      "x": -2.53323788E-06,
-      "y": -3.78245375E-07,
-      "z": 16.9845352
+      "x": -3.41509462E-06,
+      "y": 45.0000076,
+      "z": 16.9845371
     }
   },
-  "Reflector": {
+  "/Physical_Puzzles/Laser-Puzzle/Reflection_piece5/Reflector": {
     "pos": {
-      "x": -51.2842,
-      "y": 4.867,
-      "z": 39.8706436
+      "x": -51.2842026,
+      "y": 3.867,
+      "z": 37.8706436
     },
     "rot": {
       "x": 0.0,
@@ -95,23 +95,22 @@
       "z": 0.0
     }
   },
-  "player": {
+  "flashLightTime": 45.0,
+  "/player": {
     "pos": {
-      "x": -63.70439,
-      "y": 2.622869,
-      "z": 15.4426289
+      "x": -30.8449,
+      "y": 2.62286949,
+      "z": 22.6401958
     },
     "rot": {
       "x": 0.0,
-      "y": 346.6903,
+      "y": 265.815338,
       "z": 0.0
     },
-    "items": [
-      "SitckyNote",
-      "JournalEntry4"
-    ]
+    "items": []
   },
-  "PressureAudio": {
+  "health": 100.0,
+  "/AudioPickUps/PressureAudio": {
     "pos": {
       "x": -26.656,
       "y": 3.89,
@@ -123,7 +122,7 @@
       "z": 0.0
     }
   },
-  "(model)shuttle_button": {
+  "/Rooms_And_Hallways_And_Doors/ COLLIDERS/Room_COLLIDERS/Shuttle/(model)shuttle_button": {
     "pos": {
       "x": -20.1185474,
       "y": 2.48946762,
@@ -135,35 +134,36 @@
       "z": 0.0
     }
   },
-  "REFILL_HITBOX": {
+  "oxygenLevel": 98.82622,
+  "/Oxygen_Stations/OxygenStation (1)/REFILL_HITBOX": {
     "pos": {
-      "x": -70.8331757,
+      "x": -32.8187332,
       "y": 3.95949984,
-      "z": 19.5447979
+      "z": 17.1471138
     },
     "rot": {
       "x": 0.0,
-      "y": 252.03447,
+      "y": 221.210144,
       "z": 0.0
     }
   },
-  "Fuel-Deposit": {
+  "/Generators_and_fuelCells/GeneratorC/Fuel-Deposit": {
     "pos": {
-      "x": -59.9778,
+      "x": -70.5333557,
       "y": 3.532402,
-      "z": 2.11920166
+      "z": 51.9318466
     },
     "rot": {
-      "x": -1.68295094E-06,
-      "y": -2.887791E-07,
-      "z": 19.47323
+      "x": -2.561321E-06,
+      "y": 45.0,
+      "z": 19.4732285
     }
   },
-  "Reflector_INPUT": {
+  "/Physical_Puzzles/Laser-Puzzle/Reflection_piece6/Reflector_INPUT": {
     "pos": {
-      "x": -51.2842,
-      "y": 3.867,
-      "z": 39.8706436
+      "x": -51.2842026,
+      "y": 4.867,
+      "z": 37.8706436
     },
     "rot": {
       "x": 0.0,
@@ -171,7 +171,19 @@
       "z": 0.0
     }
   },
-  "RoomAKey": {
+  "/Generators_and_fuelCells/GeneratorB/GeneratorScreen": {
+    "pos": {
+      "x": -86.3268,
+      "y": 3.52919769,
+      "z": 27.7869644
+    },
+    "rot": {
+      "x": -2.561321E-06,
+      "y": 270.0,
+      "z": 16.9845352
+    }
+  },
+  "/RoomAKey": {
     "pos": {
       "x": -78.005,
       "y": 3.846,
@@ -183,19 +195,31 @@
       "z": 295.819458
     }
   },
-  "Reflector_PICKUP2": {
+  "/Physical_Puzzles/Laser-Puzzle/Reflector_PICKUP2": {
     "pos": {
       "x": -66.6022644,
-      "y": 2.81686926,
+      "y": 2.816868,
       "z": 47.84056
     },
     "rot": {
-      "x": 322.243622,
-      "y": 54.3445,
-      "z": 1.51182721E-05
+      "x": 322.243652,
+      "y": 54.3444939,
+      "z": 1.619815E-05
     }
   },
-  "DoorBlockingGoop": {
+  "/Generators_and_fuelCells/GeneratorB/Fuel-Deposit": {
+    "pos": {
+      "x": -84.30121,
+      "y": 3.532402,
+      "z": 27.9092026
+    },
+    "rot": {
+      "x": -8.53773656E-07,
+      "y": 270.0,
+      "z": 19.4732342
+    }
+  },
+  "/DoorBlockingGoop": {
     "pos": {
       "x": -77.39,
       "y": 4.13,
@@ -203,36 +227,48 @@
     },
     "rot": {
       "x": 0.0,
-      "y": 4.87425041,
+      "y": 4.87425,
       "z": 0.0
     }
   },
-  "powerLevel": 0,
-  "Reflector_PICKUP1": {
+  "powerLevel": 2,
+  "/Oxygen_Stations/OxygenStation (2)/REFILL_HITBOX": {
+    "pos": {
+      "x": -70.8331757,
+      "y": 3.95949984,
+      "z": 19.5447979
+    },
+    "rot": {
+      "x": 0.0,
+      "y": 252.034485,
+      "z": 0.0
+    }
+  },
+  "/Physical_Puzzles/Laser-Puzzle/Reflector_PICKUP1": {
     "pos": {
       "x": -52.3167839,
-      "y": 2.81686878,
+      "y": 2.81687236,
       "z": 39.8172226
     },
     "rot": {
-      "x": 321.776367,
-      "y": 45.3213654,
-      "z": 4.34710673E-05
+      "x": 321.7764,
+      "y": 45.32139,
+      "z": 1.52148668E-05
     }
   },
-  "FuelCell_needs_charging": {
+  "/Physical_Puzzles/Laser-Puzzle/FuelCellRecharger/FuelCell_needs_charging": {
     "pos": {
       "x": -55.6710052,
       "y": 3.9866004,
       "z": 39.0893936
     },
     "rot": {
-      "x": 0.007298871,
+      "x": 0.00729903625,
       "y": 359.8946,
-      "z": 3.96178031
+      "z": 3.96178079
     }
   },
-  "JournalEntry4": {
+  "/AudioPickUps/JournalEntry4": {
     "pos": {
       "x": -59.63,
       "y": 3.89,
@@ -244,7 +280,7 @@
       "z": 0.0
     }
   },
-  "JournalEntry2": {
+  "/AudioPickUps/JournalEntry2": {
     "pos": {
       "x": -59.63,
       "y": 3.89,
@@ -256,7 +292,7 @@
       "z": 0.0
     }
   },
-  "JournalEntry5": {
+  "/AudioPickUps/JournalEntry5": {
     "pos": {
       "x": -59.63,
       "y": 3.89,
@@ -268,7 +304,19 @@
       "z": 0.0
     }
   },
-  "JournalEntry1": {
+  "/Physical_Puzzles/Laser-Puzzle/Reflection_piece2/Reflector": {
+    "pos": {
+      "x": -51.2842026,
+      "y": 4.867,
+      "z": 40.8706436
+    },
+    "rot": {
+      "x": 0.0,
+      "y": 89.99999,
+      "z": 0.0
+    }
+  },
+  "/AudioPickUps/JournalEntry1": {
     "pos": {
       "x": -59.63,
       "y": 3.89,
@@ -280,7 +328,7 @@
       "z": 0.0
     }
   },
-  "FileCabinetDrawer": {
+  "/FileCabinetDrawer": {
     "pos": {
       "x": -51.618,
       "y": 3.442,
@@ -292,7 +340,7 @@
       "z": 0.0
     }
   },
-  "GoopedDoorAudio": {
+  "/AudioPickUps/GoopedDoorAudio": {
     "pos": {
       "x": -78.26,
       "y": 3.89,
@@ -304,7 +352,7 @@
       "z": 0.0
     }
   },
-  "JournalEntry3": {
+  "/AudioPickUps/JournalEntry3": {
     "pos": {
       "x": -59.63,
       "y": 3.89,
@@ -316,7 +364,7 @@
       "z": 0.0
     }
   },
-  "FuelCellB": {
+  "/Generators_and_fuelCells/FuelCellB": {
     "pos": {
       "x": -75.79265,
       "y": 3.1392746,
@@ -328,7 +376,31 @@
       "z": 0.0
     }
   },
-  "FuelCellC": {
+  "/Generators_and_fuelCells/GeneratorA/GeneratorScreen": {
+    "pos": {
+      "x": -60.10004,
+      "y": 3.52919769,
+      "z": 4.144806
+    },
+    "rot": {
+      "x": -2.53323765E-06,
+      "y": -3.78245346E-07,
+      "z": 16.9845371
+    }
+  },
+  "/Physical_Puzzles/Laser-Puzzle/Reflection_piece4/Reflector": {
+    "pos": {
+      "x": -51.2842064,
+      "y": 3.867,
+      "z": 38.8706436
+    },
+    "rot": {
+      "x": 0.0,
+      "y": 89.99999,
+      "z": 0.0
+    }
+  },
+  "/Generators_and_fuelCells/FuelCellC": {
     "pos": {
       "x": -56.175,
       "y": 3.973999,
@@ -340,28 +412,64 @@
       "z": 0.0
     }
   },
-  "Alien": {
+  "/Physical_Puzzles/Laser-Puzzle/Reflection_piece1/Reflector_INPUT": {
     "pos": {
-      "x": -64.82147,
-      "y": 2.66271782,
-      "z": 22.7805176
+      "x": -51.2842,
+      "y": 3.867,
+      "z": 39.8706436
     },
     "rot": {
       "x": 0.0,
-      "y": 89.9803162,
+      "y": 89.99999,
       "z": 0.0
     }
   },
-  "FuelCellA": {
+  "/Physical_Puzzles/Laser-Puzzle/Reflection_piece3/Reflector": {
     "pos": {
-      "x": -61.06,
-      "y": 3.409,
-      "z": 2.302
+      "x": -51.2842,
+      "y": 4.867,
+      "z": 39.8706436
     },
     "rot": {
       "x": 0.0,
-      "y": 90.0,
-      "z": 90.0
+      "y": 89.99999,
+      "z": 0.0
+    }
+  },
+  "/AlienSystem/Alien": {
+    "pos": {
+      "x": -60.130085,
+      "y": 2.66265583,
+      "z": 22.8193016
+    },
+    "rot": {
+      "x": 0.0,
+      "y": 89.8366,
+      "z": 0.0
+    }
+  },
+  "/Generators_and_fuelCells/GeneratorA/Fuel-Deposit": {
+    "pos": {
+      "x": -59.9778,
+      "y": 3.532402,
+      "z": 2.11920166
+    },
+    "rot": {
+      "x": -1.68295094E-06,
+      "y": -2.887791E-07,
+      "z": 19.47323
+    }
+  },
+  "/Generators_and_fuelCells/FuelCellA": {
+    "pos": {
+      "x": -64.75773,
+      "y": 3.1392746,
+      "z": 12.64312
+    },
+    "rot": {
+      "x": 270.0,
+      "y": 16.0454884,
+      "z": 0.0
     }
   },
   "saveAtCheckpoint": false

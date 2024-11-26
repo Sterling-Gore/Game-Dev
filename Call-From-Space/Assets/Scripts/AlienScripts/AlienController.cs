@@ -341,7 +341,7 @@ public class AlienController : Loadable
 
     void PlayRandomAudio(AudioSource audioSource, List<AudioClip> audioClips)
     {
-        if (!audioSource.isPlaying && audioClips.Count != 0)
+        if (Time.timeScale > 0 && !audioSource.isPlaying && audioClips.Count != 0)
         {
             audioSource.clip = audioClips[Random.Range(0, audioClips.Count)];
             audioSource.Play();
