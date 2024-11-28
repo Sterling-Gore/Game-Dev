@@ -226,6 +226,7 @@ public class AlienController : Loadable
     {
         if (Time.time - lastAttackTime >= attackCooldown)
         {
+            Debug.Log("damage dealt player");
             PlayRandomAttackAudio();
             playerHealthSystem.TakeDamage(damageAmount);
             lastAttackTime = Time.time;

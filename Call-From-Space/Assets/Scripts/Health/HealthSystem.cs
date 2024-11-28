@@ -65,6 +65,7 @@ public class HealthSystem : Loadable
         // Check if health level is zero
         if (healthLevel <= 0)
         {
+            // Call animation here
             gameOverScreen.SetActive(true);
             healthLevel = 100;
         }

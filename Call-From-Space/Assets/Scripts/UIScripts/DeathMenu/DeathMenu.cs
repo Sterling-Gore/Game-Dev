@@ -7,6 +7,7 @@ public class DeathMenu : MonoBehaviour
 
     void OnEnable()
     {
+        Debug.Log("DeathMenu enabled");
         var player = GameObject.Find("player");
         interactor = player.GetComponent<Interactor>();
         interactor.inUI = true;
