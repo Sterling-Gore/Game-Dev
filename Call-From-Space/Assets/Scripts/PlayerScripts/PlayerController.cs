@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameDev.Scripts.Oxygen;
 using Newtonsoft.Json.Linq;
-using System.Linq; // Replace 'GameDev' with your actual project root namespace
+using System.Linq;
+using UnityEngine.SceneManagement; // Replace 'GameDev' with your actual project root namespace
 
 public class PlayerController : Loadable
 {
@@ -366,10 +367,12 @@ public class PlayerController : Loadable
         rb.angularVelocity = rb.velocity = Vector3.zero;
 
         state[fullName]["items"]
-            .Select(name => GameObject.Find((string)name).GetComponent<Item>())
+            .Select(fullName => FindItemInPath((string)fullName))
             .ToList()
             .ForEach(item =>
             {
+                if (item == null)
+                    return;
                 if (item.isItem)
                     inventory.AddItem(item);
                 else
@@ -388,6 +391,42 @@ public class PlayerController : Loadable
         );
     }
 
+    Item FindItemInPath(string fullName)
+    {
+        var idx = fullName.LastIndexOf('/');
+        if (idx == -1)
+            return null;
+        var name = fullName[(idx + 1)..];
+        var path = fullName[..idx];
+
+        if (path == "")
+        {
+            var rootMatches = SceneManager.GetActiveScene().GetRootGameObjects().Where(obj => obj.name == name).ToList();
+            if (rootMatches.Count == 0)
+                return null;
+            return rootMatches[0].GetComponent<Item>();
+        }
+
+        var parent = GameObject.Find(path).transform;
+
+        if (parent == null)//parent is disabled
+            return FindItemInPath(path);
+        return FindInChildren(parent, name).GetComponent<Item>();
+    }
+
+    GameObject FindInChildren(Transform parent, string name)
+    {
+        if (parent.name == name)
+            return parent.gameObject;
+
+        foreach (Transform child in parent)
+        {
+            GameObject found = FindInChildren(child, name);
+            if (found != null)
+                return found;
+        }
+        return null;
+    }
 
     void PlayHeartbeatAudio()
     {

@@ -1,4 +1,16 @@
 {
+  "/AlienSystem/Watcher": {
+    "pos": {
+      "x": -43.75888,
+      "y": 5.7149334,
+      "z": 17.3900871
+    },
+    "rot": {
+      "x": 0.0,
+      "y": 180.0,
+      "z": 180.0
+    }
+  },
   "/Physical_Puzzles/PressurePuzzle/valve4": {
     "pos": {
       "x": -25.857,
@@ -57,7 +69,9 @@
       "x": -5.122642E-06,
       "y": 270.49588,
       "z": 270.0
-    }
+    },
+    "isHolding": false,
+    "hasBeenMoved": false
   },
   "/Physical_Puzzles/SitckyNote": {
     "pos": {
@@ -69,7 +83,8 @@
       "x": 297.882355,
       "y": 176.731812,
       "z": 354.833466
-    }
+    },
+    "isActive": true
   },
   "/Generators_and_fuelCells/GeneratorC/GeneratorScreen": {
     "pos": {
@@ -95,19 +110,21 @@
       "z": 0.0
     }
   },
-  "flashLightTime": 45.0,
+  "flashLightTime": 0.398019731,
   "/player": {
     "pos": {
-      "x": -30.8449059,
-      "y": 2.62290382,
-      "z": 22.6279678
+      "x": -58.9188957,
+      "y": 2.62286949,
+      "z": 2.84466243
     },
     "rot": {
       "x": 0.0,
-      "y": 267.1501,
+      "y": 241.2326,
       "z": 0.0
     },
-    "items": []
+    "items": [
+      "/RoomAKey"
+    ]
   },
   "health": 100.0,
   "/AudioPickUps/PressureAudio": {
@@ -120,7 +137,8 @@
       "x": 0.0,
       "y": 0.0,
       "z": 0.0
-    }
+    },
+    "isActive": true
   },
   "/Rooms_And_Hallways_And_Doors/ COLLIDERS/Room_COLLIDERS/Shuttle/(model)shuttle_button": {
     "pos": {
@@ -134,7 +152,7 @@
       "z": 0.0
     }
   },
-  "oxygenLevel": 100.0,
+  "oxygenLevel": 81.2009659,
   "/Oxygen_Stations/OxygenStation (1)/REFILL_HITBOX": {
     "pos": {
       "x": -32.8187332,
@@ -193,7 +211,8 @@
       "x": 350.944244,
       "y": 355.6451,
       "z": 295.819458
-    }
+    },
+    "isActive": false
   },
   "/Physical_Puzzles/Laser-Puzzle/Reflector_PICKUP2": {
     "pos": {
@@ -205,7 +224,8 @@
       "x": 322.243622,
       "y": 54.3445,
       "z": 1.51182721E-05
-    }
+    },
+    "isActive": true
   },
   "/Generators_and_fuelCells/GeneratorB/Fuel-Deposit": {
     "pos": {
@@ -229,9 +249,10 @@
       "x": 0.0,
       "y": 4.87425041,
       "z": 0.0
-    }
+    },
+    "isActive": true
   },
-  "powerLevel": 2,
+  "powerLevel": 1,
   "/Oxygen_Stations/OxygenStation (2)/REFILL_HITBOX": {
     "pos": {
       "x": -70.8331757,
@@ -254,7 +275,8 @@
       "x": 321.776367,
       "y": 45.3213654,
       "z": 4.34710673E-05
-    }
+    },
+    "isActive": true
   },
   "/Physical_Puzzles/Laser-Puzzle/FuelCellRecharger/FuelCell_needs_charging": {
     "pos": {
@@ -278,7 +300,8 @@
       "x": 0.0,
       "y": 0.0,
       "z": 0.0
-    }
+    },
+    "isActive": true
   },
   "/AudioPickUps/JournalEntry2": {
     "pos": {
@@ -290,7 +313,8 @@
       "x": 0.0,
       "y": 0.0,
       "z": 0.0
-    }
+    },
+    "isActive": true
   },
   "/AudioPickUps/JournalEntry5": {
     "pos": {
@@ -302,7 +326,8 @@
       "x": 0.0,
       "y": 0.0,
       "z": 0.0
-    }
+    },
+    "isActive": true
   },
   "/Physical_Puzzles/Laser-Puzzle/Reflection_piece2/Reflector": {
     "pos": {
@@ -326,7 +351,8 @@
       "x": 0.0,
       "y": 0.0,
       "z": 0.0
-    }
+    },
+    "isActive": true
   },
   "/FileCabinetDrawer": {
     "pos": {
@@ -338,7 +364,8 @@
       "x": 0.0,
       "y": 0.0,
       "z": 0.0
-    }
+    },
+    "unlocked": false
   },
   "/AudioPickUps/GoopedDoorAudio": {
     "pos": {
@@ -350,7 +377,8 @@
       "x": 0.0,
       "y": 0.0,
       "z": 0.0
-    }
+    },
+    "isActive": true
   },
   "/AudioPickUps/JournalEntry3": {
     "pos": {
@@ -362,7 +390,8 @@
       "x": 0.0,
       "y": 0.0,
       "z": 0.0
-    }
+    },
+    "isActive": true
   },
   "/Generators_and_fuelCells/FuelCellB": {
     "pos": {
@@ -372,9 +401,11 @@
     },
     "rot": {
       "x": 270.0,
-      "y": 16.0451622,
+      "y": 16.04509,
       "z": 0.0
-    }
+    },
+    "isHolding": false,
+    "hasBeenMoved": false
   },
   "/Generators_and_fuelCells/GeneratorA/GeneratorScreen": {
     "pos": {
@@ -410,7 +441,9 @@
       "x": 0.0,
       "y": 0.0,
       "z": 0.0
-    }
+    },
+    "isHolding": false,
+    "hasBeenMoved": false
   },
   "/Physical_Puzzles/Laser-Puzzle/Reflection_piece1/Reflector_INPUT": {
     "pos": {
@@ -436,18 +469,6 @@
       "z": 0.0
     }
   },
-  "/AlienSystem/Alien": {
-    "pos": {
-      "x": -62.8135376,
-      "y": 2.662691,
-      "z": 22.7133446
-    },
-    "rot": {
-      "x": 0.0,
-      "y": 87.57473,
-      "z": 0.0
-    }
-  },
   "/Generators_and_fuelCells/GeneratorA/Fuel-Deposit": {
     "pos": {
       "x": -59.9778,
@@ -462,14 +483,17 @@
   },
   "/Generators_and_fuelCells/FuelCellA": {
     "pos": {
-      "x": -64.75773,
-      "y": 3.1392746,
-      "z": 12.64312
+      "x": -61.06,
+      "y": 3.409,
+      "z": 2.302
     },
     "rot": {
-      "x": 270.0,
-      "y": 16.0454884,
-      "z": 0.0
-    }
-  }
+      "x": 0.0,
+      "y": 90.0,
+      "z": 90.0
+    },
+    "isHolding": false,
+    "hasBeenMoved": true
+  },
+  "saveAtCheckpoint": true
 }

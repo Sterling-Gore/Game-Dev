@@ -36,14 +36,17 @@ public abstract class Loadable : MonoBehaviour
         ["z"] = vec.z
     };
 
+    public Vector3 JsonToVector(JToken vec) =>
+        new((float)vec["x"], (float)vec["y"], (float)vec["z"]);
+
     public void LoadTransform(JObject state)
     {
         var player = state[fullName];
         var pos = player["pos"];
         var rot = player["rot"];
         transform.SetPositionAndRotation(
-          new Vector3((float)pos["x"], transform.position.y, (float)pos["z"]),
-          Quaternion.Euler((float)rot["x"], (float)rot["y"], (float)rot["z"])
+            JsonToVector(pos),
+            Quaternion.Euler(JsonToVector(rot))
         );
     }
 
@@ -52,7 +55,7 @@ public abstract class Loadable : MonoBehaviour
         if (state[fullName] == null)
             state[fullName] = new JObject();
         state[fullName]["pos"] = VectorToJson(transform.position);
-        state[fullName]["rot"] = VectorToJson(transform.rotation.eulerAngles);
+        state[fullName]["rot"] = VectorToJson(transform.eulerAngles);
     }
 
     public string GetFullName(Transform transform)

@@ -1,7 +1,6 @@
-using System;
 using System.IO;
-using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using UnityEngine;
 
 class GameStateManager
 {
@@ -24,12 +23,16 @@ class GameStateManager
         try
         {
             state = JObject.Parse(File.ReadAllText(saveFile));
-            Loadable.loadables.ForEach(loadable => loadable.Load(state));
         }
         catch
         {
             NewGame();
         }
+        Loadable.loadables.ForEach(loadable =>
+        {
+            Debug.Log(loadable.fullName);
+            loadable.Load(state);
+        });
     }
 
     public void SaveGame(string saveFile)

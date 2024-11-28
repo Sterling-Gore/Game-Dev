@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using System;
 
 public class PowerLevel : Loadable
 {
@@ -36,6 +37,16 @@ public class PowerLevel : Loadable
     private LightmapData[] level0, level1, level2, level3;
 
     public Texture2D[] level0color, level1color, level2color, level3color;
+
+    public List<Action<int>> subscribers = new();
+
+    public static PowerLevel instance;
+
+    void Awake()
+    {
+        base.Awake();
+        instance = this;
+    }
 
     void Start()
     {
@@ -184,6 +195,8 @@ public class PowerLevel : Loadable
         {
             cameraSwapper.RefreshCameraList();
         }
+
+        subscribers.ForEach(action => action.Invoke(currentPowerLevel));
     }
 
     public int GetCurrentPowerLevel()
@@ -202,6 +215,10 @@ public class PowerLevel : Loadable
         }
         return false;
     }
+
+
+    public void SubscribeToUpdates(Action<int> subscriber) =>
+        subscribers.Add(subscriber);
 
     public override void Load(JObject state)
     {

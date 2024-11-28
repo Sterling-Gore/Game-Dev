@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 public class GoopedDoor : Interactable
@@ -7,15 +8,19 @@ public class GoopedDoor : Interactable
     // Start is called before the first frame update
     float fadeSpeed = .5f;
     public GameObject player;
-    public GameObject Lighter;
+    public LighterScript Lighter;
     public GameObject Sparkle;
     ParticleSystem flame;
     //GameObject mesh;
+    Collider collider;
+    MeshRenderer meshRenderer;
     void Start()
     {
         flame = transform.Find("Flame").GetComponent<ParticleSystem>();
         //mesh = transform.Find("Goop").gameObject;
         flame.Stop();
+        collider = GetComponent<Collider>();
+        meshRenderer = GetComponent<MeshRenderer>();
     }
 
     // Update is called once per frame
@@ -26,7 +31,7 @@ public class GoopedDoor : Interactable
 
         if (player.GetComponent<Interactor>().holdingName == "Lighter")
         {
-            if (Lighter.GetComponent<LighterScript>().isOpen)
+            if (Lighter.isOpen)
             {
                 return "<color=red>Burn</color=read> the foreign material";
             }
@@ -41,12 +46,12 @@ public class GoopedDoor : Interactable
 
     public override void Interact()
     {
-        if (player.GetComponent<Interactor>().holdingName == "Lighter" && Lighter.GetComponent<LighterScript>().isOpen)
+        if (player.GetComponent<Interactor>().holdingName == "Lighter" && Lighter.isOpen)
         {
             Sparkle.SetActive(false);
             StartCoroutine(FadeOut());
             player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(4);
-            Lighter.GetComponent<LighterScript>().StopGlowEffect();
+            Lighter.StopGlowEffect();
         }
     }
 
@@ -54,16 +59,36 @@ public class GoopedDoor : Interactable
     IEnumerator FadeOut()
     {
         flame.Play();
-        while (GetComponent<MeshRenderer>().materials[0].color.a > 0f)
+        while (meshRenderer.materials[0].color.a > 0f)
         {
-            Color currentColor = GetComponent<MeshRenderer>().materials[0].color;
+            Color currentColor = meshRenderer.materials[0].color;
             currentColor.a -= fadeSpeed * Time.deltaTime;
-            GetComponent<MeshRenderer>().materials[0].color = currentColor;
+            meshRenderer.materials[0].color = currentColor;
             yield return null;
         }
         flame.Stop();
-        GetComponent<Collider>().enabled = false;
-        GetComponent<MeshRenderer>().enabled = false;
+        collider.enabled = false;
+        meshRenderer.enabled = false;
         AlienController.aliens.ForEach(alien => alien.ReloadPathGraph());
+    }
+
+    public override void Load(JObject state)
+    {
+        base.Load(state);
+        var active = (bool)state[fullName]["isActive"];
+        Sparkle.SetActive(active);
+
+        Color currentColor = meshRenderer.materials[0].color;
+        currentColor.a = active ? 1 : 0;
+        meshRenderer.materials[0].color = currentColor;
+
+        collider.enabled = active;
+        meshRenderer.enabled = active;
+    }
+
+    public override void Save(ref JObject state)
+    {
+        base.Save(ref state);
+        state[fullName]["isActive"] = Sparkle.activeSelf;
     }
 }

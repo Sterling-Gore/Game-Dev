@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 public class PickUp : Interactable
@@ -67,5 +68,19 @@ public class PickUp : Interactable
 
         //pc.uiInvetory.RefreshInventoryItems();
 
+    }
+
+    public override void Load(JObject state)
+    {
+        var active = (bool)state[fullName]["isActive"];
+        gameObject.SetActive(active);
+        ItemGlow.SetActive(active);
+        base.Load(state);
+    }
+
+    public override void Save(ref JObject state)
+    {
+        base.Save(ref state);
+        state[fullName]["isActive"] = gameObject.activeSelf;
     }
 }
