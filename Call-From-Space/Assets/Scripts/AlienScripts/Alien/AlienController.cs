@@ -114,7 +114,12 @@ public class AlienController : Loadable
             roamer.RoamAround();
         }
         else
-            HuntPlayer();
+        {
+            if (Time.time - lastAttackTime >= attackCooldown)
+                HuntPlayer();
+            else
+                RunFromPlayer();
+        }
         Debug.DrawRay(transform.position + Vector3.up, player.transform.position - transform.position + Vector3.up);
     }
 
@@ -184,6 +189,11 @@ public class AlienController : Loadable
         justHeardSomething = false;
     }
 
+    void RunFromPlayer()
+    {
+
+    }
+
     void UpdatePowerLevel(int powerLevel)
     {
         if (powerLevel != curPowerLevel)
@@ -224,13 +234,10 @@ public class AlienController : Loadable
 
     void AttackPlayer()
     {
-        if (Time.time - lastAttackTime >= attackCooldown)
-        {
-            Debug.Log("damage dealt player");
-            PlayRandomAttackAudio();
-            playerHealthSystem.TakeDamage(damageAmount);
-            lastAttackTime = Time.time;
-        }
+        Debug.Log("damage dealt player");
+        PlayRandomAttackAudio();
+        playerHealthSystem.TakeDamage(damageAmount);
+        lastAttackTime = Time.time;
         PlayRandomAttackAudio();
     }
 
