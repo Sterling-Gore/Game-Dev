@@ -14,6 +14,8 @@ public class HealthSystem : Loadable
     public GameObject gameOverScreen;
     public RectTransform healthBarRectTransform; // Assign this in the Inspector
 
+    public AudioSource[] playerTakeDamageSounds;
+
     private void OnEnable()
     {
         healCoroutine = StartCoroutine(HealOverTime());
@@ -44,6 +46,9 @@ public class HealthSystem : Loadable
     {
         healthLevel -= damageAmount;
         healthLevel = Mathf.Clamp(healthLevel, 0, 100f); // Ensure health level stays within bounds
+        int randomIndex = Random.Range(0, playerTakeDamageSounds.Length);
+        AudioSource playerHurtSound = playerTakeDamageSounds[randomIndex];
+        playerHurtSound.Play();
     }
 
     private void Update()
