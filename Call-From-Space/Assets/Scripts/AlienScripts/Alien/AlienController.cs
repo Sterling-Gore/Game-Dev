@@ -293,7 +293,7 @@ public class AlienController : Loadable
         if (!Physics.Raycast(aboveNewPosition, Vector3.down, 10, groundLayer))
         {
             Debug.DrawRay(aboveNewPosition, Vector3.down * 10, Color.black, 20);
-            Debug.LogError($"point not above ground {aboveNewPosition}");
+            Debug.Log($"point not above ground {aboveNewPosition}"); // Change to just Log instead of Error as these can occur depending on object geo. 
             transform.position = prevPos;
         }
     }

@@ -49,17 +49,17 @@
   },
   "/FileCabinetDrawer/Lighter": {
     "pos": {
-      "x": -51.07965,
-      "y": 3.64666843,
-      "z": 3.84476829
+      "x": -79.34247,
+      "y": 2.57688475,
+      "z": 26.9051056
     },
     "rot": {
-      "x": -5.122642E-06,
-      "y": 270.49588,
-      "z": 270.0
+      "x": 0.00118503778,
+      "y": 56.897377,
+      "z": 90.001
     },
     "isHolding": false,
-    "hasBeenMoved": false
+    "hasBeenMoved": true
   },
   "/Physical_Puzzles/SitckyNote": {
     "pos": {
@@ -86,18 +86,6 @@
       "z": 16.9845352
     }
   },
-  "/AlienSystem/Watcher": {
-    "pos": {
-      "x": -39.96888,
-      "y": 5.93393326,
-      "z": 29.1100883
-    },
-    "rot": {
-      "x": 0.0,
-      "y": 180.0,
-      "z": 180.0
-    }
-  },
   "/Physical_Puzzles/Laser-Puzzle/Reflection_piece5/Reflector": {
     "pos": {
       "x": -51.2842026,
@@ -110,16 +98,16 @@
       "z": 0.0
     }
   },
-  "flashLightTime": 44.49863,
+  "flashLightTime": 32.7192345,
   "/player": {
     "pos": {
-      "x": -30.8746014,
-      "y": 2.62286949,
-      "z": 22.71183
+      "x": -84.42065,
+      "y": 2.622869,
+      "z": 29.3467674
     },
     "rot": {
       "x": 0.0,
-      "y": 258.54007,
+      "y": 187.691116,
       "z": 0.0
     },
     "items": []
@@ -150,7 +138,7 @@
       "z": 0.0
     }
   },
-  "oxygenLevel": 100.0,
+  "oxygenLevel": 54.8332748,
   "/Oxygen_Stations/OxygenStation (1)/REFILL_HITBOX": {
     "pos": {
       "x": -32.8187332,
@@ -187,6 +175,18 @@
       "z": 0.0
     }
   },
+  "/AlienSystem/Alien": {
+    "pos": {
+      "x": -56.6217,
+      "y": 2.69137669,
+      "z": 15.7140074
+    },
+    "rot": {
+      "x": 0.0,
+      "y": 0.735373735,
+      "z": 0.0
+    }
+  },
   "/Generators_and_fuelCells/GeneratorB/GeneratorScreen": {
     "pos": {
       "x": -86.3268,
@@ -210,7 +210,7 @@
       "y": 355.6451,
       "z": 295.819458
     },
-    "isActive": true
+    "isActive": false
   },
   "/Physical_Puzzles/Laser-Puzzle/Reflector_PICKUP2": {
     "pos": {
@@ -220,8 +220,8 @@
     },
     "rot": {
       "x": 322.243622,
-      "y": 54.3445,
-      "z": 1.51182721E-05
+      "y": 54.3445053,
+      "z": 4.319507E-06
     },
     "isActive": true
   },
@@ -248,7 +248,7 @@
       "y": 4.87425041,
       "z": 0.0
     },
-    "isActive": true
+    "isActive": false
   },
   "powerLevel": 2,
   "/Oxygen_Stations/OxygenStation (2)/REFILL_HITBOX": {
@@ -266,13 +266,13 @@
   "/Physical_Puzzles/Laser-Puzzle/Reflector_PICKUP1": {
     "pos": {
       "x": -52.3167839,
-      "y": 2.81686878,
+      "y": 2.81686854,
       "z": 39.8172226
     },
     "rot": {
-      "x": 321.776367,
-      "y": 45.3213654,
-      "z": 4.34710673E-05
+      "x": 321.77655,
+      "y": 45.3206635,
+      "z": 0.000166276412
     },
     "isActive": true
   },
@@ -354,7 +354,7 @@
   },
   "/FileCabinetDrawer": {
     "pos": {
-      "x": -51.618,
+      "x": -52.115,
       "y": 3.442,
       "z": 3.537
     },
@@ -363,7 +363,7 @@
       "y": 0.0,
       "z": 0.0
     },
-    "unlocked": false
+    "unlocked": true
   },
   "/AudioPickUps/GoopedDoorAudio": {
     "pos": {
@@ -393,17 +393,17 @@
   },
   "/Generators_and_fuelCells/FuelCellB": {
     "pos": {
-      "x": -75.79265,
-      "y": 3.1392746,
-      "z": 35.14164
+      "x": -84.522,
+      "y": 3.409,
+      "z": 26.924
     },
     "rot": {
-      "x": 270.0,
-      "y": 16.0451641,
-      "z": 0.0
+      "x": 0.0,
+      "y": 0.0,
+      "z": 90.0
     },
     "isHolding": false,
-    "hasBeenMoved": false
+    "hasBeenMoved": true
   },
   "/Generators_and_fuelCells/GeneratorA/GeneratorScreen": {
     "pos": {
@@ -481,16 +481,29 @@
   },
   "/Generators_and_fuelCells/FuelCellA": {
     "pos": {
-      "x": -64.75773,
-      "y": 3.1392746,
-      "z": 12.64312
+      "x": -61.06,
+      "y": 3.409,
+      "z": 2.302
     },
     "rot": {
-      "x": 270.0,
-      "y": 16.0454884,
-      "z": 0.0
+      "x": 0.0,
+      "y": 90.0,
+      "z": 90.0
     },
     "isHolding": false,
-    "hasBeenMoved": false
-  }
+    "hasBeenMoved": true
+  },
+  "/AlienSystem/Watcher": {
+    "pos": {
+      "x": -42.85888,
+      "y": 5.76593351,
+      "z": 29.2900887
+    },
+    "rot": {
+      "x": 0.0,
+      "y": 180.0,
+      "z": 180.0
+    }
+  },
+  "saveAtCheckpoint": true
 }
