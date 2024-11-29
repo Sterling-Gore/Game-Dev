@@ -1,16 +1,4 @@
 {
-  "/AlienSystem/Watcher": {
-    "pos": {
-      "x": -43.75888,
-      "y": 5.7149334,
-      "z": 17.3900871
-    },
-    "rot": {
-      "x": 0.0,
-      "y": 180.0,
-      "z": 180.0
-    }
-  },
   "/Physical_Puzzles/PressurePuzzle/valve4": {
     "pos": {
       "x": -25.857,
@@ -66,7 +54,7 @@
       "z": 3.84476829
     },
     "rot": {
-      "x": -5.122642E-06,
+      "x": 5.122642E-06,
       "y": 270.49588,
       "z": 270.0
     },
@@ -110,21 +98,19 @@
       "z": 0.0
     }
   },
-  "flashLightTime": 0.398019731,
+  "flashLightTime": 45.0,
   "/player": {
     "pos": {
-      "x": -58.9188957,
+      "x": -30.9026623,
       "y": 2.62286949,
-      "z": 2.84466243
+      "z": 23.1636372
     },
     "rot": {
       "x": 0.0,
-      "y": 241.2326,
+      "y": 239.932587,
       "z": 0.0
     },
-    "items": [
-      "/RoomAKey"
-    ]
+    "items": []
   },
   "health": 100.0,
   "/AudioPickUps/PressureAudio": {
@@ -152,7 +138,7 @@
       "z": 0.0
     }
   },
-  "oxygenLevel": 81.2009659,
+  "oxygenLevel": 100.0,
   "/Oxygen_Stations/OxygenStation (1)/REFILL_HITBOX": {
     "pos": {
       "x": -32.8187332,
@@ -189,6 +175,18 @@
       "z": 0.0
     }
   },
+  "/AlienSystem/Alien": {
+    "pos": {
+      "x": -36.74947,
+      "y": 2.69137573,
+      "z": 17.8387547
+    },
+    "rot": {
+      "x": 0.0,
+      "y": 36.65828,
+      "z": 0.0
+    }
+  },
   "/Generators_and_fuelCells/GeneratorB/GeneratorScreen": {
     "pos": {
       "x": -86.3268,
@@ -212,7 +210,7 @@
       "y": 355.6451,
       "z": 295.819458
     },
-    "isActive": false
+    "isActive": true
   },
   "/Physical_Puzzles/Laser-Puzzle/Reflector_PICKUP2": {
     "pos": {
@@ -221,9 +219,9 @@
       "z": 47.84056
     },
     "rot": {
-      "x": 322.243622,
-      "y": 54.3445,
-      "z": 1.51182721E-05
+      "x": 322.2436,
+      "y": 54.34446,
+      "z": 5.93932273E-05
     },
     "isActive": true
   },
@@ -252,7 +250,7 @@
     },
     "isActive": true
   },
-  "powerLevel": 1,
+  "powerLevel": 0,
   "/Oxygen_Stations/OxygenStation (2)/REFILL_HITBOX": {
     "pos": {
       "x": -70.8331757,
@@ -273,8 +271,8 @@
     },
     "rot": {
       "x": 321.776367,
-      "y": 45.3213654,
-      "z": 4.34710673E-05
+      "y": 45.3211365,
+      "z": 4.890495E-05
     },
     "isActive": true
   },
@@ -395,13 +393,13 @@
   },
   "/Generators_and_fuelCells/FuelCellB": {
     "pos": {
-      "x": -75.79265,
+      "x": -75.7926559,
       "y": 3.1392746,
-      "z": 35.14164
+      "z": 35.141655
     },
     "rot": {
       "x": 270.0,
-      "y": 16.04509,
+      "y": 16.0457764,
       "z": 0.0
     },
     "isHolding": false,
@@ -478,22 +476,33 @@
     "rot": {
       "x": -1.68295094E-06,
       "y": -2.887791E-07,
-      "z": 19.47323
+      "z": 19.4732323
     }
   },
   "/Generators_and_fuelCells/FuelCellA": {
     "pos": {
-      "x": -61.06,
-      "y": 3.409,
-      "z": 2.302
+      "x": -64.75774,
+      "y": 3.13928223,
+      "z": 12.64312
+    },
+    "rot": {
+      "x": 270.0,
+      "y": 16.04591,
+      "z": 0.0
+    },
+    "isHolding": false,
+    "hasBeenMoved": false
+  },
+  "/AlienSystem/Watcher": {
+    "pos": {
+      "x": -39.96888,
+      "y": 5.93393326,
+      "z": 29.1100883
     },
     "rot": {
       "x": 0.0,
-      "y": 90.0,
-      "z": 90.0
-    },
-    "isHolding": false,
-    "hasBeenMoved": true
-  },
-  "saveAtCheckpoint": true
+      "y": 180.0,
+      "z": 180.0
+    }
+  }
 }
