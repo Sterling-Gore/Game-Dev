@@ -201,6 +201,8 @@ public class AlienController : Loadable
             curSections = new(3);
             switch (powerLevel)
             {
+                case 3:
+                    goto case 2;
                 case 2:
                     curSections.Add(GameObject.Find("SectionC").transform);
                     goto case 1;

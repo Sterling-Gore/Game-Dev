@@ -223,6 +223,7 @@ public class PowerLevel : Loadable
     public override void Load(JObject state)
     {
         currentPowerLevel = (int)state["powerLevel"];
+        UpdatePowerSystems();
     }
 
     public override void Save(ref JObject state)
