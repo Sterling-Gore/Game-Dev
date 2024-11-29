@@ -306,7 +306,7 @@ public class AlienController : Loadable
             timeStayingStill += Time.deltaTime;
             if (timeStayingStill > 2)
             {
-                Debug.LogError($"alien is stuck! was hunting: {heardSomething}, current state: {roamer.state}");
+                Debug.Log($"alien is stuck! was hunting: {heardSomething}, current state: {roamer.state}"); // Change to log, Same issue here
                 animator.SetBool("isWalking", false);
                 roamer.FindCurrentRoom();
                 if (!heardSomething)

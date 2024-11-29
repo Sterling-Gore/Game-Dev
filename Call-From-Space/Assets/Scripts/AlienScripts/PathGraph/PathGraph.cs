@@ -61,7 +61,7 @@ public struct PathGraph
             neighbors[idx++] = new();
 
         if (totalAdded == 0)
-            Debug.LogError("no path to target!!!");
+            Debug.Log("no path to target!!!");
 
         return this;
 
