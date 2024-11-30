@@ -19,9 +19,15 @@ public class Interactor : MonoBehaviour
         holdingName = "";
         isHolding = false;
         inUI = false;
-        ignoreAlienCollisionLayer = ~(
+        ignoreAlienCollisionLayer = (
             1 << LayerMask.NameToLayer("AlienCollisionLayer")
         );
+
+        int DefaultCollisionLayer = (
+            1 << LayerMask.NameToLayer("Ignore Raycast")
+        );
+
+        ignoreAlienCollisionLayer = ~(ignoreAlienCollisionLayer | DefaultCollisionLayer);
     }
 
     // Update is called once per frame
@@ -37,6 +43,7 @@ public class Interactor : MonoBehaviour
             //Ray ray = mainCam.ScreenPointToRay(new Vector3(Screen.width/2f, Screen.height/2f, 0f));
             Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
             RaycastHit hit;
+            //Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 5, Color.green);
 
 
 
