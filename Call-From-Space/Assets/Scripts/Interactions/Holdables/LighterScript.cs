@@ -11,6 +11,12 @@ public class LighterScript : Holdable
 
     public Transform lightBase;
 
+    public AudioClip LighterOpenSound;
+    public AudioClip LighterCloseSound;
+
+    public AudioSource audioSource;
+    public AudioSource FlameAudio;
+
 
     override protected void Awake()
     {
@@ -36,10 +42,31 @@ public class LighterScript : Holdable
             {
                 animation.SetTrigger(isOpen ? "Closed" : "Open");
                 isOpen = !isOpen;
-                Fire.SetActive(isOpen);
+                //Fire.SetActive(isOpen);
+
+                if(isOpen)
+                {
+                    audioSource.PlayOneShot(LighterOpenSound);
+                    StartCoroutine(FlameOn());
+                }
+                else
+                {
+                    FlameAudio.enabled = false;
+                    Fire.SetActive(false);
+                    audioSource.PlayOneShot(LighterCloseSound);
+                }
             }
         }
 
+    }
+
+
+    IEnumerator FlameOn()
+    {
+        yield return new WaitForSeconds(1f);
+        FlameAudio.enabled = true;
+        Fire.SetActive(true);
+        
     }
 
 
