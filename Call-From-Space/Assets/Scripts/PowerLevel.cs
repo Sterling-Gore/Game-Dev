@@ -14,6 +14,7 @@ public class PowerLevel : Loadable
         public GameObject[] lights;
         public GameObject[] cameras;
         public GameObject[] doors;
+        public GameObject[] lightCones;
         public int requiredPowerLevel;
     }
 
@@ -30,6 +31,7 @@ public class PowerLevel : Loadable
     private int activeGenerators = 0;
     private Dictionary<GameObject, bool> originalCameraStates = new Dictionary<GameObject, bool>();
     private Dictionary<GameObject, bool> originalLightStates = new Dictionary<GameObject, bool>();
+    private Dictionary<GameObject, bool> originalLightConeStates = new Dictionary<GameObject, bool>();
     private Dictionary<GameObject, bool> originalColliderStates = new Dictionary<GameObject, bool>();
 
     public GameObject alienSystem;
@@ -85,6 +87,15 @@ public class PowerLevel : Loadable
                         originalColliderStates[door] = doorCollider.enabled;
                         doorCollider.enabled = false;
                     }
+                }
+            }
+
+            foreach (GameObject lightCone in zone.lightCones)
+            {
+                if (lightCone != null)
+                {
+                    originalLightConeStates[lightCone] = lightCone.activeSelf;
+                    lightCone.SetActive(false);
                 }
             }
         }
@@ -163,6 +174,15 @@ public class PowerLevel : Loadable
                 {
                     bool originalState = originalLightStates[light];
                     light.SetActive(shouldBeActive && originalState);
+                }
+            }
+
+            foreach (GameObject lightCone in zone.lightCones)
+            {
+                if (lightCone != null)
+                {
+                    bool originalState = originalLightConeStates[lightCone];
+                    lightCone.SetActive(shouldBeActive && originalState);
                 }
             }
 

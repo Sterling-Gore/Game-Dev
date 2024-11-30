@@ -34,12 +34,6 @@ public class FuelDeposit : Interactable
             //genRepeatingAudio.enabled = true;
             //lights.SetActive(true);
             //PowerLevel powerLevel = FindObjectOfType<PowerLevel>();
-            if (powerLevel != null)
-            {
-                Debug.Log("Fuel cell deposited");
-                powerLevel.GeneratorActivated();
-                SoundSourcesController.instance.CreateNewSoundSource(transform.position, soundRadius);
-            }
             switch (gen.generatorType)
             {
                 case GenScreenInteraction.Generator.A:
@@ -63,9 +57,17 @@ public class FuelDeposit : Interactable
 
     IEnumerator waiter()
     {
-        yield return new WaitForSeconds(6);
-        genRepeatingAudio.enabled = true;
+        yield return new WaitForSeconds(2.5f);
         particles.SetActive(true);
+        if (powerLevel != null)
+            {
+                Debug.Log("Fuel cell deposited");
+                powerLevel.GeneratorActivated();
+                SoundSourcesController.instance.CreateNewSoundSource(transform.position, soundRadius);
+            }
+        yield return new WaitForSeconds(3);
+        genRepeatingAudio.enabled = true;
+        
     }
 
     public override string GetDescription()

@@ -71,8 +71,8 @@ public class PlayerController : Loadable
     public GameObject heartbeat;
     AudioSource heartbeatAudioSource;
     public Transform alienTransform;
-    public float maxHeartbeatDistance = 50f;
-    public float minHeartbeatDistance = 5f;
+    public float maxHeartbeatDistance = 1f;
+    public float minHeartbeatDistance = 0.5f;
     public float maxHeartbeatPitch = 2f;
     public float minHeartbeatPitch = 0.5f;
 
