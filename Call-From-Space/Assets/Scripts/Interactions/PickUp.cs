@@ -10,6 +10,9 @@ public class PickUp : Interactable
     PlayerController pc;
     public GameObject JournalPlayer;
     public GameObject ItemGlow;
+    public AudioClip PickUpSound;
+
+    public AudioSource audioSource;
 
 
 
@@ -37,7 +40,7 @@ public class PickUp : Interactable
     public override void Interact()
     {
         //inventory.AddItem(item);
-
+        audioSource.PlayOneShot(PickUpSound);
         ItemGlow.SetActive(false);
         switch (item.itemName)
         {
