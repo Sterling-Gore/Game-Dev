@@ -10,6 +10,8 @@ public class GoopedDoor : Interactable
     public GameObject player;
     public LighterScript Lighter;
     public GameObject Sparkle;
+
+    public AudioSource audioSource;
     ParticleSystem flame;
     //GameObject mesh;
     Collider collider;
@@ -59,6 +61,7 @@ public class GoopedDoor : Interactable
     IEnumerator FadeOut()
     {
         flame.Play();
+        audioSource.Play();
         while (meshRenderer.materials[0].color.a > 0f)
         {
             Color currentColor = meshRenderer.materials[0].color;
