@@ -12,15 +12,12 @@ public class FuelDeposit : Interactable
     public Vector3 position;
     public GameObject particles;
     public GenScreenInteraction gen;
-    AudioSource genPowerAudio;
+    public AudioSource genPowerAudio;
+    public AudioSource genRepeatingAudio;
     public GameObject Sparkle;
 
 
 
-    void Start()
-    {
-        genPowerAudio = GetComponent<AudioSource>();
-    }
 
 
     void OnTriggerEnter(Collider other)
@@ -33,8 +30,8 @@ public class FuelDeposit : Interactable
             FuelCell.transform.position = position;
             FuelCell.transform.rotation = Quaternion.Euler(rotation.x, rotation.y, rotation.z);
             FuelCell.GetComponent<FuelCellHoldable>().StopGlowEffect();
-            //particles.SetActive(true);
             genPowerAudio.enabled = true;
+            //genRepeatingAudio.enabled = true;
             //lights.SetActive(true);
             //PowerLevel powerLevel = FindObjectOfType<PowerLevel>();
             if (powerLevel != null)
@@ -60,7 +57,15 @@ public class FuelDeposit : Interactable
             gameObject.GetComponent<Collider>().enabled = false;
 
             Sparkle.SetActive(false);
+            StartCoroutine(waiter());
         }
+    }
+
+    IEnumerator waiter()
+    {
+        yield return new WaitForSeconds(4);
+        genRepeatingAudio.enabled = true;
+        particles.SetActive(true);
     }
 
     public override string GetDescription()
