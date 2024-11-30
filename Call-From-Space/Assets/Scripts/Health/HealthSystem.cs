@@ -15,6 +15,8 @@ public class HealthSystem : Loadable
     public RectTransform healthBarRectTransform; // Assign this in the Inspector
 
     public AudioSource[] playerTakeDamageSounds;
+    public CameraShakeGeneral cameraShake;
+
 
     private void OnEnable()
     {
@@ -49,6 +51,15 @@ public class HealthSystem : Loadable
         int randomIndex = Random.Range(0, playerTakeDamageSounds.Length);
         AudioSource playerHurtSound = playerTakeDamageSounds[randomIndex];
         playerHurtSound.Play();
+
+         CameraShakeGeneral cameraShake = FindObjectOfType<CameraShakeGeneral>();
+        if (cameraShake != null)
+        {
+            Debug.Log("Shaking");
+        float randomDuration = Random.Range(0.35f, 0.75f); 
+        float randomMagnitude = Random.Range(0.25f, 0.6f);
+        cameraShake.StartShake(randomDuration, randomMagnitude);
+        }
     }
 
     private void Update()
