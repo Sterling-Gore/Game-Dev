@@ -63,7 +63,7 @@ public class FuelDeposit : Interactable
 
     IEnumerator waiter()
     {
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(6);
         genRepeatingAudio.enabled = true;
         particles.SetActive(true);
     }
