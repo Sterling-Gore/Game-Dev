@@ -134,7 +134,7 @@ public class PlayerController : Loadable
                     {
                         // Walking
                         oxygenSystem.DecreaseOxygen(walkingOxygenCost);
-                        // SoundSourcesController.instance.CreateNewSoundSource(transform.position, walkingSoundRadius);
+                        SoundSourcesController.instance.CreateNewSoundSource(transform.position, walkingSoundRadius);
                     }
                 }
                 else
