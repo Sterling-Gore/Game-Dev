@@ -11,6 +11,12 @@ public class LaserReflectorDeposit : Interactable
     public GameObject Player;
     public GameObject Sparkle;
 
+    public AudioClip InsertSound;
+
+    public AudioSource audioSource;
+
+
+
     public override string GetDescription()
     {
         Player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().LaserPuzzle(2);
@@ -33,6 +39,7 @@ public class LaserReflectorDeposit : Interactable
             Reflector1.SetActive(false);
             PlugedInReflector.SetActive(true);
             gameObject.SetActive(false);
+            audioSource.PlayOneShot(InsertSound);
         }
         else if (Player.GetComponent<PlayerController>().inventory.IsItemInList(Reflector2.GetComponent<Item>()))
         {
@@ -41,6 +48,7 @@ public class LaserReflectorDeposit : Interactable
             Reflector2.SetActive(false);
             PlugedInReflector.SetActive(true);
             gameObject.SetActive(false);
+            audioSource.PlayOneShot(InsertSound);
         }
 
         if(!Player.GetComponent<PlayerController>().inventory.IsItemInList(Reflector1.GetComponent<Item>()) && !Player.GetComponent<PlayerController>().inventory.IsItemInList(Reflector2.GetComponent<Item>()) && !Reflector1.activeSelf && !Reflector2.activeSelf)

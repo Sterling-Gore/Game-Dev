@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class FuelCellHoldable : Holdable
 {
-
-
+    public AudioSource audioSource;
 
     void Update()
     {
@@ -18,6 +17,7 @@ public class FuelCellHoldable : Holdable
             {
                 StopClipping();
                 DropObject();
+                audioSource.Play();
             }
         }
     }

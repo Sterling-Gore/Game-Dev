@@ -8,6 +8,10 @@ public class ReflectorRotater : Interactable
     int animationSequence;
     public bool PuzzleIsCompleted;
 
+
+    public AudioSource audioSource;
+    public AudioClip[] ReflectorSounds;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +33,9 @@ public class ReflectorRotater : Interactable
     {
         if (!PuzzleIsCompleted)
             changeAnimation();
+            AudioClip randomClip = ReflectorSounds[Random.Range(0, ReflectorSounds.Length)];
+            audioSource.clip = randomClip;
+            audioSource.Play();
     }
 
     void changeAnimation()

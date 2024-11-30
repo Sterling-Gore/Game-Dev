@@ -11,6 +11,8 @@ public class DrawerInteraction : Interactable
     public GameObject Key;
     bool unlocked = false;
 
+    public AudioSource audioSource;
+
     public GameObject Sparkle;
     void Start()
     {
@@ -44,6 +46,7 @@ public class DrawerInteraction : Interactable
             Sparkle.SetActive(false);
             unlocked = true;
             animation.SetBool("Opened", true);
+            audioSource.enabled = true;
             Player.GetComponent<PlayerController>().inventory.DeleteItem(Key.GetComponent<Item>());
             Player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(3);
         }

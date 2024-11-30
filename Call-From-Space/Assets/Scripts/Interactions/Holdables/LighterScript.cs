@@ -64,8 +64,8 @@ public class LighterScript : Holdable
     IEnumerator FlameOn()
     {
         yield return new WaitForSeconds(1f);
-        FlameAudio.enabled = true;
-        Fire.SetActive(true);
+        FlameAudio.enabled = isOpen;
+        Fire.SetActive(isOpen);
         
     }
 
