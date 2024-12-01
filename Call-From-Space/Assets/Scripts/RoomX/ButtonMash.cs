@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ButtonMash : Interactable
 {
@@ -12,7 +13,20 @@ public class ButtonMash : Interactable
     bool PuzzleCompleted = false;
     public GameObject PuzzleUI;
     public GameObject player;
-    public bool breakTheRoutine = false;
+    public MeshRenderer VineMeshRenderer;
+    public Collider VineCollider;
+    bool breakTheRoutine = false;
+
+    public Sprite[] keySprites;
+    public string[] Keycodes;
+    //Key order
+    //0 : v
+    //1 : k
+    //2 : l
+    //3 : g
+    //4 : t
+    //5 : u
+    //6 : m
 
     public GameObject ButtonMashImage;
 
@@ -27,7 +41,7 @@ public class ButtonMash : Interactable
     public override string GetDescription()
     {
         if(!PuzzleCompleted)
-            return ("Override Electrical Pannel");
+            return ("Press [E] to Override Electrical Pannel");
         else
             return ("");
     }
@@ -60,17 +74,27 @@ public class ButtonMash : Interactable
 
             waitingForKey = true;
             float timer = 0f;
+
+            int randnum = Random.Range(0,keySprites.Length);
             ButtonMashImage.SetActive(true);
+            ButtonMashImage.transform.GetComponent<Image>().sprite = keySprites[randnum]; 
             ButtonMashImage.GetComponent<RectTransform>().anchoredPosition = new Vector2(Random.Range(-450,450), Random.Range(-200,150));
 
             // Wait for the correct key or timeout
             while (timer < timeLimit)
             {
-                if (Input.GetKeyDown(KeyCode.V))
+                if (Input.GetKeyDown(Keycodes[randnum]))
                 {
                     Debug.Log("Success! You pressed the correct key: ");
                     count += 1;
                     waitingForKey = false;
+                    break;
+                }
+                else if(Input.anyKeyDown)
+                {
+                    Debug.Log("Fail! You pressed the wrong key: ");
+                    waitingForKey = false;
+                    count = 0;
                     break;
                 }
 
@@ -85,7 +109,6 @@ public class ButtonMash : Interactable
             {
                 Debug.Log("Time's up! You failed to press the correct key.");
                 count = 0;
-                waitingForKey = false;
             }
 
             ButtonMashImage.SetActive(false);
@@ -93,8 +116,26 @@ public class ButtonMash : Interactable
             {
                 flag = false;
                 PuzzleCompleted = true;
+                StartCoroutine(FadeOut());
                 player.GetComponent<PlayerController>().ESCAPE();
             }
         }
+    }
+
+
+    IEnumerator FadeOut()
+    {
+        //flame.Play();
+        //audioSource.Play();
+        while (VineMeshRenderer.materials[0].color.a > 0f)
+        {
+            Color currentColor = VineMeshRenderer.materials[0].color;
+            currentColor.a -= .5f * Time.deltaTime;
+            VineMeshRenderer.materials[0].color = currentColor;
+            yield return null;
+        }
+        //flame.Stop();
+        VineCollider.enabled = false;
+        VineMeshRenderer.enabled = false;
     }
 }
