@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class ButtonMash : Interactable
 {
+    public float timeLimit = 5f; // Time in seconds for the player to respond
+    //private KeyCode randomKey;
+    private bool waitingForKey = false; 
+
+    public GameObject ButtonMashImage;
+
     public override string GetDescription()
     {
         return ("Start Button Mash");
@@ -17,20 +23,39 @@ public class ButtonMash : Interactable
 
     IEnumerator StartButtonMash()
     {
-        bool flag = true;
-        while(flag)
+        while (true)
         {
-            Debug.Log("MEOW");
-            yield return new WaitForSeconds(1f);
-            //while(!Input.GetKeyDown(KeyCode.V))
-            //{
-                yield return null;
-                if(Input.GetKeyDown(KeyCode.V)){
-                        //stuff to happen on input
+            // Generate a random key
+            //randomKey = GetRandomKey();
+            //Debug.Log("Press the key: " + randomKey);
+
+            waitingForKey = true;
+            float timer = 0f;
+            ButtonMashImage.SetActive(true);
+
+            // Wait for the correct key or timeout
+            while (timer < timeLimit)
+            {
+                if (Input.GetKeyDown(KeyCode.V))
+                {
+                    Debug.Log("Success! You pressed the correct key: ");
+                    waitingForKey = false;
+                    //yield return new WaitForSeconds(1f); // Short delay before next round
+                    break;
                 }
-                //Debug.Log("Yipee");
-                flag = false;
-            //}
+
+                timer += Time.deltaTime;
+                yield return null;
+            }
+
+            if (waitingForKey)
+            {
+                Debug.Log("Time's up! You failed to press the correct key.");
+                waitingForKey = false;
+            }
+
+            ButtonMashImage.SetActive(false);
+            yield return new WaitForSeconds(1f); // Short delay before next round
         }
     }
 }
