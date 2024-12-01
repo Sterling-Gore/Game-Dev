@@ -17,8 +17,8 @@ public class OxygenSystem : Loadable
 
     [Header("Health Damage")]
     public HealthSystem healthSystem;
-    public float damageAmount = 0.1f;
-    public float damageCooldown = 1f;
+    public float damageAmount = 5f;
+    public float damageCooldown = 2.5f;
     float timeOfDamage = 0;
 
     void Start()
