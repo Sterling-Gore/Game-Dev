@@ -54,8 +54,9 @@ public class AlienController : Loadable
     public List<AudioClip> walkingClips = new();
     public List<AudioClip> idleClips = new(), attackClips = new();
 
+
+    HealthSystem playerHealthSystem;
     [Header("Attack")]
-    public HealthSystem playerHealthSystem;
     public float damageAmount = 0.1f;
     public float attackCooldown = 1f;
     private float lastAttackTime = 0;
@@ -63,6 +64,8 @@ public class AlienController : Loadable
     public static List<AlienController> aliens = new();
 
     static int ignoreAlienLayer, groundLayer;
+
+    bool isAwareOfPlayer = false;
 
     void Start()
     {
@@ -97,6 +100,9 @@ public class AlienController : Loadable
 
     void Update()
     {
+        if (!isAwareOfPlayer)
+            return;
+
         soundSource.transform.position = curTarget.pos;
 
         KeepUpright();
@@ -123,10 +129,11 @@ public class AlienController : Loadable
         Debug.DrawRay(transform.position + Vector3.up, player.transform.position - transform.position + Vector3.up);
     }
 
-    void OnDestroy()
+    override protected void OnDestroy()
     {
         pathFinder.Dispose();
         pathGraph.Dispose();
+        base.OnDestroy();
     }
 
     void KeepUpright()
@@ -198,6 +205,7 @@ public class AlienController : Loadable
     {
         if (powerLevel != curPowerLevel)
         {
+            isAwareOfPlayer = powerLevel > 0;
             curSections = new(3);
             switch (powerLevel)
             {

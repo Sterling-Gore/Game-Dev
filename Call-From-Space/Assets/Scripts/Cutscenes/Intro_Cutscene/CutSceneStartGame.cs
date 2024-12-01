@@ -1,9 +1,4 @@
-using System.Collections;
-
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.SceneManagement;
 public class CutSceneStartGame : MonoBehaviour
 {
@@ -17,8 +12,9 @@ public class CutSceneStartGame : MonoBehaviour
     public void LoadShipScene()
     {
         SceneManager.LoadScene("Ship", LoadSceneMode.Single);
+        Time.timeScale = 1;
     }
 
-    
+
 
 }

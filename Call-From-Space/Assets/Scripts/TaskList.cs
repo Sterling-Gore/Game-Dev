@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
-public class TaskList : MonoBehaviour
+public class TaskList : Loadable
 {
 
     int GenPuzzle1State = 0;
@@ -14,10 +15,10 @@ public class TaskList : MonoBehaviour
     {
         public string text;
         public bool isLargeText;
-        public TaskData(string _text, bool _isLargeText)
+        public TaskData(string text, bool isLargeText)
         {
-            text = _text;
-            isLargeText = _isLargeText;
+            this.text = text;
+            this.isLargeText = isLargeText;
         }
     }
 
@@ -35,22 +36,22 @@ public class TaskList : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void AddTask(string _text, bool _isLargeText)
+    public void AddTask(string text, bool isLargeText)
     {
-        TaskData task = new TaskData(_text, _isLargeText);
+        TaskData task = new TaskData(text, isLargeText);
         tasks.Add(task);
-        if(TaskContainer.activeSelf)
+        if (TaskContainer.activeSelf)
             refresh();
     }
 
-    public void DeleteTask(string _text)
+    public void DeleteTask(string text)
     {
         for (int i = 0; i < tasks.Count; i++)
         {
-            if (tasks[i].text == _text)
+            if (tasks[i].text == text)
             {
                 tasks.RemoveAt(i);
-                if(TaskContainer.activeSelf)
+                if (TaskContainer.activeSelf)
                     refresh();
                 return;
             }
@@ -60,7 +61,7 @@ public class TaskList : MonoBehaviour
 
     public void refresh()
     {
-        foreach( Transform child in TaskContainer.transform)
+        foreach (Transform child in TaskContainer.transform)
         {
             if (child == TaskTemplate.transform) continue;
             Destroy(child.gameObject);
@@ -74,12 +75,12 @@ public class TaskList : MonoBehaviour
             //Debug.Log(task);
             RectTransform TaskRectTransform = Instantiate(TaskTemplate.transform, TaskContainer.transform).GetComponent<RectTransform>();
             TaskRectTransform.gameObject.SetActive(true);
-            Vector2 additionalPosition = new Vector2(0, ypos*distance);
+            Vector2 additionalPosition = new Vector2(0, ypos * distance);
             TaskRectTransform.anchoredPosition = additionalPosition;
             TaskRectTransform.Find("TaskText").GetComponent<TMPro.TextMeshProUGUI>().text = task.text;
             ypos -= 1;
 
-            if(task.isLargeText)
+            if (task.isLargeText)
                 distance = 60f;
             else
                 distance = 45f;
@@ -249,7 +250,7 @@ public class TaskList : MonoBehaviour
                     DeleteTask("Recharge The Fuel Cell");
                     AddTask("Grab The Charged Fuel Cell", false);
 
-                    
+
                     break;
                 default:
                     break;
@@ -259,6 +260,23 @@ public class TaskList : MonoBehaviour
         }
     }
 
+    public override void Load(JObject state)
+    {
+        var me = state[fullName];
+        GenPuzzle1State = (int)me["GenPuzzle1State"];
+        GenPuzzle2State = (int)me["GenPuzzle2State"];
+        GenPuzzle3State = (int)me["GenPuzzle3State"];
+        LaserPuzzleState = (int)me["LaserPuzzleState"];
+    }
 
-    
+    public override void Save(ref JObject state)
+    {
+        state[fullName] = new JObject()
+        {
+            ["GenPuzzle1State"] = GenPuzzle1State,
+            ["GenPuzzle2State"] = GenPuzzle2State,
+            ["GenPuzzle3State"] = GenPuzzle3State,
+            ["LaserPuzzleState"] = LaserPuzzleState
+        };
+    }
 }

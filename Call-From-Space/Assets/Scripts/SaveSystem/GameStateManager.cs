@@ -1,4 +1,6 @@
+using System;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 
@@ -26,18 +28,35 @@ class GameStateManager
         }
         catch
         {
+            Debug.Log("starting new game");
             NewGame();
         }
-        Loadable.loadables.ForEach(loadable =>
+        foreach (Loadable loadable in Loadable.loadables)
         {
-            Debug.Log(loadable.fullName);
-            loadable.Load(state);
-        });
+            try
+            {
+                loadable.Load(state);
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"error loading {loadable.fullName}: {e}");
+            }
+        };
     }
 
     public void SaveGame(string saveFile)
     {
-        Loadable.loadables.ForEach(loadable => loadable.Save(ref state));
+        foreach (Loadable loadable in Loadable.loadables)
+        {
+            try
+            {
+                loadable.Save(ref state);
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"error saving {loadable.fullName}: {e}");
+            }
+        };
         File.WriteAllText(saveFile, state.ToString());
     }
 

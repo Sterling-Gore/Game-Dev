@@ -1,6 +1,6 @@
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class Loadable : MonoBehaviour
@@ -18,16 +18,16 @@ public abstract class Loadable : MonoBehaviour
     }
 
     /// <summary>
-    /// when overriding make sure to call base.Destroy();
+    /// when overriding make sure to call base.OnDestroy();
     /// and make sure to save the state
     /// </summary>
-    protected virtual void Destroy()
+    protected virtual void OnDestroy()
     {
         loadables.Remove(this);
     }
 
     public abstract void Save(ref JObject state);
-    public abstract void Load(JObject state);
+    public virtual void Load(JObject state) { throw new NotImplementedException(); }
 
     public JObject VectorToJson(Vector3 vec) => new()
     {

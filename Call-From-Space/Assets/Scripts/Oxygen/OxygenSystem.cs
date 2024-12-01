@@ -11,7 +11,15 @@ public class OxygenSystem : Loadable
     public float refillSpeed = 10f;
     public ParticleSystem breathEffect; // Reference to the particle system
 
+
     public bool LosingOxygen;
+
+
+    [Header("Health Damage")]
+    public HealthSystem healthSystem;
+    public float damageAmount = 0.1f;
+    public float damageCooldown = 1f;
+    float timeOfDamage = 0;
 
     void Start()
     {
@@ -41,6 +49,11 @@ public class OxygenSystem : Loadable
             {
                 emission.rateOverTime = 0; // No emission when oxygen level is above the threshold
             }
+        }
+        if (oxygenLevel == 0 && Time.time - timeOfDamage > damageCooldown)
+        {
+            healthSystem.TakeDamage(damageAmount);
+            timeOfDamage = Time.time;
         }
     }
 

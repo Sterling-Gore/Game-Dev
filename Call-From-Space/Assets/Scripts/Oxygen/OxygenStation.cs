@@ -20,7 +20,7 @@ namespace GameDev.Scripts.Oxygen
         bool haveAccessedYet;
 
         public GameObject Sparkle;
- 
+
         void Start()
         {
             RefillAudioIsReadyToPlay = true;
@@ -29,7 +29,7 @@ namespace GameDev.Scripts.Oxygen
 
         void Update()
         {
-            if(Input.GetKeyUp(KeyCode.E))
+            if (Input.GetKeyUp(KeyCode.E))
             {
                 oxygenRadial.SetActive(false);
                 refillAudio.enabled = false;
@@ -44,12 +44,12 @@ namespace GameDev.Scripts.Oxygen
         public override void Interact()
         {
 
-            if(!haveAccessedYet)
+            if (!haveAccessedYet)
             {
                 player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().DeleteTask("Find An Oxygen Station");
                 Sparkle.SetActive(false);
             }
-            Debug.Log("Starting to refill oxygen...");
+            // Debug.Log("Starting to refill oxygen...");
             // OxygenSystem oxygenSystem = gameObject.GetComponent<OxygenSystem>(); // Get the OxygenSystem component
             if (oxygenSystem != null)
             {
@@ -59,7 +59,7 @@ namespace GameDev.Scripts.Oxygen
                     refillAudio.enabled = true;
                 }
                 oxygenSystem.IncreaseOxygen(); // Call the RefillOxygen method
-                if(oxygenSystem.oxygenLevel == 100f && previousO2 < 100f)
+                if (oxygenSystem.oxygenLevel == 100f && previousO2 < 100f)
                 {
                     refillComplete.Play(0);
                     refillAudio.enabled = false;
