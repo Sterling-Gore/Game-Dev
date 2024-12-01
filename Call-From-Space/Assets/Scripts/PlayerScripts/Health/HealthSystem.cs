@@ -73,6 +73,7 @@ public class HealthSystem : Loadable
     {
         healthLevel -= damageAmount;
         healthLevel = Mathf.Clamp(healthLevel, 0, 100f); // Ensure health level stays within bounds
+        Debug.Log("DAMAGED: " + damageAmount);
 
         int randomIndex = Random.Range(0, playerTakeDamageSounds.Length);
         AudioSource playerHurtSound = playerTakeDamageSounds[randomIndex];
@@ -82,7 +83,11 @@ public class HealthSystem : Loadable
         {
             Debug.Log("Shaking");
             float randomDuration = Random.Range(0.35f, 0.75f);
-            float randomMagnitude = Random.Range(0.25f, 0.6f);
+            float randomMagnitude = Random.Range(0.50f, 0.75f);
+            if(damageAmount == 10.0f){
+                randomDuration = Random.Range(0.15f, 0.25f);
+                randomMagnitude = Random.Range(0.05f, 0.1f);
+            }
             cameraShake.StartShake(randomDuration, randomMagnitude);
         }
 
