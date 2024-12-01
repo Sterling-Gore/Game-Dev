@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 public class ReflectorRotater : Interactable
@@ -33,14 +34,14 @@ public class ReflectorRotater : Interactable
     {
         if (!PuzzleIsCompleted)
             changeAnimation();
-            AudioClip randomClip = ReflectorSounds[Random.Range(0, ReflectorSounds.Length)];
-            audioSource.clip = randomClip;
-            audioSource.Play();
+        AudioClip randomClip = ReflectorSounds[Random.Range(0, ReflectorSounds.Length)];
+        audioSource.clip = randomClip;
+        audioSource.Play();
     }
 
     void changeAnimation()
     {
-        switch(animationSequence)
+        switch (animationSequence)
         {
             case 0:
                 animation.SetTrigger("NorthWest");
@@ -72,5 +73,14 @@ public class ReflectorRotater : Interactable
         //{
         //    animationSequence = 0;
         //}
+    }
+
+    public override void Load(JObject state)
+    {
+        if (state.ContainsKey(fullName))
+            /* stringbean<3 */
+            base.Load(state);
+        else
+            gameObject.SetActive(false);
     }
 }
