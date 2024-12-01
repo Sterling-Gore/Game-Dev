@@ -85,7 +85,7 @@ public class HealthSystem : Loadable
             float randomDuration = Random.Range(0.35f, 0.75f);
             float randomMagnitude = Random.Range(0.50f, 0.75f);
             if(damageAmount == 10.0f){
-                randomDuration = Random.Range(0.15f, 0.25f);
+                randomDuration = Random.Range(0.25f, 0.45f);
                 randomMagnitude = Random.Range(0.05f, 0.1f);
             }
             cameraShake.StartShake(randomDuration, randomMagnitude);
