@@ -16,6 +16,8 @@ public class HealthSystem : Loadable
 
     public AudioSource[] playerTakeDamageSounds;
     public CameraShakeGeneral cameraShake;
+    public VHSPostProcessEffectCamera  cameraVHS;
+    public int randomIndex;
 
 
     private void OnEnable()
@@ -51,8 +53,6 @@ public class HealthSystem : Loadable
         int randomIndex = Random.Range(0, playerTakeDamageSounds.Length);
         AudioSource playerHurtSound = playerTakeDamageSounds[randomIndex];
         playerHurtSound.Play();
-
-         CameraShakeGeneral cameraShake = FindObjectOfType<CameraShakeGeneral>();
         if (cameraShake != null)
         {
             Debug.Log("Shaking");
@@ -60,7 +60,22 @@ public class HealthSystem : Loadable
         float randomMagnitude = Random.Range(0.25f, 0.6f);
         cameraShake.StartShake(randomDuration, randomMagnitude);
         }
+
+        if (cameraVHS != null)
+        {
+            cameraVHS.enabled = true;
+        StartCoroutine(DisableScriptAfterDelay(cameraVHS, 1f)); // Enable VHS effect and disable it after 3 seconds
+        }
     }
+
+    private IEnumerator DisableScriptAfterDelay(MonoBehaviour script, float delay)
+{
+    yield return new WaitForSeconds(delay);
+    if (script != null)
+    {
+        script.enabled = false; // Disable the script
+    }
+}
 
     private void Update()
     {
