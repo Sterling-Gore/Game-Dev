@@ -34,7 +34,7 @@ public class PickUp : Interactable
     public override string GetDescription()
     {
 
-        return (item.itemName);
+        return ("Press [E] to pick up " + item.itemName);
     }
 
     public override void Interact()
