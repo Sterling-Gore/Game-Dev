@@ -45,7 +45,7 @@ public abstract class Holdable : Interactable
 
     public override string GetDescription()
     {
-        return (objName);
+        return ("Press [E] to hold the " + objName);
     }
 
     public override void Interact()

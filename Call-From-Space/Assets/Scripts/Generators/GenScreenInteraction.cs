@@ -19,7 +19,7 @@ public class GenScreenInteraction : Interactable
     public override string GetDescription()
     {
         
-        return ("Generator Screen");
+        return ("Press [E] to interact with the Generator Screen");
     }
 
     public override void Interact()

@@ -35,7 +35,7 @@ public class GoopedDoor : Interactable
         {
             if (Lighter.isOpen)
             {
-                return "<color=red>Burn</color=read> the foreign material";
+                return "Press [E] to <color=red>Burn</color=read> the foreign material";
             }
             else
             {

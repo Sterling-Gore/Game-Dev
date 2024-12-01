@@ -22,7 +22,7 @@ public class LaserReflectorDeposit : Interactable
         Player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().LaserPuzzle(2);
         if (Player.GetComponent<PlayerController>().inventory.IsItemInList(Reflector1.GetComponent<Item>()) || Player.GetComponent<PlayerController>().inventory.IsItemInList(Reflector2.GetComponent<Item>()))
         {
-            return "Plug In Reflector";
+            return "Press [E] to Plug In Reflector";
         }
         else
         {
