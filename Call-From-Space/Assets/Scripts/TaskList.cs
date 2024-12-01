@@ -201,7 +201,7 @@ public class TaskList : MonoBehaviour
             switch (state)
             {
                 case 1: //activate the genC screen
-                    AddTask("Solve The Puzzle For The Generator", true);
+                    AddTask("Search the room to find a clue for the puzzle", true);
                     DeleteTask("Find The Last Power Generator");
                     break;
                 case 2:  //solve the genC puzzle

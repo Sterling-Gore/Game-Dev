@@ -25,7 +25,7 @@ public class DrawerInteraction : Interactable
         {
             if (Player.GetComponent<PlayerController>().inventory.IsItemInList(Key.GetComponent<Item>()))
             {
-                return "Unlock Drawer";
+                return "Press [E] to Unlock Drawer";
             }
             else
             {

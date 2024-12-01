@@ -27,7 +27,7 @@ public class ReflectorRotater : Interactable
         if (PuzzleIsCompleted)
             return "";
         else
-            return "Turn Reflector";
+            return "Press [E] to Turn Reflector";
     }
 
     public override void Interact()

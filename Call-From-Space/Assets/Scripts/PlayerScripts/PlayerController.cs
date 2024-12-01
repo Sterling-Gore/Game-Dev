@@ -58,10 +58,11 @@ public class PlayerController : Loadable
 
     public HealthSystem healthSystem;
 
-    [Header("Generator UI")]
+    [Header("Puzzle UI")]
     public GameObject Generator1_UI;
     public GameObject Generator2_UI;
     public GameObject Generator3_UI;
+    public GameObject Electrical_Pannel_UI;
 
     [Header("Sound System")]
     public float runningSoundRadius;
@@ -262,6 +263,7 @@ public class PlayerController : Loadable
             Generator1_UI.SetActive(false);
             Generator2_UI.SetActive(false);
             Generator3_UI.SetActive(false);
+            Electrical_Pannel_UI.SetActive(false);
             interactor.inUI = false;
 
         }
