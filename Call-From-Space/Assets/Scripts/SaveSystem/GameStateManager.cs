@@ -31,15 +31,16 @@ class GameStateManager
             Debug.Log("starting new game");
             NewGame();
         }
-        foreach (Loadable loadable in Loadable.loadables)
+        for (int i = 0; i < Loadable.loadables.Count; i++)
         {
             try
             {
-                loadable.Load(state);
+                Debug.Log(Loadable.loadables[i].fullName);
+                Loadable.loadables[i].Load(state);
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"error loading {loadable.fullName}: {e}");
+                Debug.LogWarning($"error loading {Loadable.loadables[i].fullName}: {e}");
             }
         };
     }

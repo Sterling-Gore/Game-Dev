@@ -71,7 +71,6 @@ public class PlayerController : Loadable
     [Header("Heartbeat Analyzer")]
     public GameObject heartbeat;
     AudioSource heartbeatAudioSource;
-    public Transform alienTransform;
     public float maxHeartbeatDistance = 1f;
     public float minHeartbeatDistance = 0.5f;
     public float maxHeartbeatPitch = 2f;
@@ -145,8 +144,15 @@ public class PlayerController : Loadable
                 }
             }
         }
-
-        PlayHeartbeatAudio();
+        var aliens = AlienController.aliens
+        .Where(alien => alien.isAwareOfPlayer)
+        .ToList();
+        aliens.Sort((alien1, alien2) => Vector3.Distance(
+            alien1.transform.position,
+            transform.position
+        ).CompareTo(Vector3.Distance(alien2.transform.position, transform.position)));
+        if (aliens.Count > 0)
+            PlayHeartbeatAudio(aliens[0]);
     }
 
     void MyInput()
@@ -311,13 +317,14 @@ public class PlayerController : Loadable
     public void Set_UI_Value(int val)
     {
         UI_Value = val;
-        if (UI_Value == 0){
+        if (UI_Value == 0)
+        {
             ToggleNonUIScreen(true);
         }
         else
             ToggleNonUIScreen(false);
         Debug.Log(UI_Value);
-        
+
     }
 
     void MovePlayer()
@@ -440,12 +447,12 @@ public class PlayerController : Loadable
         return null;
     }
 
-    void PlayHeartbeatAudio()
+    void PlayHeartbeatAudio(AlienController alien)
     {
         if (Time.timeScale > 0 && !heartbeatAudioSource.isPlaying)
             heartbeatAudioSource.Play();
 
-        float distance = Vector3.Distance(transform.position, alienTransform.position);
+        float distance = Vector3.Distance(transform.position, alien.transform.position);
         if (distance > maxHeartbeatDistance)
             heartbeatAudioSource.volume = 0;
         else

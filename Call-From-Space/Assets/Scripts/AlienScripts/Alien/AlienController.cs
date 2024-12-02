@@ -65,7 +65,7 @@ public class AlienController : Loadable
 
     static int ignoreAlienLayer, groundLayer;
 
-    bool isAwareOfPlayer = false;
+    public bool isAwareOfPlayer = false;
 
     void Start()
     {
@@ -131,6 +131,7 @@ public class AlienController : Loadable
 
     override protected void OnDestroy()
     {
+        aliens.Remove(this);
         pathFinder.Dispose();
         pathGraph.Dispose();
         base.OnDestroy();

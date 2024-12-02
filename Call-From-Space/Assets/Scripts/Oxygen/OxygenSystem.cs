@@ -60,10 +60,10 @@ public class OxygenSystem : Loadable
         }
 
 
-        
+
         LowOxygen.enabled = (oxygenLevel < 40f); //enabled when oxygen is less than 40
         CriticalOxygen.enabled = (oxygenLevel < 20f); //enabled when oxygen is less than 20
-        
+
 
 
     }
@@ -85,10 +85,15 @@ public class OxygenSystem : Loadable
     public override void Load(JObject state)
     {
         oxygenLevel = 100;
+        LosingOxygen = (bool)state[fullName]["isLosingOxygen"];
     }
 
     public override void Save(ref JObject state)
     {
-        state["oxygenLevel"] = oxygenLevel;
+        state[fullName] = new JObject()
+        {
+            ["oxygenLevel"] = oxygenLevel,
+            ["isLosingOxygen"] = LosingOxygen
+        };
     }
 }

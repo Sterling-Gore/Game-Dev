@@ -27,7 +27,7 @@ public abstract class Loadable : MonoBehaviour
     }
 
     public abstract void Save(ref JObject state);
-    public virtual void Load(JObject state) { throw new NotImplementedException(); }
+    public abstract void Load(JObject state);
 
     public JObject VectorToJson(Vector3 vec) => new()
     {
