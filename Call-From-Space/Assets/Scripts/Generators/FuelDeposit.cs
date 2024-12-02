@@ -72,7 +72,9 @@ public class FuelDeposit : Interactable
 
     public override string GetDescription()
     {
-        return "Deposit Fuel Cell";
+        if (player.GetComponent<Interactor>().holdingName == "Fuel Cell")
+            return "Press [E] to Deposit Fuel Cell";
+        return "Find Fuel Cell";
     }
 
     public override void Interact()
