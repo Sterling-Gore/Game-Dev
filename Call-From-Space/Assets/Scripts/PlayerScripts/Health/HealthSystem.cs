@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class HealthSystem : Loadable
 {
-    public float healthLevel = 100f;
+    public float maxHealth = 30f;
+    public float healthLevel = 30f;
     public Image healthBar;
     public float healSpeed = 5f; // Speed at which health regenerates
     private Coroutine healCoroutine;
@@ -17,29 +18,41 @@ public class HealthSystem : Loadable
     public VHSPostProcessEffectCamera cameraVHS;
     public int randomIndex;
 
+    bool HealthDelay;
+    float HealthDelayTimer = 0f;
+
     float startWidth;
     float healthBarStartX;
 
     void Start()
     {
+        HealthDelay = false;
         startWidth = healthBarRectTransform.sizeDelta.x;
         healthBarStartX = healthBar.rectTransform.position.x;
     }
 
     private void Update()
     {
-        var curWidth = healthLevel * startWidth / 100;
-        var pos = healthBar.rectTransform.position;
-        pos.x = healthBarStartX + ((startWidth - curWidth) / 4);
-        healthBar.rectTransform.position = pos;
-        healthBarRectTransform.sizeDelta = new Vector2(curWidth, healthBarRectTransform.sizeDelta.y);
+        //var curWidth = healthLevel * startWidth / 100;
+        //var pos = healthBar.rectTransform.position;
+        //pos.x = healthBarStartX + ((startWidth - curWidth) / 4);
+        //healthBar.rectTransform.position = pos;
+        //healthBarRectTransform.sizeDelta = new Vector2(curWidth, healthBarRectTransform.sizeDelta.y);
+        healthBar.fillAmount = healthLevel / maxHealth;
+
+        if(HealthDelayTimer > 0)
+        {
+            HealthDelayTimer -= Time.deltaTime;
+        }
+        else
+            HealthDelay = false;
 
         // Check if health level is zero
         if (healthLevel <= 0)
         {
             // Call animation here
             gameOverScreen.SetActive(true);
-            healthLevel = 100;
+            healthLevel = maxHealth;
         }
     }
 
@@ -60,10 +73,10 @@ public class HealthSystem : Loadable
     {
         while (true)
         {
-            if (healthLevel > 0 && healthLevel < 100f)
+            if (healthLevel > 0 && healthLevel < maxHealth && !HealthDelay)
             {
                 healthLevel += healSpeed * Time.deltaTime;
-                healthLevel = Mathf.Clamp(healthLevel, 0, 100f); // Ensure health level stays within bounds
+                healthLevel = Mathf.Clamp(healthLevel, 0, maxHealth); // Ensure health level stays within bounds
             }
             yield return null;
         }
@@ -71,8 +84,10 @@ public class HealthSystem : Loadable
 
     public void TakeDamage(float damageAmount)
     {
+        HealthDelay = true;
+        HealthDelayTimer = 2.5f;
         healthLevel -= damageAmount;
-        healthLevel = Mathf.Clamp(healthLevel, 0, 100f); // Ensure health level stays within bounds
+        healthLevel = Mathf.Clamp(healthLevel, 0, maxHealth); // Ensure health level stays within bounds
         Debug.Log("DAMAGED: " + damageAmount);
 
         int randomIndex = Random.Range(0, playerTakeDamageSounds.Length);
@@ -109,7 +124,7 @@ public class HealthSystem : Loadable
 
     public override void Load(JObject state)
     {
-        healthLevel = 100;
+        healthLevel = maxHealth;
     }
 
     public override void Save(ref JObject state)
