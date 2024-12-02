@@ -214,6 +214,8 @@ public class PlayerController : Loadable
         Set_UI_Value(1);
         interactor.inUI = true;
         Inventory_and_camera_UI.SetActive(true);
+        AudioManager.Instance.PlaySound("Menu-Open");
+        // Debug.Log("ADD SOUND INVENTORY ENTER INVENTORY HERE");
         if (isInventory)
         {
             Inventory_UI_Object.SetActive(true);
@@ -265,6 +267,8 @@ public class PlayerController : Loadable
             Generator3_UI.SetActive(false);
             Electrical_Pannel_UI.SetActive(false);
             interactor.inUI = false;
+            Debug.Log("ADD SOUND INVENTORY EXIT INVENTORY HERE");
+            AudioManager.Instance.PlaySound("Menu-Close");
 
         }
         // go to the escape menu
@@ -274,6 +278,8 @@ public class PlayerController : Loadable
             interactor.inUI = true;
             pauseMenuUI.SetActive(true);
             Time.timeScale = 0f;
+            Debug.Log("ADD ESCAPE MENU ENTER HERE");
+            AudioManager.Instance.PlaySound("Menu-Open");
         }
         //leaving the escape menu     if UI_Value == -1
         else if (UI_Value == -1)
@@ -282,6 +288,8 @@ public class PlayerController : Loadable
             interactor.inUI = false;
             pauseMenuUI.SetActive(false);
             Time.timeScale = 1f;
+            Debug.Log("ADD ESCAPE MENU LEAVE HERE");
+            AudioManager.Instance.PlaySound("Menu-Close");
         }
         // leaving controls menu -> pause menu
         else if (UI_Value == -2)
@@ -303,11 +311,13 @@ public class PlayerController : Loadable
     public void Set_UI_Value(int val)
     {
         UI_Value = val;
-        if (UI_Value == 0)
+        if (UI_Value == 0){
             ToggleNonUIScreen(true);
+        }
         else
             ToggleNonUIScreen(false);
         Debug.Log(UI_Value);
+        
     }
 
     void MovePlayer()

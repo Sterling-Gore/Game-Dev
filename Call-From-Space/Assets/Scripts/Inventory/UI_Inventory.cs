@@ -34,12 +34,17 @@ public class UI_Inventory : MonoBehaviour
 
     public void refresh()
     {
+        Debug.Log("refreshing");
         if(onItemScreen)
         {
+            Debug.Log("refreshing items: change audio here");
+            AudioManager.Instance.PlaySound("Menu-Open");
             RefreshInventoryItems();
         }
         else
         {
+            Debug.Log("refreshing journal: change audio here");
+            AudioManager.Instance.PlaySound("Menu-Open");
             RefreshInventoryJournals();
         }
     }
