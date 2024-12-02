@@ -131,6 +131,7 @@ public class AlienController : Loadable
 
     override protected void OnDestroy()
     {
+        aliens.Remove(this);
         pathFinder.Dispose();
         pathGraph.Dispose();
         base.OnDestroy();
