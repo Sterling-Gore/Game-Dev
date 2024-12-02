@@ -34,6 +34,7 @@ public class UI_Inventory : MonoBehaviour
 
     public void refresh()
     {
+        Debug.Log("refreshing");
         if(onItemScreen)
         {
             RefreshInventoryItems();
