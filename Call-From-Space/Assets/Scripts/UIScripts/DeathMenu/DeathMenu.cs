@@ -16,8 +16,6 @@ public class DeathMenu : MonoBehaviour
 
     void OnDisable()
     {
-        interactor.inUI = false;
-
         Time.timeScale = 1f;
     }
 
@@ -25,6 +23,7 @@ public class DeathMenu : MonoBehaviour
     {
         GameStateManager.instance.LoadGame(GameStateManager.checkPointFilePath);
         gameObject.SetActive(false);
+        interactor.inUI = false;
     }
 
     public void ExitGame()

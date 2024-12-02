@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 public class LighterScript : Holdable
@@ -44,7 +45,7 @@ public class LighterScript : Holdable
                 isOpen = !isOpen;
                 //Fire.SetActive(isOpen);
 
-                if(isOpen)
+                if (isOpen)
                 {
                     audioSource.PlayOneShot(LighterOpenSound);
                     StartCoroutine(FlameOn());
@@ -66,9 +67,14 @@ public class LighterScript : Holdable
         yield return new WaitForSeconds(1f);
         FlameAudio.enabled = isOpen;
         Fire.SetActive(isOpen);
-        
+
     }
 
-
-
+    public override void Load(JObject state)
+    {
+        isOpen = false;
+        Fire.SetActive(false);
+        animation.SetTrigger("Closed");
+        base.Load(state);
+    }
 }

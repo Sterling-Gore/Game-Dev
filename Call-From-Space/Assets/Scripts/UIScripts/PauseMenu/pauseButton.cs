@@ -35,7 +35,6 @@ public class PauseButtons : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void LeaveGame()
     {
-        GameStateManager.instance.state["saveAtCheckpoint"] = false;
         GameStateManager.instance.SaveGame(GameStateManager.saveFilePath);
         SceneManager.LoadSceneAsync("Start");
     }
