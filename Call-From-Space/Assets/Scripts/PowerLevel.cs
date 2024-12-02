@@ -120,6 +120,12 @@ public class PowerLevel : Loadable
         return lightmapList.ToArray();
     }
 
+    [ContextMenu("PowerIncrease")]
+    private void PowerIncrease()
+    {
+        GeneratorActivated();
+    }
+
     public void GeneratorActivated()
     {
         if (activeGenerators == 0)
