@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
-public class Entered_Station_Trigger : MonoBehaviour
+public class Entered_Station_Trigger : LoadableTrigger
 {
     // Start is called before the first frame update
     public GameObject player;
@@ -14,18 +15,25 @@ public class Entered_Station_Trigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-
-
-            
-            toxic_chems.enabled = true;
             GameStateManager.instance.SaveGame(GameStateManager.checkPointFilePath);
-            player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().AddTask("Find a Power Generator", false);
-            player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().AddTask("Find An Oxygen Station", false);
-            player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().DeleteTask("Find Your Way Into The Station");
-            player.GetComponent<PlayerController>().oxygenSystem.LosingOxygen = true;
-            
-
             gameObject.SetActive(false);
+            Action();
         }
+    }
+
+    void Action()
+    {
+        toxic_chems.enabled = true;
+        player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().AddTask("Find a Power Generator", false);
+        player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().AddTask("Find An Oxygen Station", false);
+        player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().DeleteTask("Find Your Way Into The Station");
+        player.GetComponent<PlayerController>().oxygenSystem.LosingOxygen = true;
+    }
+
+    public override void Load(JObject state)
+    {
+        base.Load(state);
+        if (!gameObject.activeSelf)
+            Action();
     }
 }

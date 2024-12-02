@@ -65,7 +65,7 @@ public class AlienController : Loadable
 
     static int ignoreAlienLayer, groundLayer;
 
-    bool isAwareOfPlayer = false;
+    public bool isAwareOfPlayer = false;
 
     void Start()
     {

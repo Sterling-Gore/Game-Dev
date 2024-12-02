@@ -24,14 +24,14 @@ public class TaskList : Loadable
 
     GameObject TaskContainer;
     GameObject TaskTemplate;
-    public List<TaskData> tasks;
+    public HashSet<TaskData> tasks;
     // Start is called before the first frame update
     void Start()
     {
         TaskContainer = transform.Find("TaskContainer").gameObject;
         TaskTemplate = TaskContainer.transform.Find("TaskTemplate").gameObject;
 
-        tasks = new List<TaskData>();
+        tasks = new HashSet<TaskData>();
         AddTask("Find Your Way Into The Station", true);
     }
 
@@ -46,11 +46,11 @@ public class TaskList : Loadable
 
     public void DeleteTask(string text)
     {
-        for (int i = 0; i < tasks.Count; i++)
+        foreach (TaskData task in tasks)
         {
-            if (tasks[i].text == text)
+            if (task.text == text)
             {
-                tasks.RemoveAt(i);
+                tasks.Remove(task);
                 if (TaskContainer.activeSelf)
                     refresh();
                 return;
@@ -134,11 +134,18 @@ public class TaskList : Loadable
         }
     }
 
-    public void explosion()
+    public void Explosion()
     {
         DeleteTask("ESCAPE BACK TO THE SHUTTLE!");
         AddTask("Find an Escape Pod", false);
         AddTask("Find The Next Power Generator", false);
+    }
+
+    public void UndoExplosion()
+    {
+        AddTask("ESCAPE BACK TO THE SHUTTLE!", true);
+        DeleteTask("Find an Escape Pod");
+        DeleteTask("Find The Next Power Generator");
     }
 
     public void GenPuzzle2(int state)
