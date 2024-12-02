@@ -45,6 +45,7 @@ public class PowerLevel : Loadable
     public static PowerLevel instance;
 
     public AudioSource lifeform_detected;
+    public GameObject explosionTrigger;
 
     void Awake()
     {
@@ -155,6 +156,7 @@ public class PowerLevel : Loadable
             case 1:
                 LightmapSettings.lightmaps = level1;
                 lifeform_detected.enabled = true;
+                explosionTrigger.SetActive(true);
                 break;
             case 2:
                 LightmapSettings.lightmaps = level2;
