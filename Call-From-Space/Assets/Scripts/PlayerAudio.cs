@@ -12,6 +12,9 @@ public class PlayerAudio : MonoBehaviour
     AudioSource crouching;
     AudioSource ambiance;
     AudioSource breathing;
+    AudioSource choking;
+
+    bool startChoke = true; 
     void Start()
     {
       Audios = gameObject.GetComponents<AudioSource>();
@@ -20,6 +23,7 @@ public class PlayerAudio : MonoBehaviour
       crouching = Audios[2];
       ambiance = Audios[3];
       breathing = Audios[4];
+      choking = Audios[5];
       ambiance.enabled = true;  
     }
 
@@ -59,7 +63,22 @@ public class PlayerAudio : MonoBehaviour
             crouching.enabled = false;
         }
 
-        breathing.volume = Mathf.Clamp(((1 - O2System.oxygenLevel / 100) - .50f) / 1.5f, 0, 1);
+        //breathing.volume = Mathf.Clamp(((1 - O2System.oxygenLevel / 100) - .50f) / 1.5f, 0, 1);
+        if(O2System.oxygenLevel == 0)
+        {
+            breathing.volume = 0;
+
+            if(startChoke)
+                choking.Play();
+                startChoke = false;
+        }
+        else
+        {
+            startChoke = true;
+            choking.Stop();
+            breathing.volume = Mathf.Clamp(((1 - O2System.oxygenLevel / 100) - .50f) / 1.5f, 0, 1);
+        }
+
         //starts at 50% oxygen, and the volume is divided by 1.5
 
 

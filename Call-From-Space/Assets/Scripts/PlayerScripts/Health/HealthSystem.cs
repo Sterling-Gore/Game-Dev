@@ -92,7 +92,8 @@ public class HealthSystem : Loadable
 
         int randomIndex = Random.Range(0, playerTakeDamageSounds.Length);
         AudioSource playerHurtSound = playerTakeDamageSounds[randomIndex];
-        playerHurtSound.Play();
+        if( damageAmount != 10f) //this is when oxygen gone
+            playerHurtSound.Play();
 
         if (cameraShake != null)
         {

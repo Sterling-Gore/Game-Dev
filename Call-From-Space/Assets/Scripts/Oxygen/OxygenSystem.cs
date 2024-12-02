@@ -11,14 +11,17 @@ public class OxygenSystem : Loadable
     public float refillSpeed = 10f;
     public ParticleSystem breathEffect; // Reference to the particle system
 
+    public AudioSource LowOxygen;
+    public AudioSource CriticalOxygen;
+
 
     public bool LosingOxygen;
 
 
     [Header("Health Damage")]
     public HealthSystem healthSystem;
-    public float damageAmount = 10f;
-    public float damageCooldown = 2.5f;
+    public float damageAmount = 15f;
+    public float damageCooldown = 1.5f;
     float timeOfDamage = 0;
 
     void Start()
@@ -55,6 +58,14 @@ public class OxygenSystem : Loadable
             healthSystem.TakeDamage(damageAmount);
             timeOfDamage = Time.time;
         }
+
+
+        
+        LowOxygen.enabled = (oxygenLevel < 40f); //enabled when oxygen is less than 40
+        CriticalOxygen.enabled = (oxygenLevel < 20f); //enabled when oxygen is less than 20
+        
+
+
     }
 
     public void DecreaseOxygen(float amount)

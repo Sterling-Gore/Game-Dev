@@ -7,12 +7,14 @@ public class Entered_Station_Trigger : MonoBehaviour
     // Start is called before the first frame update
     public GameObject StationDoor;
     public GameObject player;
+    public AudioSource toxic_chems;
 
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            toxic_chems.enabled = true;
             GameStateManager.instance.SaveGame(GameStateManager.checkPointFilePath);
             StationDoor.GetComponent<Animator>().SetTrigger("Closed");
             player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().AddTask("Find a Power Generator", false);
