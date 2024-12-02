@@ -214,12 +214,12 @@ public class TaskList : Loadable
                     break;
                 case 2:  //solve the genC puzzle
                     DeleteTask("Find The Last Power Generator");
-                    DeleteTask("Solve The Puzzle For The Generator");
+                    DeleteTask("Search the room to find a clue for the puzzle");
                     AddTask("Find a Fuel Cell For The Generator", true);
                     break;
                 case 3: //enter the fuel cell into the generator
                     DeleteTask("Find The Last Power Generator");
-                    DeleteTask("Solve The Puzzle For The Generator");
+                    DeleteTask("Search the room to find a clue for the puzzle");
                     DeleteTask("Find a Fuel Cell For The Generator");
 
                     DeleteTask("Grab The Charged Fuel Cell");
@@ -244,7 +244,7 @@ public class TaskList : Loadable
                     break;
                 case 2:  //look at the missing reflectors
                     DeleteTask("Recharge The Fuel Cell");
-                    AddTask("Recharge The Fuel Cell", false);
+                    AddTask("Recharge The Fuel Cell", true);
                     AddTask("Find Missing Reflectors And Plug Them In", true);
                     break;
                 case 3: //plug in both reflectors

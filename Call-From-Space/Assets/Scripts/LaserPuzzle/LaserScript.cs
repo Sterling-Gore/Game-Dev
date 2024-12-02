@@ -11,13 +11,14 @@ public class LaserScript : MonoBehaviour
     LaserScript previousLaserReflector;
     public bool isEndPoint = false;
     public LayerMask ignoreCollider;
+    public LayerMask alienCollider;
 
     // Start is called before the first frame update
     void Start()
     {
         lr = GetComponent<LineRenderer>();
         previousLaserReflector = null;
-        ignoreCollider = ~ignoreCollider;
+        ignoreCollider = ~(ignoreCollider | alienCollider);
         
     }
 

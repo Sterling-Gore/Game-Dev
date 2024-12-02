@@ -89,6 +89,7 @@ public class FuelDeposit : Interactable
             FuelCell.transform.position = position;
             FuelCell.transform.rotation = Quaternion.Euler(rotation.x, rotation.y, rotation.z);
             FuelCell.GetComponent<FuelCellHoldable>().StopGlowEffect();
+            FuelCell.GetComponent<Collider>().enabled = false;
             genPowerAudio.enabled = true;
             //genRepeatingAudio.enabled = true;
             //lights.SetActive(true);
