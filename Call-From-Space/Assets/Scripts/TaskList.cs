@@ -124,7 +124,7 @@ public class TaskList : Loadable
                     DeleteTask("Inspect Sticky Note In Inventory");
                     DeleteTask("Find a Power Generator");
                     DeleteTask("Enter The Passcode Into The Generator");
-                    AddTask("Find The Next Power Generator", true);
+                    AddTask("ESCAPE BACK TO THE SHUTTLE!", true);
                     break;
                 default:
                     break;
@@ -132,6 +132,13 @@ public class TaskList : Loadable
             }
             GenPuzzle1State = state;
         }
+    }
+
+    public void explosion()
+    {
+        DeleteTask("ESCAPE BACK TO THE SHUTTLE!");
+        AddTask("Find an Escape Pod", false);
+        AddTask("Find The Next Power Generator", false);
     }
 
     public void GenPuzzle2(int state)
