@@ -137,7 +137,6 @@ public class PowerLevel : Loadable
         UpdatePowerSystems();
         Debug.Log($"Generator activated. Current power level: {currentPowerLevel}");
 
-        GameStateManager.instance.state["saveAtCheckpoint"] = true;
         GameStateManager.instance.SaveGame(GameStateManager.checkPointFilePath);
         GameStateManager.instance.UnSaveGame(GameStateManager.saveFilePath);
     }

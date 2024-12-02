@@ -127,32 +127,16 @@ public abstract class Holdable : Interactable
 
     public override void Load(JObject state)
     {
-        /*
-            start->checkpoint
-            sit->sit √ sometimes falls on ground in front of cabinet
-            sit->hold 
-            sit->ground 
-            hold->sit just falls in place
-            hold->hold
-            hold->ground
-            ground->sit falls down forever
-            ground->hold
-            ground->ground
-        */
-        base.Load(state);
         localHold = (bool)state[fullName]["isHolding"];
         hasBeenMoved = (bool)state[fullName]["hasBeenMoved"];
         if (!hasBeenMoved && originalHolder != null)
-        {
             HoldObject.transform.parent = originalHolder.transform;
-            var pos = transform.position;
-            pos.y += .5f;
-            transform.position = pos;
-        }
         else if (localHold)
             PickUpObject();
         else
             DropObject();
+
+        base.Load(state);
     }
 
     public override void Save(ref JObject state)
@@ -163,3 +147,17 @@ public abstract class Holdable : Interactable
     }
 }
 
+/*
+    drawer hand ground
+    
+    start->checkpoint
+    sit->sit √ sometimes falls on ground in front of cabinet
+    sit->hold 
+    sit->ground 
+    hold->sit just falls in place
+    hold->hold
+    hold->ground
+    ground->sit falls down forever
+    ground->hold
+    ground->ground
+*/

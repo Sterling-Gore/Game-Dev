@@ -44,7 +44,7 @@ public abstract class Loadable : MonoBehaviour
         var player = state[fullName];
         var pos = player["pos"];
         var rot = player["rot"];
-        transform.SetPositionAndRotation(
+        transform.SetLocalPositionAndRotation(
             JsonToVector(pos),
             Quaternion.Euler(JsonToVector(rot))
         );
@@ -54,8 +54,8 @@ public abstract class Loadable : MonoBehaviour
     {
         if (state[fullName] == null)
             state[fullName] = new JObject();
-        state[fullName]["pos"] = VectorToJson(transform.position);
-        state[fullName]["rot"] = VectorToJson(transform.eulerAngles);
+        state[fullName]["pos"] = VectorToJson(transform.localPosition);
+        state[fullName]["rot"] = VectorToJson(transform.localEulerAngles);
     }
 
     public string GetFullName(Transform transform)

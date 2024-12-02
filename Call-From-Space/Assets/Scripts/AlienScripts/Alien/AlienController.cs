@@ -126,7 +126,7 @@ public class AlienController : Loadable
             else
                 RunFromPlayer();
         }
-        Debug.DrawRay(transform.position + Vector3.up, player.transform.position - transform.position + Vector3.up);
+        // Debug.DrawRay(transform.position + Vector3.up, player.transform.position - transform.position + Vector3.up);
     }
 
     override protected void OnDestroy()
@@ -160,7 +160,8 @@ public class AlienController : Loadable
         PlayRandomWalkAudio();
         var pos = transform.position;
         var playerPos = player.transform.position;
-        playerPos.y = pos.y = 1 + (playerPos.y + pos.y) / 2;
+        playerPos.y = pos.y = (playerPos.y + pos.y + 1) / 2;
+
         var directionToPlayer = playerPos - pos;
         var distanceToPlayer = directionToPlayer.magnitude;
 
