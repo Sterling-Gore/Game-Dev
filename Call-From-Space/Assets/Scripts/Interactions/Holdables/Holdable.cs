@@ -90,7 +90,7 @@ public abstract class Holdable : Interactable
         //TransformDirection(Vector3.forward)
     }
 
-    protected void DropObject()
+    public void DropObject()
     {
         if (!DoneGlowing)
             ItemGlow.SetActive(true);

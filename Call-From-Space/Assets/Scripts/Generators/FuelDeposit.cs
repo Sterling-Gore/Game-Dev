@@ -19,10 +19,10 @@ public class FuelDeposit : Interactable
 
 
 
-
+    /*
     void OnTriggerEnter(Collider other)
     {
-        if (/*other.CompareTag("FuelCell")*/ other == FuelCell.GetComponent<Collider>() && !player.GetComponent<Interactor>().isHolding)
+        if (other == FuelCell.GetComponent<Collider>() && !player.GetComponent<Interactor>().isHolding)
         {
             FuelCell.GetComponent<Rigidbody>().useGravity = false;
             FuelCell.GetComponent<Rigidbody>().isKinematic = true;
@@ -54,6 +54,7 @@ public class FuelDeposit : Interactable
             StartCoroutine(waiter());
         }
     }
+    */
 
     IEnumerator waiter()
     {
@@ -79,6 +80,37 @@ public class FuelDeposit : Interactable
 
     public override void Interact()
     {
+        if (player.GetComponent<Interactor>().holdingName == "Fuel Cell")
+        {
+            FuelCell.GetComponent<FuelCellHoldable>().DropObject();
+            FuelCell.GetComponent<Rigidbody>().useGravity = false;
+            FuelCell.GetComponent<Rigidbody>().isKinematic = true;
+            FuelCell.GetComponent<Holdable>().enabled = false;
+            FuelCell.transform.position = position;
+            FuelCell.transform.rotation = Quaternion.Euler(rotation.x, rotation.y, rotation.z);
+            FuelCell.GetComponent<FuelCellHoldable>().StopGlowEffect();
+            genPowerAudio.enabled = true;
+            //genRepeatingAudio.enabled = true;
+            //lights.SetActive(true);
+            //PowerLevel powerLevel = FindObjectOfType<PowerLevel>();
+            switch (gen.generatorType)
+            {
+                case GenScreenInteraction.Generator.A:
+                    player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle1(5);
+                    break;
+                case GenScreenInteraction.Generator.B:
+                    player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle2(7);
+                    break;
+                case GenScreenInteraction.Generator.C:
+                    player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle3(3);
+                    break;
+                default:
+                    break;
+            }
+            gameObject.GetComponent<Collider>().enabled = false;
 
+            Sparkle.SetActive(false);
+            StartCoroutine(waiter());
+        }
     }
 }
