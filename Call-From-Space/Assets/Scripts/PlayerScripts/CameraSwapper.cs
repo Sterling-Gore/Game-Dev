@@ -52,11 +52,15 @@ public class CameraSwapper : MonoBehaviour
 
     public void NextCamera()
     {
+        Debug.Log("Next Camera: SOUND HERE");
+        AudioManager.Instance.PlaySound("Toggle-On");
         SetActiveCamera((currentCameraIndex + 1) % securityCameras.Length);
     }
 
     public void PreviousCamera()
     {
+        Debug.Log("PREV Camera: SOUND HERE");
+        AudioManager.Instance.PlaySound("Toggle-Off");
         SetActiveCamera((currentCameraIndex - 1 + securityCameras.Length) % securityCameras.Length);
     }
 

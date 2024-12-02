@@ -20,9 +20,13 @@ public class Inspector : MonoBehaviour, IDragHandler
         {
             player.GetComponent<PlayerController>().Set_UI_Value(2);
             
+                Debug.Log("CHANGE SOUND HERE FOR INSPECTOR");
+                AudioManager.Instance.PlaySound("Menu-Open");
             switch(item.itemName)
             {
                 case "Sticky Note":
+
+                    
                     player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().GenPuzzle1(3);
                     break;
                 default:
