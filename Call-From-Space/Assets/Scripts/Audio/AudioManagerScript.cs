@@ -37,6 +37,7 @@ public class AudioManager : MonoBehaviour
     // Play a sound effect by name
     public void PlaySound(string clipName)
     {
+        /*
         AudioClip clip = GetClipByName(soundEffects, clipName);
         if (clip != null)
         {
@@ -48,11 +49,13 @@ public class AudioManager : MonoBehaviour
         {
             Debug.LogWarning($"Sound effect '{clipName}' not found!");
         }
+        */
     }
 
     // Play music by name
     public void PlayMusic(string clipName)
     {
+        /*
         AudioClip clip = GetClipByName(musicTracks, clipName);
         if (clip != null)
         {
@@ -63,6 +66,7 @@ public class AudioManager : MonoBehaviour
         {
             Debug.LogWarning($"Music track '{clipName}' not found!");
         }
+        */
     }
 
     // Stop music playback
