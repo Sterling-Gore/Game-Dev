@@ -41,7 +41,7 @@ public class TaskList : Loadable
         TaskData task = new TaskData(text, isLargeText);
         tasks.Add(task);
         if (TaskContainer.activeSelf)
-            refresh();
+            Refresh();
     }
 
     public void DeleteTask(string text)
@@ -52,14 +52,14 @@ public class TaskList : Loadable
             {
                 tasks.Remove(task);
                 if (TaskContainer.activeSelf)
-                    refresh();
+                    Refresh();
                 return;
             }
         }
     }
 
 
-    public void refresh()
+    public void Refresh()
     {
         foreach (Transform child in TaskContainer.transform)
         {
@@ -132,6 +132,12 @@ public class TaskList : Loadable
             }
             GenPuzzle1State = state;
         }
+    }
+
+    void UndoGenPuzzle1()
+    {
+        GenPuzzle1(5);
+        DeleteTask("ESCAPE BACK TO THE SHUTTLE!");
     }
 
     public void Explosion()
@@ -207,6 +213,11 @@ public class TaskList : Loadable
         }
     }
 
+    void UndoGenPuzzle2()
+    {
+        GenPuzzle2(7);
+        DeleteTask("Find The Last Power Generator");
+    }
 
 
     public void GenPuzzle3(int state)
@@ -238,6 +249,12 @@ public class TaskList : Loadable
             }
             GenPuzzle3State = state;
         }
+    }
+
+    void UndoGenPuzzle3()
+    {
+        GenPuzzle3(3);
+        DeleteTask("Find Room X...");
     }
 
     public void LaserPuzzle(int state)
@@ -274,13 +291,39 @@ public class TaskList : Loadable
         }
     }
 
+    void UndoLaserPuzzle()
+    {
+        LaserPuzzle(4);
+        DeleteTask("Grab The Charged Fuel Cell");
+    }
+
     public override void Load(JObject state)
     {
-        var me = state[fullName];
-        GenPuzzle1State = (int)me["GenPuzzle1State"];
-        GenPuzzle2State = (int)me["GenPuzzle2State"];
-        GenPuzzle3State = (int)me["GenPuzzle3State"];
-        LaserPuzzleState = (int)me["LaserPuzzleState"];
+        // var me = state[fullName];
+        GenPuzzle1State = 0;
+        GenPuzzle2State = 0;
+        GenPuzzle3State = 0;
+        LaserPuzzleState = 0;
+        int powerLevel = (int)state["powerLevel"];
+
+        UndoGenPuzzle1();
+        UndoGenPuzzle2();
+        UndoGenPuzzle3();
+        UndoLaserPuzzle();
+        switch (powerLevel)
+        {
+            case 1:
+                GenPuzzle1(5);
+                break;
+            case 2:
+                GenPuzzle2(7);
+                break;
+            case 3:
+                GenPuzzle3(3);
+                break;
+        }
+
+        Refresh();
     }
 
     public override void Save(ref JObject state)

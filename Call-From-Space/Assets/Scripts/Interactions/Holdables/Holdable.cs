@@ -107,16 +107,7 @@ public abstract class Holdable : Interactable
 
     protected void StopClipping() //called when dropping item
     {
-        var clipRange = Vector3.Distance(HoldObject.transform.position, cam.transform.position);
-        RaycastHit[] hits;
-        hits = Physics.RaycastAll(cam.transform.position, cam.transform.TransformDirection(Vector3.forward), clipRange);
-        //if the array length is greater than 1, meaning it has hit more than just the object we are carrying
-        if (hits.Length > 1)
-        {
-            //change object position to camera position 
-            HoldObject.transform.position = cam.transform.position + new Vector3(0f, -0.5f, 0f); //offset slightly downward to stop object dropping above player 
-            //if your player is small, change the -0.5f to a smaller number (in magnitude) ie: -0.1f
-        }
+        HoldObject.transform.position = player.transform.position + new Vector3(0f, 0.5f, 0f);
     }
 
     public void StopGlowEffect()
