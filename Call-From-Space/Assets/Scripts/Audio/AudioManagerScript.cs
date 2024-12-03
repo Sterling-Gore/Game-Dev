@@ -8,6 +8,7 @@ public class AudioManager : MonoBehaviour
     [Header("Audio Clips")]
     public AudioClip[] soundEffects; // Add sound effects here
     public AudioClip[] musicTracks; // Add music tracks here
+    AudioSource[] Audios;
 
     [Header("Audio Settings")]
     public int audioSourcePoolSize = 5; // Number of reusable AudioSources
@@ -16,6 +17,7 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
+        Audios = gameObject.GetComponents<AudioSource>();
         // Singleton Pattern
         if (Instance == null)
         {
@@ -27,16 +29,8 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // Initialize Audio Sources
-        for (int i = 0; i < audioSourcePoolSize; i++)
-        {
-            AudioSource source = gameObject.AddComponent<AudioSource>();
-            source.playOnAwake = false;
-            audioSources.Add(source);
-        }
-
         // Dedicated Music AudioSource
-        musicSource = gameObject.AddComponent<AudioSource>();
+        musicSource = Audios[audioSourcePoolSize];
         musicSource.loop = true; // Music should loop by default
     }
 
@@ -80,13 +74,13 @@ public class AudioManager : MonoBehaviour
     // Get an available (non-playing) AudioSource
     private AudioSource GetAvailableAudioSource()
     {
-        foreach (AudioSource source in audioSources)
+        foreach (AudioSource source in Audios)
         {
             if (!source.isPlaying)
                 return source;
         }
         // If no sources are available, use the first one (optional behavior)
-        return audioSources[0];
+        return Audios[0];
     }
 
     // Helper to find an AudioClip by name

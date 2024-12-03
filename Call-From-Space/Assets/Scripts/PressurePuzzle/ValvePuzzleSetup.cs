@@ -54,7 +54,7 @@ public class ValvePuzzleSetup : MonoBehaviour
         
         if (audioSource == null)
         {
-            audioSource = gameObject.AddComponent<AudioSource>();
+            //audioSource = gameObject.AddComponent<AudioSource>();
         }
        
 
