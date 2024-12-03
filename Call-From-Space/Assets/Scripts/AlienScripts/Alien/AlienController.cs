@@ -54,6 +54,9 @@ public class AlienController : Loadable
     public List<AudioClip> walkingClips = new();
     public List<AudioClip> idleClips = new(), attackClips = new();
 
+    public float maxAudioDistance = 40;
+    public float minAudioDistance = 0.5f;
+
 
     HealthSystem playerHealthSystem;
     [Header("Attack")]
@@ -66,6 +69,8 @@ public class AlienController : Loadable
     static int ignoreAlienLayer, groundLayer;
 
     public bool isAwareOfPlayer = false;
+
+
 
     void Start()
     {
@@ -366,6 +371,14 @@ public class AlienController : Loadable
         {
             audioSource.clip = audioClips[Random.Range(0, audioClips.Count)];
             audioSource.Play();
+            float distance = Vector3.Distance(transform.position, player.transform.position);
+            if (distance > maxAudioDistance)
+                audioSource.volume = 0;
+            else
+            {
+                float volume = Mathf.Lerp(1, 0, (distance - minAudioDistance) / (maxAudioDistance - minAudioDistance));
+                audioSource.volume = volume;
+            }
         }
     }
 
