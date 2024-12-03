@@ -25,7 +25,7 @@ public abstract class Holdable : Interactable
 
 
 
-    Interactor interactor;
+    public Interactor interactor;
 
     // Start is called before the first frame update
     void Start()
