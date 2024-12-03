@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Ashish-Ship.unity
     guid: 816af901bab4d8342a4d3a9385c5ade3
+  - enabled: 1
+    path: Assets/Scenes/WinScreen.unity
+    guid: e278ceab6eddc524fa02a03ed59aa0e2
   m_configObjects: {}

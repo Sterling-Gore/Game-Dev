@@ -1,17 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class YouWin : MonoBehaviour
 {
+    public GameObject player;
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-        {
-            GameStateManager.instance.SaveGame(GameStateManager.checkPointFilePath);
-            PlantScreech.Play();
-            cameraShake.StartShake(2f, 0.05f);
-            Action();
+        {   
+            player.GetComponent<Interactor>().inUI = true;
+            SceneManager.LoadSceneAsync("WinScreen");
         }
     }
 }
