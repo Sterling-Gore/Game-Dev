@@ -75,6 +75,9 @@ public abstract class Holdable : Interactable
             case "Lighter":
                 screen.transform.Find("ControlsHolding").Find("SPECIAL_EFFECTS").Find("Lighter").gameObject.SetActive(true);
                 break;
+            case "FlameThrower":
+                screen.transform.Find("ControlsHolding").Find("SPECIAL_EFFECTS").Find("FlameThrower").gameObject.SetActive(true);
+                break;
         }
 
         HoldObject.transform.rotation = Quaternion.Euler(0, 0, 0);

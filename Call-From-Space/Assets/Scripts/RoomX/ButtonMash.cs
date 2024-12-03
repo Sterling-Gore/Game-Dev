@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class ButtonMash : Interactable
 {
-    public float timeLimit = 5f; // Time in seconds for the player to respond
     //private KeyCode randomKey;
     private bool waitingForKey = false; 
 
@@ -29,6 +28,9 @@ public class ButtonMash : Interactable
 
     public Sprite[] keySprites;
     public string[] Keycodes;
+
+    public bool isFinal;
+    public FlameThrower flamethrower;
     //Key order
     //0 : v
     //1 : k
@@ -39,6 +41,9 @@ public class ButtonMash : Interactable
     //6 : m
 
     public GameObject ButtonMashImage;
+
+    public float waitBetweenRounds = 1f;
+    public float timeLimit = 5f; // Time in seconds for the player to respond
 
     void Update()
     {
@@ -85,7 +90,7 @@ public class ButtonMash : Interactable
             //Debug.Log("Press the key: " + randomKey);
             if(breakTheRoutine)
                 yield break;
-            yield return new WaitForSeconds(1f); // Short delay before next round
+            yield return new WaitForSeconds(waitBetweenRounds); // Short delay before next round
 
             waitingForKey = true;
             float timer = 0f;
@@ -137,6 +142,10 @@ public class ButtonMash : Interactable
                 flag = false;
                 PuzzleCompleted = true;
                 StartCoroutine(FadeOut());
+                if(isFinal)
+                {
+                    flamethrower.isTangled = false;
+                }
                 player.GetComponent<PlayerController>().ESCAPE();
             }
         }
