@@ -112,6 +112,7 @@ public class ButtonMash : Interactable
                     waitingForKey = false;
                     count = 0;
                     AudioSource.PlayOneShot(Invalid);
+                    cameraShake.StartShake(.1f, 0.01f);
                     break;
                 }
 
@@ -127,6 +128,7 @@ public class ButtonMash : Interactable
                 Debug.Log("Time's up! You failed to press the correct key.");
                 count = 0;
                 AudioSource.PlayOneShot(Invalid);
+                cameraShake.StartShake(.1f, 0.01f);
             }
 
             ButtonMashImage.SetActive(false);
