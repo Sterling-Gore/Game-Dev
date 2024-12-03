@@ -147,6 +147,8 @@ public class TaskList : Loadable
         AddTask("Find The Next Power Generator", false);
     }
 
+
+
     public void UndoExplosion()
     {
         AddTask("ESCAPE BACK TO THE SHUTTLE!", true);
@@ -254,6 +256,11 @@ public class TaskList : Loadable
     void UndoGenPuzzle3()
     {
         GenPuzzle3(3);
+        DeleteTask("Find Room X...");
+    }
+
+    public void RoomX()
+    {
         DeleteTask("Find Room X...");
     }
 

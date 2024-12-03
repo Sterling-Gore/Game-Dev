@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using System;
 
+
 public class PowerLevel : Loadable
 {
     public Material DoorLightOn; // for when the door is powered on
@@ -45,8 +46,10 @@ public class PowerLevel : Loadable
     public static PowerLevel instance;
 
     public AudioSource lifeform_detected;
+    public AudioSource Filtration_system_back_online;
     public GameObject explosionTrigger;
-
+    public OxygenSystem Oxygen;
+    
     void Awake()
     {
         base.Awake();
@@ -168,6 +171,8 @@ public class PowerLevel : Loadable
                 break;
             case 3:
                 LightmapSettings.lightmaps = level3;
+                Filtration_system_back_online.enabled = true;
+                Oxygen.RefillToFull();
                 break;
             default:
                 LightmapSettings.lightmaps = level0;

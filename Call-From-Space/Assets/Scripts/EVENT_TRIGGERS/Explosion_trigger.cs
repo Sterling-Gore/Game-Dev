@@ -9,6 +9,7 @@ public class Explosion_trigger : LoadableTrigger
     public GameObject player;
     public GameObject ShuttleLights;
     public AudioSource Explosion;
+    public AudioSource AI_warning;
     public CameraShakeGeneral cameraShake;
 
 
@@ -18,7 +19,6 @@ public class Explosion_trigger : LoadableTrigger
         {
             GameStateManager.instance.SaveGame(GameStateManager.checkPointFilePath);
             cameraShake.StartShake(2f, 0.8f);
-            gameObject.SetActive(false);
             Action();
         }
     }
@@ -29,6 +29,15 @@ public class Explosion_trigger : LoadableTrigger
         StationDoor.GetComponent<Animator>().SetTrigger("Closed");
         ShuttleLights.SetActive(false);
         player.GetComponent<PlayerController>().TaskList_UI_Object.GetComponent<TaskList>().Explosion();
+        StartCoroutine(AiDelay());
+    }
+
+    IEnumerator AiDelay()
+    {
+        yield return new WaitForSeconds(2f);
+        AI_warning.enabled = true;
+        gameObject.SetActive(false);
+        yield return null;
     }
 
     void ReverseAction()

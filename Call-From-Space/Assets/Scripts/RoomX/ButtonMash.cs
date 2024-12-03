@@ -17,6 +17,16 @@ public class ButtonMash : Interactable
     public Collider VineCollider;
     bool breakTheRoutine = false;
 
+    public GameObject lightning;
+    public AudioSource PlantScreech;
+    public AudioSource LightningBolt;
+    public CameraShakeGeneral cameraShake;
+
+
+    public AudioSource AudioSource;
+    public AudioClip Invalid;
+    public AudioClip Valid;
+
     public Sprite[] keySprites;
     public string[] Keycodes;
     //Key order
@@ -36,6 +46,11 @@ public class ButtonMash : Interactable
             {
                 breakTheRoutine = true;
             }
+    }
+
+    void Start()
+    {
+        lightning.SetActive(false);
     }
 
     public override string GetDescription()
@@ -88,6 +103,7 @@ public class ButtonMash : Interactable
                     Debug.Log("Success! You pressed the correct key: ");
                     count += 1;
                     waitingForKey = false;
+                    AudioSource.PlayOneShot(Valid);
                     break;
                 }
                 else if(Input.anyKeyDown)
@@ -95,6 +111,7 @@ public class ButtonMash : Interactable
                     Debug.Log("Fail! You pressed the wrong key: ");
                     waitingForKey = false;
                     count = 0;
+                    AudioSource.PlayOneShot(Invalid);
                     break;
                 }
 
@@ -109,6 +126,7 @@ public class ButtonMash : Interactable
             {
                 Debug.Log("Time's up! You failed to press the correct key.");
                 count = 0;
+                AudioSource.PlayOneShot(Invalid);
             }
 
             ButtonMashImage.SetActive(false);
@@ -127,6 +145,10 @@ public class ButtonMash : Interactable
     {
         //flame.Play();
         //audioSource.Play();
+        PlantScreech.Play();
+        LightningBolt.Play();
+        lightning.SetActive(true);
+        cameraShake.StartShake(2f, 0.05f);
         while (VineMeshRenderer.materials[0].color.a > 0f)
         {
             Color currentColor = VineMeshRenderer.materials[0].color;
@@ -137,5 +159,6 @@ public class ButtonMash : Interactable
         //flame.Stop();
         VineCollider.enabled = false;
         VineMeshRenderer.enabled = false;
+        lightning.SetActive(false);
     }
 }
