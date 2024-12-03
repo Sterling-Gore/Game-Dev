@@ -7,7 +7,7 @@ public abstract class Holdable : Interactable
 {
     //for grabing the interactir script
     public GameObject HoldObject;
-    public GameObject originalHolder;
+    public Transform originalHolder;
     public GameObject player;
     public Transform holdPos;
     public Camera cam;
@@ -30,6 +30,7 @@ public abstract class Holdable : Interactable
     // Start is called before the first frame update
     void Start()
     {
+        originalHolder = transform.parent;
         DoneGlowing = false;
         Physics.IgnoreCollision(HoldObject.GetComponent<Collider>(), player.transform.Find("Player Model").GetComponent<Collider>(), true);
         //currentlyHolding = false;
@@ -121,7 +122,7 @@ public abstract class Holdable : Interactable
         localHold = (bool)state[fullName]["isHolding"];
         hasBeenMoved = (bool)state[fullName]["hasBeenMoved"];
         if (!hasBeenMoved && originalHolder != null)
-            HoldObject.transform.parent = originalHolder.transform;
+            HoldObject.transform.parent = originalHolder;
         else if (localHold)
             PickUpObject();
         else
