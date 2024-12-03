@@ -10,7 +10,7 @@ public class PlayerAudio : MonoBehaviour
     AudioSource walking;
     AudioSource sprinting;
     AudioSource crouching;
-    AudioSource ambiance;
+    //AudioSource ambiance;
     AudioSource breathing;
     AudioSource choking;
 
@@ -21,10 +21,10 @@ public class PlayerAudio : MonoBehaviour
       walking = Audios[0];
       sprinting = Audios[1];
       crouching = Audios[2];
-      ambiance = Audios[3];
-      breathing = Audios[4];
-      choking = Audios[5];
-      ambiance.enabled = true;  
+      //ambiance = Audios[3];
+      breathing = Audios[3];
+      choking = Audios[4];
+      //ambiance.enabled = true;  
     }
 
     // Update is called once per frame

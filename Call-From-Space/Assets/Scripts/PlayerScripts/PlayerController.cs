@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameDev.Scripts.Oxygen;
 using Newtonsoft.Json.Linq;
+using UnityEngine.Audio;
 using System.Linq;
 using UnityEngine.SceneManagement; // Replace 'GameDev' with your actual project root namespace
 
@@ -76,8 +77,17 @@ public class PlayerController : Loadable
     public float maxHeartbeatPitch = 2f;
     public float minHeartbeatPitch = 0.5f;
 
+    [Header("Ambiance audios")]
+    public AudioSource ambiance;
+    public AudioSource VHSstatic;
+    
+
     void Start()
     {
+        ambiance.enabled = true;
+        VHSstatic.enabled = false;
+        //audioMixer.SetFloat("volume", volume);
+
         //start the game with no screens on
         UI_Value = 0;
         healthSystem = GetComponent<HealthSystem>();
@@ -283,7 +293,11 @@ public class PlayerController : Loadable
             Set_UI_Value(-1);
             interactor.inUI = true;
             pauseMenuUI.SetActive(true);
+            ambiance.enabled = false;
+            VHSstatic.enabled = true;
             Time.timeScale = 0f;
+            //audioMixer.GetFloat("volume", out volume);
+            //audioMixer.SetFloat("volume", 0f);
             Debug.Log("ADD ESCAPE MENU ENTER HERE");
             AudioManager.Instance.PlaySound("Menu-Open");
         }
@@ -294,16 +308,24 @@ public class PlayerController : Loadable
             interactor.inUI = false;
             pauseMenuUI.SetActive(false);
             Time.timeScale = 1f;
+            ambiance.enabled = true;
+            VHSstatic.enabled = false;
+            //audioMixer.SetFloat("volume", volume);
             Debug.Log("ADD ESCAPE MENU LEAVE HERE");
             AudioManager.Instance.PlaySound("Menu-Close");
         }
         // leaving controls menu -> pause menu
         else if (UI_Value == -2)
         {
-            Set_UI_Value(0);
+            Set_UI_Value(-1);
             interactor.inUI = true;
             controlsMenu.SetActive(false);
+            optionsMenu.SetActive(false);
+            ambiance.enabled = false;
+            VHSstatic.enabled = true;
             Time.timeScale = 0f;
+            //audioMixer.GetFloat("volume", out volume);
+            //audioMixer.SetFloat("volume", 0f);
         }
         //leaving the options menu     if UI_Value == -3
         else
