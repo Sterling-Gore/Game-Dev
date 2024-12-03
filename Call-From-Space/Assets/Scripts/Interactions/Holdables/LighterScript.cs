@@ -9,6 +9,7 @@ public class LighterScript : Holdable
     public bool isOpen;
     public Animator animation;
     public GameObject Fire;
+    //public GameObject player;
 
     public Transform lightBase;
 
@@ -39,7 +40,7 @@ public class LighterScript : Holdable
                 StopClipping();
                 DropObject();
             }
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (player.GetComponent<Interactor>().holdingName == "Lighter" && Input.GetKeyDown(KeyCode.Mouse0))
             {
                 animation.SetTrigger(isOpen ? "Closed" : "Open");
                 isOpen = !isOpen;

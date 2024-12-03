@@ -8,7 +8,7 @@ public class ButtonMash : Interactable
     //private KeyCode randomKey;
     private bool waitingForKey = false; 
 
-
+    public GameObject Sparkle;
     bool PuzzleCompleted = false;
     public GameObject PuzzleUI;
     public GameObject player;
@@ -30,6 +30,7 @@ public class ButtonMash : Interactable
     public string[] Keycodes;
 
     public bool isFinal;
+    public AudioSource FinalScreech;
     public FlameThrower flamethrower;
     //Key order
     //0 : v
@@ -141,6 +142,7 @@ public class ButtonMash : Interactable
             {
                 flag = false;
                 PuzzleCompleted = true;
+                Sparkle.SetActive(false);
                 StartCoroutine(FadeOut());
                 if(isFinal)
                 {
@@ -156,7 +158,10 @@ public class ButtonMash : Interactable
     {
         //flame.Play();
         //audioSource.Play();
-        PlantScreech.Play();
+        if(isFinal)
+            FinalScreech.Play();
+        else
+            PlantScreech.Play();
         LightningBolt.Play();
         lightning.SetActive(true);
         cameraShake.StartShake(2f, 0.05f);

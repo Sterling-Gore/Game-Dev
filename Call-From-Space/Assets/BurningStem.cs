@@ -8,6 +8,7 @@ public class BurningStem : MonoBehaviour
     public GameObject flameObject;
     public bool doneBurning;
     ParticleSystem flame;
+    public AudioSource FinalScreech;
 
     void Start()
     {
@@ -20,6 +21,8 @@ public class BurningStem : MonoBehaviour
     {
         if(!doneBurning)
             StartCoroutine(burn());
+        else
+            StartCoroutine(AudioOff());
     }
 
     IEnumerator burn()
@@ -43,5 +46,15 @@ public class BurningStem : MonoBehaviour
 
         }
         flame.Stop();
+    }
+
+    IEnumerator AudioOff()
+    {
+        while(FinalScreech.volume > 0f)
+        {
+            FinalScreech.volume -= 0.005f * Time.deltaTime;
+            yield return null;
+        }
+        FinalScreech.Stop();
     }
 }

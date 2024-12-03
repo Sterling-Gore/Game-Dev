@@ -14,9 +14,10 @@ public class FlameThrower : Holdable
 
     override protected void Awake()
     {
-        isTangled = true;
         base.Awake();
+        isTangled = true;
         Fire.SetActive(false);
+        audioSource.enabled = false;
     }
 
     public override string GetDescription()
@@ -46,28 +47,30 @@ public class FlameThrower : Holdable
                 DropObject();
             }
         }
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (player.GetComponent<Interactor>().holdingName == "FlameThrower" &&  Input.GetKey(KeyCode.Mouse0))
         {
             Fire.SetActive(true);
+            audioSource.enabled = true;
             Ray ray = new Ray(transform.position, transform.forward);
             Debug.DrawRay(transform.position, transform.forward * 10f, Color.green);
             if (Physics.Raycast(ray, out RaycastHit hit, 100))
             {
                 //Debug.Log("YERRRRRR");
                 BurningStem burnstem = hit.collider.GetComponent<BurningStem>();
-                FlameThrower test = hit.collider.GetComponent<FlameThrower>();
+                RoomX_Goop goop = hit.collider.GetComponent<RoomX_Goop>();
                 if(burnstem != null)
                 {
                     Debug.Log("FOUND");
                     burnstem.burnPlant();
                 }
-                if(test != null)
-                    Debug.Log("ERROR");
+                if(goop != null)
+                    goop.BurnGoop();
             }
         }
         else
         {
             Fire.SetActive(false);
+            audioSource.enabled = false;
         }
     }
 }
