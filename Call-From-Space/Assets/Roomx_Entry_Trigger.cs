@@ -10,6 +10,7 @@ public class Roomx_Entry_Trigger : MonoBehaviour
     public GameObject player;
     public CameraShakeGeneral cameraShake;
     public AudioSource PlantScreech;
+    public OxygenSystem Oxygen;
     // Start is called before the first frame update
     
     
@@ -26,6 +27,7 @@ public class Roomx_Entry_Trigger : MonoBehaviour
 
     void Action()
     {
+        Oxygen.LosingOxygen = true;
         Specimen_toxic_gass.enabled = true;
         StationDoor.GetComponent<Animator>().SetTrigger("Closed");
         StationDoor.GetComponent<Collider>().enabled = false;
