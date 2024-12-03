@@ -173,20 +173,23 @@ public class PowerLevel : Loadable
                 LightmapSettings.lightmaps = level0;
                 break;
         }
-
+        int z = 0;
         foreach (PowerZone zone in powerZones)
         {
+            Debug.Log($"zone {z}");
             bool shouldBeActive = currentPowerLevel >= zone.requiredPowerLevel;
-
+            int i = 0;
             foreach (GameObject light in zone.lights)
             {
                 if (light != null)
                 {
                     bool originalState = originalLightStates[light];
                     light.SetActive(shouldBeActive && originalState);
+                    //Debug.Log($"Power Zone: {z}, Light Number: {i}, PowerOn: {light.activeSelf}");
                 }
+                i += 1;
             }
-
+            z += 1;
             foreach (GameObject lightCone in zone.lightCones)
             {
                 if (lightCone != null)
