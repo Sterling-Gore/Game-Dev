@@ -80,7 +80,7 @@ public class PlayerController : Loadable
     [Header("Ambiance audios")]
     public AudioSource ambiance;
     public AudioSource VHSstatic;
-    
+
 
     void Start()
     {
@@ -129,30 +129,31 @@ public class PlayerController : Loadable
 
         if (oxygenSystem != null)
         {
-            if (oxygenSystem.LosingOxygen)
+            // Adjust oxygen based on movement
+            if (rb.velocity.magnitude > 0.1f) // Check if the player is moving
             {
-                // Adjust oxygen based on movement
-                if (rb.velocity.magnitude > 0.1f) // Check if the player is moving
+                if (Input.GetKey(KeyCode.LeftShift))
                 {
-                    if (Input.GetKey(KeyCode.LeftShift))
-                    {
-                        // Running
+                    // Running
+                    if (oxygenSystem.LosingOxygen)
                         oxygenSystem.DecreaseOxygen(runningOxygenCost);
-                        SoundSourcesController.instance.CreateNewSoundSource(transform.position, runningSoundRadius);
-                    }
-                    else
-                    {
-                        // Walking
-                        oxygenSystem.DecreaseOxygen(walkingOxygenCost);
-                        SoundSourcesController.instance.CreateNewSoundSource(transform.position, walkingSoundRadius);
-                    }
+                    SoundSourcesController.instance.CreateNewSoundSource(transform.position, runningSoundRadius);
                 }
                 else
                 {
-                    // not moving
-                    oxygenSystem.DecreaseOxygen(walkingOxygenCost);
+                    // Walking
+                    if (oxygenSystem.LosingOxygen)
+                        oxygenSystem.DecreaseOxygen(walkingOxygenCost);
+                    SoundSourcesController.instance.CreateNewSoundSource(transform.position, walkingSoundRadius);
                 }
             }
+            else
+            {
+                // not moving
+                if (oxygenSystem.LosingOxygen)
+                    oxygenSystem.DecreaseOxygen(walkingOxygenCost);
+            }
+
         }
         var aliens = AlienController.aliens
         .Where(alien => alien.isAwareOfPlayer)
@@ -254,7 +255,7 @@ public class PlayerController : Loadable
         {
             standardScreen.SetActive(true);
             TaskList_UI_Object.transform.Find("TaskContainer").gameObject.SetActive(true);
-            TaskList_UI_Object.GetComponent<TaskList>().refresh();
+            TaskList_UI_Object.GetComponent<TaskList>().Refresh();
         }
         else
         {

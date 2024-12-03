@@ -167,7 +167,7 @@ public class AlienController : Loadable
 
         Physics.Raycast(pos, directionToPlayer.normalized, out RaycastHit j, distanceToPlayer, ignoreAlienLayer);
         // Debug.Log(j.rigidbody);
-        // Debug.DrawRay(pos, directionToPlayer, Color.green);
+        Debug.DrawRay(pos, directionToPlayer, Color.green);
         if (j.rigidbody == playerRb)
         {
             // if (curSpeed == runSpeed)
