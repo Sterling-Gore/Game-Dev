@@ -1,6 +1,7 @@
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class OxygenSystem : Loadable
 {
@@ -80,6 +81,21 @@ public class OxygenSystem : Loadable
         oxygenLevel = Mathf.Clamp(oxygenLevel + (refillSpeed * Time.deltaTime), 0, 100);
         oxygenBar.fillAmount = oxygenLevel / 100;
         oxygenRadial.fillAmount = oxygenLevel / 100;
+    }
+
+    public void RefillToFull()
+    {
+        LosingOxygen = false;
+        StartCoroutine(RefillAll());
+    }
+
+    IEnumerator RefillAll()
+    {
+        while (oxygenLevel != 100)
+        {
+            IncreaseOxygen();
+            yield return null;
+        }
     }
 
     public override void Load(JObject state)
