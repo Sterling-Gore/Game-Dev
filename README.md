@@ -1,9 +1,11 @@
-
 <a id="readme-top"></a>
+
 <!-- PROJECT LOGO -->
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+
+[![Product Name Screen Shot][product-screenshot]](https://www.monkeylick.studio/)
 
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 <br />
@@ -22,16 +24,14 @@
   </p>
 </div>
 
-
-
 ## The Team!
 
 <a href="https://github.com/Sterling-Gore/Game-Dev/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Sterling-Gore/Game-Dev" alt="contrib.rocks image" />
 </a>
 
-
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the Unlicense License. See `LICENSE.txt` for more information.
@@ -40,6 +40,7 @@ Distributed under the Unlicense License. See `LICENSE.txt` for more information.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [contributors-shield]: https://img.shields.io/github/contributors/Sterling-Gore/Game-Dev.svg?style=for-the-badge
 [contributors-url]: https://github.com/Sterling-Gore/Game-Dev/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/Sterling-Gore/Game-Dev.svg?style=for-the-badge
